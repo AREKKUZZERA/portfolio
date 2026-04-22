@@ -1,3 +1,4 @@
+import { GitBranch, Send, Sparkles } from 'lucide-react';
 import { useRef, useState } from 'react';
 import { useSeamlessMarquee } from '../hooks/useSeamlessMarquee';
 import { getGridParallaxStyle } from '../lib/parallax';
@@ -18,6 +19,12 @@ const T = {
     desc: 'Создаю продуманные цифровые продукты — от UX-концепции до пиксельно-точного финала. Figma, Adobe CC, фирменный стиль, UI-системы.',
     cta1: 'Смотреть работы',
     cta2: 'Связаться',
+    name: 'Александр Александров',
+    sideDesc: 'Открыт к проектной работе, дизайн-задачам и долгосрочному сотрудничеству.',
+    behance: 'Behance',
+    github: 'GitHub',
+    telegram: 'Telegram',
+    tags: ['UI/UX', 'Figma', 'Adobe CC', 'Branding', 'Systems', 'Frontend'],
     s1v: '6+', s1l: 'Лет в дизайне',
     s2v: '20+', s2l: 'Проектов',
     s3v: 'BA+MA', s3l: 'Образование',
@@ -30,10 +37,22 @@ const T = {
     desc: 'Creating thoughtful digital products — from UX concept to pixel-perfect delivery. Figma, Adobe CC, brand identity, UI systems.',
     cta1: 'View works',
     cta2: 'Contact',
+    name: 'Alexander Alexandrov',
+    sideDesc: 'Open to project work, design tasks, and long-term collaboration.',
+    behance: 'Behance',
+    github: 'GitHub',
+    telegram: 'Telegram',
+    tags: ['UI/UX', 'Figma', 'Adobe CC', 'Branding', 'Systems', 'Frontend'],
     s1v: '6+', s1l: 'Years in design',
     s2v: '20+', s2l: 'Projects',
     s3v: 'BA+MA', s3l: 'Education',
   },
+};
+
+const HERO_LINKS = {
+  behance: 'https://www.behance.net/dmbzzr',
+  github: 'https://github.com/AREKKUZZERA',
+  telegram: 'https://t.me/bvbvbvbvbvbvbvbvbvvbv',
 };
 
 export default function Hero({ lang }) {
@@ -114,8 +133,13 @@ export default function Hero({ lang }) {
         </h1>
 
         {/* Desc + CTA */}
-        <div style={{ display: 'flex', gap: '4rem', alignItems: 'flex-end', flexWrap: 'wrap' }}>
-          <div style={{ maxWidth: 460 }}>
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+          gap: '3rem',
+          alignItems: 'end',
+        }}>
+          <div style={{ maxWidth: 560 }}>
             <p style={{
               fontFamily: 'var(--font-ui)',
               fontSize: '0.95rem', lineHeight: 1.75,
@@ -128,27 +152,116 @@ export default function Hero({ lang }) {
             </div>
           </div>
 
-          {/* Stats */}
-          <div style={{ display: 'flex', gap: '2.5rem', paddingBottom: '0.2rem' }}>
-            {[
-              { v: t.s1v, l: t.s1l },
-              { v: t.s2v, l: t.s2l },
-              { v: t.s3v, l: t.s3l },
-            ].map(s => (
-              <div key={s.l}>
-                <div style={{
-                  fontFamily: 'var(--font-display)',
-                  fontSize: '2.2rem', fontWeight: 400,
-                  color: 'var(--txt)', lineHeight: 1,
-                }}>{s.v}</div>
-                <div style={{
-                  fontFamily: 'var(--font-mono)',
-                  fontSize: '0.62rem', letterSpacing: '0.1em',
-                  color: 'var(--mut)', marginTop: '0.35rem',
-                  textTransform: 'uppercase',
-                }}>{s.l}</div>
-              </div>
-            ))}
+          <div style={{
+            alignSelf: 'stretch',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-between',
+            gap: '1.6rem',
+            padding: '1.6rem',
+            border: '1px solid var(--b1)',
+            borderRadius: 18,
+            background: 'linear-gradient(180deg, rgba(255,255,255,0.035), rgba(255,255,255,0.012))',
+            boxShadow: '0 24px 70px rgba(0,0,0,0.18)',
+            backdropFilter: 'blur(10px)',
+          }}>
+            <div>
+              <div style={{
+                fontFamily: 'var(--font-display)',
+                fontSize: 'clamp(2.2rem, 4vw, 3.9rem)',
+                lineHeight: 0.92,
+                letterSpacing: '-0.03em',
+                color: 'var(--txt)',
+                marginBottom: '0.9rem',
+              }}>{t.name}</div>
+              <p style={{
+                fontFamily: 'var(--font-ui)',
+                fontSize: '0.96rem',
+                lineHeight: 1.7,
+                color: 'var(--txt2)',
+                maxWidth: 420,
+              }}>{t.sideDesc}</p>
+            </div>
+
+            <div style={{ display: 'flex', gap: '0.85rem', flexWrap: 'wrap' }}>
+              <a
+                href={HERO_LINKS.telegram}
+                target="_blank"
+                rel="noreferrer"
+                className="btn-primary"
+                style={{ padding: '0.95rem 1.35rem', fontSize: '0.82rem' }}
+              >
+                <Send size={16} strokeWidth={2.2} />
+                {t.telegram}
+              </a>
+              <a
+                href={HERO_LINKS.behance}
+                target="_blank"
+                rel="noreferrer"
+                className="btn-ghost"
+                style={{ padding: '0.95rem 1.35rem', fontSize: '0.82rem' }}
+              >
+                <Sparkles size={16} strokeWidth={2.2} />
+                {t.behance}
+              </a>
+              <a
+                href={HERO_LINKS.github}
+                target="_blank"
+                rel="noreferrer"
+                className="btn-ghost"
+                style={{ padding: '0.95rem 1.35rem', fontSize: '0.82rem' }}
+              >
+                <GitBranch size={16} strokeWidth={2.2} />
+                {t.github}
+              </a>
+            </div>
+
+            <div style={{ display: 'flex', gap: '0.65rem', flexWrap: 'wrap' }}>
+              {t.tags.map((tag) => (
+                <span
+                  key={tag}
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    padding: '0.42rem 0.72rem',
+                    borderRadius: 999,
+                    border: '1px solid var(--b2)',
+                    background: 'rgba(255,255,255,0.025)',
+                    color: 'var(--txt2)',
+                    fontFamily: 'var(--font-mono)',
+                    fontSize: '0.65rem',
+                  }}
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+
+            <div style={{ display: 'flex', gap: '2.2rem', flexWrap: 'wrap', paddingTop: '0.2rem' }}>
+              {[
+                { v: t.s1v, l: t.s1l },
+                { v: t.s2v, l: t.s2l },
+                { v: t.s3v, l: t.s3l },
+              ].map((s) => (
+                <div key={s.l}>
+                  <div style={{
+                    fontFamily: 'var(--font-display)',
+                    fontSize: '2rem',
+                    fontWeight: 400,
+                    color: 'var(--txt)',
+                    lineHeight: 1,
+                  }}>{s.v}</div>
+                  <div style={{
+                    fontFamily: 'var(--font-mono)',
+                    fontSize: '0.62rem',
+                    letterSpacing: '0.1em',
+                    color: 'var(--mut)',
+                    marginTop: '0.35rem',
+                    textTransform: 'uppercase',
+                  }}>{s.l}</div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
 

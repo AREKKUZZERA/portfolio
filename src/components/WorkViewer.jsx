@@ -17,6 +17,8 @@ export default function WorkViewer({
   const dragRef = useRef({ active: false, startX: 0, startY: 0, offset: { x: 0, y: 0 } });
   const [imageSize, setImageSize] = useState(DEFAULT_IMAGE_SIZE);
   const [viewport, setViewport] = useState(DEFAULT_IMAGE_SIZE);
+  const [imageSrc, setImageSrc] = useState(work.image ?? null);
+  const [imageLoading, setImageLoading] = useState(!work.image);
   const [zoom, setZoom] = useState(1);
   const [offset, setOffset] = useState({ x: 0, y: 0 });
   const [dragging, setDragging] = useState(false);
@@ -60,6 +62,24 @@ export default function WorkViewer({
       window.removeEventListener('keydown', handleKeyDown);
     };
   }, [onClose]);
+
+  useEffect(() => {
+    let cancelled = false;
+
+    if (work.image || !work.imageLoader) {
+      return undefined;
+    }
+
+    work.imageLoader().then((module) => {
+      if (cancelled) return;
+      setImageSrc(module.default);
+      setImageLoading(false);
+    });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [work]);
 
   useEffect(() => {
     const updateViewport = () => {
@@ -243,30 +263,47 @@ export default function WorkViewer({
           cursor: zoom > 1 ? (dragging ? 'grabbing' : 'grab') : 'zoom-in',
         }}
       >
-        <img
-          src={work.image}
-          alt={work.title}
-          draggable={false}
-          onLoad={(event) => {
-            setImageSize({
-              width: event.currentTarget.naturalWidth,
-              height: event.currentTarget.naturalHeight,
-            });
-          }}
-          style={{
+        {imageSrc ? (
+          <img
+            src={imageSrc}
+            alt={work.title}
+            draggable={false}
+            onLoad={(event) => {
+              setImageSize({
+                width: event.currentTarget.naturalWidth,
+                height: event.currentTarget.naturalHeight,
+              });
+            }}
+            style={{
+              position: 'absolute',
+              left: '50%',
+              top: '50%',
+              maxWidth: 'none',
+              width: `${imageSize.width * getViewerFitScale(imageSize, viewport) * zoom}px`,
+              height: 'auto',
+              transform: `translate3d(calc(-50% + ${offset.x}px), calc(-50% + ${offset.y}px), 0)`,
+              transition: dragging ? 'none' : 'transform 140ms ease-out, width 140ms ease-out',
+              userSelect: 'none',
+              pointerEvents: 'none',
+              boxShadow: '0 40px 100px rgba(0,0,0,0.45)',
+            }}
+          />
+        ) : null}
+        {imageLoading && (
+          <div style={{
             position: 'absolute',
-            left: '50%',
-            top: '50%',
-            maxWidth: 'none',
-            width: `${imageSize.width * getViewerFitScale(imageSize, viewport) * zoom}px`,
-            height: 'auto',
-            transform: `translate3d(calc(-50% + ${offset.x}px), calc(-50% + ${offset.y}px), 0)`,
-            transition: dragging ? 'none' : 'transform 140ms ease-out, width 140ms ease-out',
-            userSelect: 'none',
-            pointerEvents: 'none',
-            boxShadow: '0 40px 100px rgba(0,0,0,0.45)',
-          }}
-        />
+            inset: 0,
+            display: 'grid',
+            placeItems: 'center',
+            fontFamily: 'var(--font-mono)',
+            fontSize: '0.74rem',
+            letterSpacing: '0.08em',
+            color: 'var(--mut)',
+            textTransform: 'uppercase',
+          }}>
+            Loading...
+          </div>
+        )}
       </div>
     </div>
   );

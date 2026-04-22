@@ -1,10 +1,8 @@
-import { useEffect, useState } from 'react';
-import portfolioBwc from '../assets/portfolio/portfolio-bwc.png';
-import portfolioDp from '../assets/portfolio/portfolio-dp!.png';
+import { lazy, Suspense, useEffect, useState } from 'react';
 import previewBwc from '../assets/portfolio/preview/bwc-prev.png';
 import previewDp from '../assets/portfolio/preview/dp-prev.png';
 import { loadGithubRepos } from '../lib/githubRepos';
-import WorkViewer from './WorkViewer';
+const WorkViewer = lazy(() => import('./WorkViewer'));
 
 const GITHUB_USER = 'AREKKUZZERA';
 
@@ -52,8 +50,18 @@ const T = {
 };
 
 const BEHANCE_PROJECTS = [
-  { id: 'bwc', image: portfolioBwc, preview: previewBwc, accent: 'rgba(242,57,135,0.32)' },
-  { id: 'dark-pink', image: portfolioDp, preview: previewDp, accent: 'rgba(255,121,176,0.36)' },
+  {
+    id: 'bwc',
+    preview: previewBwc,
+    imageLoader: () => import('../assets/portfolio/portfolio-bwc.png'),
+    accent: 'rgba(242,57,135,0.32)',
+  },
+  {
+    id: 'dark-pink',
+    preview: previewDp,
+    imageLoader: () => import('../assets/portfolio/portfolio-dp!.png'),
+    accent: 'rgba(255,121,176,0.36)',
+  },
 ];
 
 const LANG_COLORS = {
@@ -186,6 +194,8 @@ function WorkPreviewCard({ project, t, onOpen }) {
         <img
           src={project.preview}
           alt={project.title}
+          loading="lazy"
+          decoding="async"
           style={{
             width: '100%',
             height: '100%',
@@ -379,7 +389,11 @@ export default function Projects({ lang }) {
         )}
       </section>
 
-      {activeWork && <WorkViewer key={activeWork.id} work={activeWork} lang={lang} onClose={() => setActiveWork(null)} />}
+      {activeWork && (
+        <Suspense fallback={null}>
+          <WorkViewer key={activeWork.id} work={activeWork} lang={lang} onClose={() => setActiveWork(null)} />
+        </Suspense>
+      )}
     </>
   );
 }
