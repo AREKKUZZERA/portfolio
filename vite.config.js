@@ -6,10 +6,10 @@ export default defineConfig({
   plugins: [react()],
   server: {
     proxy: {
-      "/api": {
+      "/api/github-repos": {
         target: "https://api.github.com",
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, ""),
+        rewrite: () => "/users/AREKKUZZERA/repos?per_page=50&sort=updated",
       },
     },
   },

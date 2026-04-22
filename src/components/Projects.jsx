@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { loadGithubRepos } from '../lib/githubRepos';
 
 const GITHUB_USER = 'AREKKUZZERA';
 
@@ -92,13 +93,15 @@ export default function Projects({ lang }) {
   const [filter, setFilter] = useState('All');
 
   useEffect(() => {
-    fetch(`https://api.github.com/users/${GITHUB_USER}/repos?per_page=50&sort=updated`)
-      .then(r => { if (!r.ok) throw new Error('API error'); return r.json(); })
-      .then(data => {
-        setRepos(data.filter(r => !r.fork).sort((a,b) => b.stargazers_count - a.stargazers_count));
+    loadGithubRepos()
+      .then((data) => {
+        setRepos(data);
         setLoading(false);
       })
-      .catch(e => { setError(e.message); setLoading(false); });
+      .catch((e) => {
+        setError(e.message);
+        setLoading(false);
+      });
   }, []);
 
   const langs = [t.all, ...new Set(repos.map(r => r.language).filter(Boolean))];
