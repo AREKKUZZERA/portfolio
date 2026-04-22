@@ -40,7 +40,9 @@ function RepoCard({ repo, noDesc }) {
       onMouseEnter={() => setHov(true)}
       onMouseLeave={() => setHov(false)}
       style={{
-        display: 'block',
+        display: 'flex',
+        flexDirection: 'column',
+        height: '100%',
         background: hov ? 'var(--s2)' : 'var(--s1)',
         border: `1px solid ${hov ? 'var(--b3)' : 'var(--b1)'}`,
         borderRadius: 8,
@@ -66,7 +68,7 @@ function RepoCard({ repo, noDesc }) {
       </div>
       <p style={{
         fontFamily: 'var(--font-mono)', fontSize: '0.72rem',
-        lineHeight: 1.6, color: 'var(--mut)', marginBottom: '1.2rem', minHeight: '2.4rem',
+        lineHeight: 1.6, color: 'var(--mut)', marginBottom: '1.2rem', flex: 1,
       }}>
         {repo.description || noDesc}
       </p>
@@ -91,7 +93,7 @@ export default function Projects({ lang }) {
   const [repos, setRepos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [filter, setFilter] = useState('All');
+  const [filter, setFilter] = useState(null);
 
   useEffect(() => {
     loadGithubRepos()
@@ -105,8 +107,9 @@ export default function Projects({ lang }) {
       });
   }, []);
 
+  const activeFilter = filter ?? t.all;
   const langs = [t.all, ...new Set(repos.map(r => r.language).filter(Boolean))];
-  const shown = filter === t.all ? repos : repos.filter(r => r.language === filter);
+  const shown = activeFilter === t.all ? repos : repos.filter(r => r.language === activeFilter);
 
   return (
     <section id="projects" style={{ padding: '8rem 2.5rem', maxWidth: 1100, margin: '0 auto' }}>
@@ -123,9 +126,9 @@ export default function Projects({ lang }) {
           {langs.map(l => (
             <Parallax as="button" key={l} onClick={() => setFilter(l)} x={12} y={8} z={16} rotate={2} scale={1.01} style={{
               padding: '0.28rem 0.85rem',
-              border: `1px solid ${filter === l ? 'var(--acc)' : 'var(--b2)'}`,
-              background: filter === l ? 'var(--acc-d)' : 'transparent',
-              color: filter === l ? 'var(--acc)' : 'var(--mut)',
+              border: `1px solid ${activeFilter === l ? 'var(--acc)' : 'var(--b2)'}`,
+              background: activeFilter === l ? 'var(--acc-d)' : 'transparent',
+              color: activeFilter === l ? 'var(--acc)' : 'var(--mut)',
               borderRadius: 5, fontFamily: 'var(--font-mono)',
               fontSize: '0.65rem', letterSpacing: '0.08em',
               transition: 'all 0.2s',
@@ -150,7 +153,7 @@ export default function Projects({ lang }) {
       {!loading && !error && (
         <>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(290px, 1fr))', gap: '1.2rem' }}>
-            {shown.map(r => <Parallax key={r.id} x={16} y={12} z={24} rotate={2.4} scale={1.015}><RepoCard repo={r} noDesc={t.noDesc} /></Parallax>)}
+            {shown.map(r => <Parallax key={r.id} x={16} y={12} z={24} rotate={2.4} scale={1.015} style={{ height: '100%' }}><RepoCard repo={r} noDesc={t.noDesc} /></Parallax>)}
           </div>
           <div style={{ textAlign: 'center', marginTop: '3rem' }}>
             <Parallax as="a" href={`https://github.com/${GITHUB_USER}?tab=repositories`} target="_blank" rel="noreferrer" className="btn-ghost" x={14} y={10} z={18} rotate={2.4} scale={1.02}>
