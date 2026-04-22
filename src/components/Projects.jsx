@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import portfolioBwc from '../assets/portfolio/portfolio-bwc.png';
 import portfolioDp from '../assets/portfolio/portfolio-dp!.png';
+import previewBwc from '../assets/portfolio/preview/bwc-prev.png';
+import previewDp from '../assets/portfolio/preview/dp-prev.png';
 import { loadGithubRepos } from '../lib/githubRepos';
 import WorkViewer from './WorkViewer';
 
@@ -50,8 +52,8 @@ const T = {
 };
 
 const BEHANCE_PROJECTS = [
-  { id: 'bwc', image: portfolioBwc, accent: 'rgba(242,57,135,0.32)' },
-  { id: 'dark-pink', image: portfolioDp, accent: 'rgba(255,121,176,0.36)' },
+  { id: 'bwc', image: portfolioBwc, preview: previewBwc, accent: 'rgba(242,57,135,0.32)' },
+  { id: 'dark-pink', image: portfolioDp, preview: previewDp, accent: 'rgba(255,121,176,0.36)' },
 ];
 
 const LANG_COLORS = {
@@ -182,7 +184,7 @@ function WorkPreviewCard({ project, t, onOpen }) {
         }}
       >
         <img
-          src={project.image}
+          src={project.preview}
           alt={project.title}
           style={{
             width: '100%',
