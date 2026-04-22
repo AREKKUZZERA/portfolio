@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import Parallax from './Parallax';
 import { getToolVisual } from '../lib/toolVisual';
 
 const T = {
@@ -28,9 +27,9 @@ const EXPERT = [
 ];
 
 const MID = [
-  { name: 'Adobe After Effects',icon: 'https://skillicons.dev/icons?i=ae',         badge: 'Mid' },
+  { name: 'Adobe AE',icon: 'https://skillicons.dev/icons?i=ae',         badge: 'Mid' },
   { name: 'Adobe XD',           icon: 'https://skillicons.dev/icons?i=xd',         badge: 'Mid' },
-  { name: 'Photoshop Lightroom',icon: 'https://skillicons.dev/icons?i=ps',         badge: 'Mid' },
+  { name: 'Adobe Express',icon: 'https://skillicons.dev/icons?i=ps',         badge: 'Mid' },
   { name: 'Blender',            icon: 'https://skillicons.dev/icons?i=blender',    badge: 'Basic' },
 ];
 
@@ -137,7 +136,7 @@ export default function Stack({ lang }) {
           {t.expertLabel}
         </div>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem' }}>
-          {EXPERT.map(tool => <Parallax key={tool.name} x={16} y={12} z={24} rotate={2.4} scale={1.015}><ToolCard {...tool} large /></Parallax>)}
+          {EXPERT.map(tool => <ToolCard key={tool.name} {...tool} large />)}
         </div>
       </div>
 
@@ -156,7 +155,7 @@ export default function Stack({ lang }) {
           {t.midLabel}
         </div>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(180px, 1fr))', gap: '0.8rem' }}>
-          {MID.map(tool => <Parallax key={tool.name} x={14} y={10} z={20} rotate={2.1} scale={1.012}><ToolCard {...tool} /></Parallax>)}
+          {MID.map(tool => <ToolCard key={tool.name} {...tool} />)}
         </div>
       </div>
 
@@ -175,7 +174,7 @@ export default function Stack({ lang }) {
           {t.codeLabel}
         </div>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(165px, 1fr))', gap: '0.8rem' }}>
-          {CODE.map(tool => <Parallax key={tool.name} x={14} y={10} z={20} rotate={2.1} scale={1.012}><ToolCard {...tool} /></Parallax>)}
+          {CODE.map(tool => <ToolCard key={tool.name} {...tool} />)}
         </div>
         <p style={{
           marginTop: '1.2rem',

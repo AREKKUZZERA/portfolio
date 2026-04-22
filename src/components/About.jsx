@@ -1,5 +1,3 @@
-import Parallax from './Parallax';
-
 const T = {
   ru: {
     label: 'Обо мне',
@@ -56,8 +54,7 @@ export default function About({ lang }) {
         {/* Ability cards */}
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
           {CARDS(t).map(c => (
-            <Parallax key={c.title} x={16} y={12} z={22} rotate={2.2} scale={1.015}>
-              <div className="card" style={{ padding: '1.4rem' }}>
+              <div key={c.title} className="card" style={{ padding: '1.4rem' }}>
               <div style={{
                 fontFamily: 'var(--font-display)',
                 fontSize: '1.6rem', color: 'var(--acc)',
@@ -74,7 +71,6 @@ export default function About({ lang }) {
                 color: 'var(--mut)',
               }}>{c.desc}</div>
               </div>
-            </Parallax>
           ))}
         </div>
       </div>

@@ -1,5 +1,3 @@
-import Parallax from './Parallax';
-
 const T = {
   ru: {
     label: 'Резюме',
@@ -161,8 +159,7 @@ export default function Resume({ lang }) {
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
             {t.abilities.map(a => (
-              <Parallax key={a.title} x={16} y={12} z={22} rotate={2.2} scale={1.015}>
-                <div className="card" style={{
+                <div key={a.title} className="card" style={{
                 padding: '1.1rem 1.4rem',
                 display: 'flex', alignItems: 'center', gap: '1.2rem',
               }}>
@@ -183,7 +180,6 @@ export default function Resume({ lang }) {
                   }}>{a.desc}</div>
                 </div>
                 </div>
-              </Parallax>
             ))}
           </div>
         </div>

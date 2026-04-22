@@ -1,5 +1,4 @@
 import { useRef, useState } from 'react';
-import Parallax from './Parallax';
 import { useSeamlessMarquee } from '../hooks/useSeamlessMarquee';
 import { getGridParallaxStyle } from '../lib/parallax';
 import { getHeroAmbientBlobStyle, getHeroBackgroundTextureStyle } from '../lib/heroBackground';
@@ -64,8 +63,8 @@ export default function Hero({ lang }) {
 
       <div style={getHeroBackgroundTextureStyle()} />
 
-      <Parallax style={getHeroAmbientBlobStyle('right')} x={12} y={10} z={18} rotate={0.6} scale={1.04} />
-      <Parallax style={getHeroAmbientBlobStyle('left')} x={10} y={8} z={22} rotate={0.7} scale={1.06} />
+      <div style={getHeroAmbientBlobStyle('right')} />
+      <div style={getHeroAmbientBlobStyle('left')} />
 
       <div style={{ position: 'relative', zIndex: 1, width: '100%', maxWidth: 1100, margin: '0 auto', paddingTop: '5rem' }}>
         {/* Badge */}
@@ -124,8 +123,8 @@ export default function Hero({ lang }) {
             }}>{t.desc}</p>
 
             <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
-              <Parallax as="a" href="#projects" className="btn-primary" x={14} y={10} z={18} rotate={2.4} scale={1.02}>{t.cta1} →</Parallax>
-              <Parallax as="a" href="#contact" className="btn-ghost" x={14} y={10} z={18} rotate={2.4} scale={1.02}>{t.cta2}</Parallax>
+              <a href="#projects" className="btn-primary">{t.cta1} →</a>
+              <a href="#contact" className="btn-ghost">{t.cta2}</a>
             </div>
           </div>
 
