@@ -23,8 +23,8 @@ const T = {
     openWork: 'Открыть проект',
     openHint: 'Полноэкранный просмотр + zoom',
     hoverHint: 'Нажми, чтобы открыть',
-    caseOne: 'BWC — удалённая веб-консоль в виде серверного плагина.',
-    caseTwo: 'DARK PLEASE! — браузерное расширение для снижения нагрузки на глаза.',
+    caseOne: 'BWC — удалённая веб-консоль в виде серверного плагина',
+    caseTwo: 'DARK PLEASE! — браузерное расширение для снижения нагрузки на глаза',
   },
   en: {
     label: 'Works',
@@ -44,8 +44,8 @@ const T = {
     openWork: 'Open project',
     openHint: 'Fullscreen viewer + zoom',
     hoverHint: 'Click to open',
-    caseOne: 'BWC — a remote web console provided as a server plugin.',
-    caseTwo: 'DARK PLEASE! — a browser extension designed to reduce eye strain.',
+    caseOne: 'BWC — a remote web console provided as a server plugin',
+    caseTwo: 'DARK PLEASE! — a browser extension designed to reduce eye strain',
   },
 };
 
