@@ -30,7 +30,7 @@ const EXPERT = [
 const MID = [
   { name: 'Adobe After Effects',icon: 'https://skillicons.dev/icons?i=ae',         badge: 'Mid' },
   { name: 'Adobe XD',           icon: 'https://skillicons.dev/icons?i=xd',         badge: 'Mid' },
-  { name: 'Adobe InDesign',     icon: 'https://cdn.jsdelivr.net/npm/simple-icons@v16/icons/adobeindesign.svg', glyph: 'Id', glyphBg: '#49021f', glyphColor: '#ff3366', badge: 'Mid' },
+  { name: 'Photoshop Lightroom',icon: 'https://skillicons.dev/icons?i=ps',         badge: 'Mid' },
   { name: 'Blender',            icon: 'https://skillicons.dev/icons?i=blender',    badge: 'Basic' },
 ];
 
