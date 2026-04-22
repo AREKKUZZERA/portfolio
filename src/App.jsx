@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import './index.css';
+import { usePointerCssVars } from './hooks/usePointerCssVars';
 import Cursor   from './components/Cursor';
 import Nav      from './components/Nav';
 import Hero     from './components/Hero';
@@ -11,6 +12,7 @@ import Contact  from './components/Contact';
 
 export default function App() {
   const [lang, setLang] = useState('ru');
+  usePointerCssVars();
 
   return (
     <>

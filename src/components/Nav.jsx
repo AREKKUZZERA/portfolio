@@ -75,7 +75,6 @@ export default function Nav({ lang, setLang }) {
           color: 'var(--txt2)',
           padding: '0.35rem 0.75rem',
           borderRadius: '5px',
-          cursor: 'none',
           transition: 'all 0.2s',
         }}
         onMouseEnter={e => { e.target.style.borderColor = 'var(--acc)'; e.target.style.color = 'var(--acc)'; }}

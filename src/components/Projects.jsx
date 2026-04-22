@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { loadGithubRepos } from '../lib/githubRepos';
+import Parallax from './Parallax';
 
 const GITHUB_USER = 'AREKKUZZERA';
 
@@ -120,15 +121,15 @@ export default function Projects({ lang }) {
       {!loading && !error && (
         <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginBottom: '2rem' }}>
           {langs.map(l => (
-            <button key={l} onClick={() => setFilter(l)} style={{
+            <Parallax as="button" key={l} onClick={() => setFilter(l)} x={12} y={8} z={16} rotate={2} scale={1.01} style={{
               padding: '0.28rem 0.85rem',
               border: `1px solid ${filter === l ? 'var(--acc)' : 'var(--b2)'}`,
               background: filter === l ? 'var(--acc-d)' : 'transparent',
               color: filter === l ? 'var(--acc)' : 'var(--mut)',
               borderRadius: 5, fontFamily: 'var(--font-mono)',
               fontSize: '0.65rem', letterSpacing: '0.08em',
-              cursor: 'none', transition: 'all 0.2s',
-            }}>{l}</button>
+              transition: 'all 0.2s',
+            }}>{l}</Parallax>
           ))}
         </div>
       )}
@@ -149,12 +150,12 @@ export default function Projects({ lang }) {
       {!loading && !error && (
         <>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(290px, 1fr))', gap: '1.2rem' }}>
-            {shown.map(r => <RepoCard key={r.id} repo={r} noDesc={t.noDesc} />)}
+            {shown.map(r => <Parallax key={r.id} x={16} y={12} z={24} rotate={2.4} scale={1.015}><RepoCard repo={r} noDesc={t.noDesc} /></Parallax>)}
           </div>
           <div style={{ textAlign: 'center', marginTop: '3rem' }}>
-            <a href={`https://github.com/${GITHUB_USER}?tab=repositories`} target="_blank" rel="noreferrer" className="btn-ghost">
+            <Parallax as="a" href={`https://github.com/${GITHUB_USER}?tab=repositories`} target="_blank" rel="noreferrer" className="btn-ghost" x={14} y={10} z={18} rotate={2.4} scale={1.02}>
               {t.allRepos}
-            </a>
+            </Parallax>
           </div>
         </>
       )}

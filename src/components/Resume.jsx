@@ -1,3 +1,5 @@
+import Parallax from './Parallax';
+
 const T = {
   ru: {
     label: 'Резюме',
@@ -14,13 +16,13 @@ const T = {
       {
         year: '2024 — наст.',
         title: 'Магистратура по дизайну',
-        place: 'Университет',
+        place: 'Университет: РТУ МИРЭА',
         desc: 'Углублённое изучение теории дизайна, исследовательских методологий и дизайн-менеджмента. Фокус на системном проектировании цифровых продуктов.',
       },
       {
         year: '2023',
         title: 'Бакалавриат по дизайну',
-        place: 'Университет — диплом с отличием',
+        place: 'Университет: РТУ МИРЭА',
         desc: 'Получил степень бакалавра в области дизайна. Моя дипломная работа была посвящена комплексной разработке рабочего пространства — современного компьютерного стола и его модульной системы для повседневного использования, с акцентом на исследование эргономики, адаптивности и эффективности организации рабочей среды.',
       },
       {
@@ -159,10 +161,10 @@ export default function Resume({ lang }) {
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
             {t.abilities.map(a => (
-              <div key={a.title} className="card" style={{
+              <Parallax key={a.title} x={16} y={12} z={22} rotate={2.2} scale={1.015}>
+                <div className="card" style={{
                 padding: '1.1rem 1.4rem',
                 display: 'flex', alignItems: 'center', gap: '1.2rem',
-                cursor: 'default',
               }}>
                 <div style={{
                   fontFamily: 'var(--font-display)',
@@ -180,7 +182,8 @@ export default function Resume({ lang }) {
                     fontSize: '0.67rem', color: 'var(--mut)',
                   }}>{a.desc}</div>
                 </div>
-              </div>
+                </div>
+              </Parallax>
             ))}
           </div>
         </div>

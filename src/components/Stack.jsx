@@ -1,3 +1,7 @@
+import { useState } from 'react';
+import Parallax from './Parallax';
+import { getToolVisual } from '../lib/toolVisual';
+
 const T = {
   ru: {
     label: 'Инструменты',
@@ -26,7 +30,7 @@ const EXPERT = [
 const MID = [
   { name: 'Adobe After Effects',icon: 'https://skillicons.dev/icons?i=ae',         badge: 'Mid' },
   { name: 'Adobe XD',           icon: 'https://skillicons.dev/icons?i=xd',         badge: 'Mid' },
-  { name: 'Adobe InDesign',     icon: 'https://skillicons.dev/icons?i=id' ,        badge: 'Mid' },
+  { name: 'Adobe InDesign',     icon: 'https://cdn.jsdelivr.net/npm/simple-icons@v16/icons/adobeindesign.svg', glyph: 'Id', glyphBg: '#49021f', glyphColor: '#ff3366', badge: 'Mid' },
   { name: 'Blender',            icon: 'https://skillicons.dev/icons?i=blender',    badge: 'Basic' },
 ];
 
@@ -43,8 +47,11 @@ const BADGE_COLORS = {
   Basic:  { bg: 'rgba(255,255,255,0.03)', color: '#666666', border: 'rgba(255,255,255,0.07)' },
 };
 
-function ToolCard({ name, icon, badge, large }) {
+function ToolCard(tool) {
+  const { name, icon, badge, large } = tool;
   const bc = BADGE_COLORS[badge] || BADGE_COLORS.Mid;
+  const [imageFailed, setImageFailed] = useState(false);
+  const visual = getToolVisual({ ...tool, icon: imageFailed ? null : icon });
   return (
     <div className="card" style={{
       padding: large ? '1.8rem' : '1.2rem 1.4rem',
@@ -52,7 +59,6 @@ function ToolCard({ name, icon, badge, large }) {
       flexDirection: large ? 'column' : 'row',
       alignItems: large ? 'flex-start' : 'center',
       gap: large ? '1rem' : '0.9rem',
-      cursor: 'default',
       position: 'relative',
       overflow: 'hidden',
     }}>
@@ -62,10 +68,30 @@ function ToolCard({ name, icon, badge, large }) {
           background: 'linear-gradient(90deg, var(--acc), transparent)',
         }} />
       )}
-      <img src={icon} alt={name} width={large ? 44 : 32} height={large ? 44 : 32}
-        style={{ borderRadius: 8, flexShrink: 0 }}
-        onError={e => { e.target.style.display='none'; }}
-      />
+      {visual.kind === 'image' ? (
+        <img src={visual.src} alt={visual.alt} width={large ? 44 : 32} height={large ? 44 : 32}
+          style={{ borderRadius: 8, flexShrink: 0 }}
+          onError={() => setImageFailed(true)}
+        />
+      ) : (
+        <div style={{
+          width: large ? 44 : 32,
+          height: large ? 44 : 32,
+          borderRadius: 8,
+          flexShrink: 0,
+          display: 'grid',
+          placeItems: 'center',
+          background: visual.background,
+          color: visual.color,
+          fontFamily: 'var(--font-ui)',
+          fontWeight: 700,
+          fontSize: large ? '1rem' : '0.78rem',
+          letterSpacing: '-0.02em',
+          border: '1px solid rgba(255,255,255,0.08)',
+        }}>
+          {visual.label}
+        </div>
+      )}
       <div style={{ flex: 1, minWidth: 0 }}>
         <div style={{
           fontFamily: 'var(--font-ui)',
@@ -111,7 +137,7 @@ export default function Stack({ lang }) {
           {t.expertLabel}
         </div>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem' }}>
-          {EXPERT.map(tool => <ToolCard key={tool.name} {...tool} large />)}
+          {EXPERT.map(tool => <Parallax key={tool.name} x={16} y={12} z={24} rotate={2.4} scale={1.015}><ToolCard {...tool} large /></Parallax>)}
         </div>
       </div>
 
@@ -130,7 +156,7 @@ export default function Stack({ lang }) {
           {t.midLabel}
         </div>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(180px, 1fr))', gap: '0.8rem' }}>
-          {MID.map(tool => <ToolCard key={tool.name} {...tool} />)}
+          {MID.map(tool => <Parallax key={tool.name} x={14} y={10} z={20} rotate={2.1} scale={1.012}><ToolCard {...tool} /></Parallax>)}
         </div>
       </div>
 
@@ -149,7 +175,7 @@ export default function Stack({ lang }) {
           {t.codeLabel}
         </div>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(165px, 1fr))', gap: '0.8rem' }}>
-          {CODE.map(tool => <ToolCard key={tool.name} {...tool} />)}
+          {CODE.map(tool => <Parallax key={tool.name} x={14} y={10} z={20} rotate={2.1} scale={1.012}><ToolCard {...tool} /></Parallax>)}
         </div>
         <p style={{
           marginTop: '1.2rem',

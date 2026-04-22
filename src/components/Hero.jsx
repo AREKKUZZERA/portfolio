@@ -1,23 +1,33 @@
-import { useEffect, useRef } from 'react';
+import { useRef, useState } from 'react';
+import Parallax from './Parallax';
+import { useSeamlessMarquee } from '../hooks/useSeamlessMarquee';
+import { getGridParallaxStyle } from '../lib/parallax';
+import { getHeroAmbientBlobStyle, getHeroBackgroundTextureStyle } from '../lib/heroBackground';
+import {
+  getMarqueeItemStyle,
+  getMarqueeTrackStyle,
+  getMarqueeViewportStyle,
+  MARQUEE_ITEMS,
+} from '../lib/marquee';
 
 const T = {
   ru: {
     badge: 'Открыт к сотрудничеству',
-    role1: 'Дизайнер',
-    role2: 'интерфейсов',
-    role3: '& визуальных систем',
+    role1: 'Графический',
+    role2: 'дизайнер',
+    role3: 'интерфейсов & визуальных систем',
     desc: 'Создаю продуманные цифровые продукты — от UX-концепции до пиксельно-точного финала. Figma, Adobe CC, фирменный стиль, UI-системы.',
     cta1: 'Смотреть работы',
     cta2: 'Связаться',
-    s1v: '4+', s1l: 'Лет в дизайне',
+    s1v: '6+', s1l: 'Лет в дизайне',
     s2v: '20+', s2l: 'Проектов',
     s3v: 'BA+MA', s3l: 'Образование',
   },
   en: {
     badge: 'Available for work',
-    role1: 'Interface',
+    role1: 'Graphic',
     role2: 'Designer',
-    role3: '& Visual Systems',
+    role3: 'interfaces & visual systems',
     desc: 'Creating thoughtful digital products — from UX concept to pixel-perfect delivery. Figma, Adobe CC, brand identity, UI systems.',
     cta1: 'View works',
     cta2: 'Contact',
@@ -29,55 +39,33 @@ const T = {
 
 export default function Hero({ lang }) {
   const t = T[lang];
-  const noiseRef = useRef(null);
-
-  // subtle noise on hero bg
-  useEffect(() => {
-    const canvas = noiseRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    canvas.width = canvas.offsetWidth;
-    canvas.height = canvas.offsetHeight;
-    const img = ctx.createImageData(canvas.width, canvas.height);
-    for (let i = 0; i < img.data.length; i += 4) {
-      const v = Math.random() * 18;
-      img.data[i] = img.data[i+1] = img.data[i+2] = v;
-      img.data[i+3] = 28;
-    }
-    ctx.putImageData(img, 0, 0);
-  }, []);
+  const marqueeViewportRef = useRef(null);
+  const marqueeBaseRef = useRef(null);
+  const [hoveredMarqueeIndex, setHoveredMarqueeIndex] = useState(null);
+  const { baseWidth, renderedCopies } = useSeamlessMarquee(
+    marqueeViewportRef,
+    marqueeBaseRef,
+    MARQUEE_ITEMS,
+  );
 
   return (
     <section id="hero" style={{
       minHeight: '100vh', display: 'flex', alignItems: 'center',
       position: 'relative', overflow: 'hidden', padding: '0 2.5rem',
     }}>
-      {/* Noise texture */}
-      <canvas ref={noiseRef} style={{
-        position: 'absolute', inset: 0, width: '100%', height: '100%',
-        pointerEvents: 'none', zIndex: 0, opacity: 0.6,
-      }} />
-
       {/* Subtle grid lines */}
       <div style={{
         position: 'absolute', inset: 0, zIndex: 0,
         backgroundImage: `linear-gradient(var(--b1) 1px, transparent 1px), linear-gradient(90deg, var(--b1) 1px, transparent 1px)`,
         backgroundSize: '80px 80px',
+        opacity: 0.72,
+        ...getGridParallaxStyle({ x: 10, y: 8 }),
       }} />
 
-      {/* Accent blobs */}
-      <div style={{
-        position: 'absolute', top: '8%', right: '6%',
-        width: 600, height: 600, borderRadius: '50%',
-        background: 'radial-gradient(circle, rgba(242,57,135,0.07) 0%, transparent 65%)',
-        filter: 'blur(60px)', zIndex: 0,
-      }} />
-      <div style={{
-        position: 'absolute', bottom: '5%', left: '-5%',
-        width: 400, height: 400, borderRadius: '50%',
-        background: 'radial-gradient(circle, rgba(0,230,118,0.05) 0%, transparent 65%)',
-        filter: 'blur(60px)', zIndex: 0,
-      }} />
+      <div style={getHeroBackgroundTextureStyle()} />
+
+      <Parallax style={getHeroAmbientBlobStyle('right')} x={12} y={10} z={18} rotate={0.6} scale={1.04} />
+      <Parallax style={getHeroAmbientBlobStyle('left')} x={10} y={8} z={22} rotate={0.7} scale={1.06} />
 
       <div style={{ position: 'relative', zIndex: 1, width: '100%', maxWidth: 1100, margin: '0 auto', paddingTop: '5rem' }}>
         {/* Badge */}
@@ -136,8 +124,8 @@ export default function Hero({ lang }) {
             }}>{t.desc}</p>
 
             <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
-              <a href="#projects" className="btn-primary">{t.cta1} →</a>
-              <a href="#contact"  className="btn-ghost">{t.cta2}</a>
+              <Parallax as="a" href="#projects" className="btn-primary" x={14} y={10} z={18} rotate={2.4} scale={1.02}>{t.cta1} →</Parallax>
+              <Parallax as="a" href="#contact" className="btn-ghost" x={14} y={10} z={18} rotate={2.4} scale={1.02}>{t.cta2}</Parallax>
             </div>
           </div>
 
@@ -166,25 +154,33 @@ export default function Hero({ lang }) {
         </div>
 
         {/* Bottom marquee strip */}
-        <div style={{
-          marginTop: '6rem',
-          borderTop: '1px solid var(--b1)',
-          paddingTop: '1.2rem',
-          overflow: 'hidden',
-        }}>
-          <div style={{
-            display: 'flex', gap: '3rem', whiteSpace: 'nowrap',
-            animation: 'marquee 18s linear infinite',
-          }}>
-            {Array(3).fill(['Figma','Adobe Photoshop','Illustrator','UI Design','UX Research','Brand Identity','Typography','Motion Design','Figma','Adobe Photoshop','Illustrator','UI Design','UX Research','Brand Identity','Typography','Motion Design']).flat().map((item, i) => (
-              <span key={i} style={{
-                fontFamily: 'var(--font-mono)',
-                fontSize: '0.65rem', letterSpacing: '0.18em',
-                color: i % 8 === 0 ? 'var(--acc)' : 'var(--mut)',
-                textTransform: 'uppercase',
-              }}>
-                {item}{i % 8 === 0 ? ' ✦' : ' ·'}
-              </span>
+        <div ref={marqueeViewportRef} style={getMarqueeViewportStyle()}>
+          <div
+            style={getMarqueeTrackStyle(baseWidth)}
+            onMouseLeave={() => setHoveredMarqueeIndex(null)}
+          >
+            {renderedCopies.map((copyIndex) => (
+              <div
+                key={copyIndex}
+                ref={copyIndex === 0 ? marqueeBaseRef : undefined}
+                style={{ display: 'flex', alignItems: 'center', flex: 'none' }}
+              >
+                {MARQUEE_ITEMS.map((item, itemIndex) => {
+                  const itemKey = `${copyIndex}-${itemIndex}`;
+                  const isAccent = itemIndex % MARQUEE_ITEMS.length === 0;
+                  const isHovered = hoveredMarqueeIndex === itemKey;
+
+                  return (
+                    <span
+                      key={itemKey}
+                      onMouseEnter={() => setHoveredMarqueeIndex(itemKey)}
+                      style={getMarqueeItemStyle({ isAccent, isHovered })}
+                    >
+                      {item}{itemIndex % 3 === 0 ? ' ✦' : ' ·'}
+                    </span>
+                  );
+                })}
+              </div>
             ))}
           </div>
         </div>

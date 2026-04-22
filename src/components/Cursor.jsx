@@ -42,6 +42,7 @@ export default function Cursor() {
         background: 'radial-gradient(circle, rgba(242,57,135,0.11) 0%, rgba(242,57,135,0.04) 40%, transparent 70%)',
         transform: 'translate(-50%, -50%)',
         filter: 'blur(2px)',
+        opacity: 0.9,
         transition: 'opacity 0.3s',
       }}
     />

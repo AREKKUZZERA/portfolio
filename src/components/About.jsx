@@ -1,10 +1,12 @@
+import Parallax from './Parallax';
+
 const T = {
   ru: {
     label: 'Обо мне',
     title1: 'Дизайн —', title2: 'это мой язык',
     bio1: 'Я дизайнер с академическим бэкграундом: бакалавр по дизайну и студент магистратуры по тому же направлению. Моя работа — превращать сложные идеи в ясные, красивые и функциональные визуальные решения.',
     bio2: 'Специализируюсь на UI/UX, фирменном стиле и продуктовом дизайне. Люблю системный подход: от исследования и архитектуры информации до финального пиксель-перфект экрана.',
-    bio3: 'Владею полным Adobe CC, Figma, и использую код как инструмент для прототипирования и воплощения дизайна в жизнь — а не как основную специализацию.',
+    bio3: 'Владею полным Adobe CC, Figma, и использую код как инструмент для прототипирования и воплощения дизайна в жизнь.',
     card1t: 'Продуктовый дизайн', card1d: 'Выстраиваю UX с нуля: исследование, вайрфреймы, прототипы, дизайн-система.',
     card2t: 'Визуальная идентика', card2d: 'Логотипы, брендбуки, гайдлайны — создаю целостные бренд-системы.',
     card3t: 'UI-системы', card3d: 'Масштабируемые компонентные библиотеки в Figma с Auto Layout и Variables.',
@@ -54,7 +56,8 @@ export default function About({ lang }) {
         {/* Ability cards */}
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
           {CARDS(t).map(c => (
-            <div key={c.title} className="card" style={{ padding: '1.4rem', cursor: 'default' }}>
+            <Parallax key={c.title} x={16} y={12} z={22} rotate={2.2} scale={1.015}>
+              <div className="card" style={{ padding: '1.4rem' }}>
               <div style={{
                 fontFamily: 'var(--font-display)',
                 fontSize: '1.6rem', color: 'var(--acc)',
@@ -70,7 +73,8 @@ export default function About({ lang }) {
                 fontSize: '0.7rem', lineHeight: 1.55,
                 color: 'var(--mut)',
               }}>{c.desc}</div>
-            </div>
+              </div>
+            </Parallax>
           ))}
         </div>
       </div>
