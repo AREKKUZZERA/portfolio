@@ -24,7 +24,7 @@ const T = {
     openHint: 'Полноэкранный просмотр + zoom',
     hoverHint: 'Нажми, чтобы открыть',
     caseOne: 'BWC — удалённая веб-консоль в виде серверного плагина',
-    caseTwo: 'DARK PLEASE! — браузерное расширение для снижения нагрузки на глаза',
+    caseTwo: 'DARK PLEASE! — расширение для браузера, снижающее нагрузку на глаза',
   },
   en: {
     label: 'Works',
@@ -59,7 +59,7 @@ const BEHANCE_PROJECTS = [
   {
     id: 'dark-pink',
     preview: previewDp,
-    imageLoader: () => import('../assets/portfolio/portfolio-dp!.png'),
+    imageLoader: () => import('../assets/portfolio/portfolio-dp!.svg'),
     accent: 'rgba(255,121,176,0.36)',
   },
 ];

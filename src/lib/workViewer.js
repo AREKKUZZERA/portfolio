@@ -29,6 +29,35 @@ export function clampViewerOffset(offset, zoom, image, viewport) {
   };
 }
 
+export function getViewerOffsetForPointZoom({
+  zoom,
+  nextZoom,
+  offset,
+  point,
+  viewport,
+  image,
+}) {
+  if (!viewport?.width || !viewport?.height || !point || !image?.width || !image?.height) {
+    return { x: 0, y: 0 };
+  }
+
+  const centerX = viewport.width / 2;
+  const centerY = viewport.height / 2;
+  const ratio = nextZoom / zoom;
+  const localX = point.x - centerX;
+  const localY = point.y - centerY;
+
+  return clampViewerOffset(
+    {
+      x: offset.x * ratio + localX * (1 - ratio),
+      y: offset.y * ratio + localY * (1 - ratio),
+    },
+    nextZoom,
+    image,
+    viewport,
+  );
+}
+
 export function getViewerNextState({
   zoom,
   offset,

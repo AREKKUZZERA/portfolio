@@ -1,9 +1,7 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
-  clampViewerOffset,
   clampViewerZoom,
   getViewerFitScale,
-  getViewerNextState,
 } from '../lib/workViewer';
 
 const DEFAULT_IMAGE_SIZE = { width: 1600, height: 1000 };
@@ -14,37 +12,40 @@ export default function WorkViewer({
   onClose,
 }) {
   const viewportRef = useRef(null);
-  const dragRef = useRef({ active: false, startX: 0, startY: 0, offset: { x: 0, y: 0 } });
+  const imageReadyRef = useRef(false);
+  const initializedRef = useRef(false);
   const [imageSize, setImageSize] = useState(DEFAULT_IMAGE_SIZE);
   const [viewport, setViewport] = useState(DEFAULT_IMAGE_SIZE);
   const [imageSrc, setImageSrc] = useState(work.image ?? null);
   const [imageLoading, setImageLoading] = useState(!work.image);
   const [zoom, setZoom] = useState(1);
-  const [offset, setOffset] = useState({ x: 0, y: 0 });
-  const [dragging, setDragging] = useState(false);
 
   const labels = useMemo(() => ({
     ru: {
       close: 'Закрыть',
       fit: 'Fit',
-      native: '100%',
-      hint: 'Колесо мыши — масштаб, drag — перемещение, Esc — закрыть',
+      fullscreen: 'Fullscreen',
       zoom: 'Масштаб',
     },
     en: {
       close: 'Close',
       fit: 'Fit',
-      native: '100%',
-      hint: 'Mouse wheel to zoom, drag to pan, Esc to close',
+      fullscreen: 'Fullscreen',
+      hint: 'Native scrolling works with wheel, trackpad and scrollbars',
       zoom: 'Zoom',
     },
   })[lang] ?? {
     close: 'Close',
     fit: 'Fit',
-    native: '100%',
-    hint: 'Mouse wheel to zoom, drag to pan, Esc to close',
+    fullscreen: 'Fullscreen',
+    hint: 'Native scrolling works with wheel, trackpad and scrollbars',
     zoom: 'Zoom',
   }, [lang]);
+
+  useEffect(() => {
+    imageReadyRef.current = false;
+    initializedRef.current = false;
+  }, [work, imageSrc]);
 
   useEffect(() => {
     const previousOverflow = document.body.style.overflow;
@@ -81,11 +82,49 @@ export default function WorkViewer({
     };
   }, [work]);
 
+  const scrollToTopCenter = (nextZoom, nextImageSize, nextViewport) => {
+    const viewportNode = viewportRef.current;
+    if (!viewportNode) return;
+
+    requestAnimationFrame(() => {
+      const fitScale = getViewerFitScale(nextImageSize, nextViewport);
+      const renderedWidth = nextImageSize.width * fitScale * nextZoom;
+      const targetLeft = Math.max(0, (renderedWidth - nextViewport.width) / 2);
+
+      viewportNode.scrollTo({
+        left: targetLeft,
+        top: 0,
+        behavior: 'auto',
+      });
+    });
+  };
+
+  const initializeView = useCallback((nextImageSize, nextViewport) => {
+    if (initializedRef.current || !imageReadyRef.current) return;
+    if (!nextViewport?.width || !nextViewport?.height || !nextImageSize?.width || !nextImageSize?.height) return;
+
+    initializedRef.current = true;
+    const fitScale = getViewerFitScale(nextImageSize, nextViewport);
+    const coverScale = Math.max(
+      nextViewport.width / nextImageSize.width,
+      nextViewport.height / nextImageSize.height,
+    );
+    const nextZoom = clampViewerZoom(coverScale / fitScale);
+
+    setZoom(nextZoom);
+    scrollToTopCenter(nextZoom, nextImageSize, nextViewport);
+  }, []);
+
   useEffect(() => {
     const updateViewport = () => {
       const rect = viewportRef.current?.getBoundingClientRect();
       if (!rect) return;
-      setViewport({ width: rect.width, height: rect.height });
+      const nextViewport = { width: rect.width, height: rect.height };
+      setViewport(nextViewport);
+
+      if (imageReadyRef.current) {
+        initializeView(imageSize, nextViewport);
+      }
     };
 
     updateViewport();
@@ -98,91 +137,35 @@ export default function WorkViewer({
     const observer = new ResizeObserver(updateViewport);
     observer.observe(viewportRef.current);
     return () => observer.disconnect();
-  }, []);
-
-  const applyState = (nextZoom, nextOffset) => {
-    if (!viewport) return;
-
-    setZoom(nextZoom);
-    setOffset(clampViewerOffset(nextOffset, nextZoom, imageSize, viewport));
-  };
-
-  const handleWheel = (event) => {
-    event.preventDefault();
-    if (!viewport) return;
-
-    const next = getViewerNextState({
-      zoom,
-      offset,
-      delta: event.deltaY < 0 ? 0.18 : -0.18,
-      image: imageSize,
-      viewport,
-    });
-
-    setZoom(next.zoom);
-    setOffset(next.offset);
-  };
-
-  const handlePointerDown = (event) => {
-    dragRef.current = {
-      active: true,
-      startX: event.clientX,
-      startY: event.clientY,
-      offset,
-    };
-    setDragging(true);
-    event.currentTarget.setPointerCapture(event.pointerId);
-  };
-
-  const handlePointerMove = (event) => {
-    if (!dragRef.current.active || zoom <= 1) return;
-    if (!viewport) return;
-
-    setOffset(clampViewerOffset(
-      {
-        x: dragRef.current.offset.x + (event.clientX - dragRef.current.startX),
-        y: dragRef.current.offset.y + (event.clientY - dragRef.current.startY),
-      },
-      zoom,
-      imageSize,
-      viewport,
-    ));
-  };
-
-  const stopDrag = (event) => {
-    if (!dragRef.current.active) return;
-    dragRef.current.active = false;
-    setDragging(false);
-    if (event.currentTarget.hasPointerCapture?.(event.pointerId)) {
-      event.currentTarget.releasePointerCapture(event.pointerId);
-    }
-  };
+  }, [imageSize, initializeView]);
 
   const handleFit = () => {
     setZoom(1);
-    setOffset({ x: 0, y: 0 });
+    scrollToTopCenter(1, imageSize, viewport);
   };
 
-  const handleNative = () => {
-    if (!viewport) return;
+  const handleFullscreen = () => {
+    if (!viewport.width || !viewport.height || !imageSize.width || !imageSize.height) return;
 
     const fitScale = getViewerFitScale(imageSize, viewport);
-    applyState(clampViewerZoom(1 / fitScale), { x: 0, y: 0 });
+    const coverScale = Math.max(
+      viewport.width / imageSize.width,
+      viewport.height / imageSize.height,
+    );
+    const nextZoom = clampViewerZoom(coverScale / fitScale);
+
+    setZoom(nextZoom);
+    scrollToTopCenter(nextZoom, imageSize, viewport);
   };
 
   const handleStepZoom = (delta) => {
-    if (!viewport) return;
-
-    const next = getViewerNextState({
-      zoom,
-      offset,
-      delta,
-      image: imageSize,
-      viewport,
-    });
-    setZoom(next.zoom);
-    setOffset(next.offset);
+    const nextZoom = clampViewerZoom(zoom + delta);
+    setZoom(nextZoom);
   };
+
+  const fitScale = getViewerFitScale(imageSize, viewport);
+  const renderedWidth = imageSize.width * fitScale * zoom;
+  const renderedHeight = imageSize.height * fitScale * zoom;
 
   return (
     <div
@@ -191,33 +174,45 @@ export default function WorkViewer({
         position: 'fixed',
         inset: 0,
         zIndex: 320,
-        background: 'rgba(10,10,10,0.82)',
+        background: 'rgba(6,6,6,0.94)',
         backdropFilter: 'blur(18px)',
-        display: 'flex',
-        flexDirection: 'column',
-        padding: '1.25rem',
       }}
     >
       <div
         onClick={(event) => event.stopPropagation()}
         style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          zIndex: 3,
           display: 'flex',
-          alignItems: 'center',
+          alignItems: 'flex-start',
           justifyContent: 'space-between',
           gap: '1rem',
-          padding: '0.8rem 0 1rem',
+          padding: '1rem',
           flexWrap: 'wrap',
+          pointerEvents: 'none',
         }}
       >
-        <div>
+        <div style={{
+          maxWidth: 'min(36rem, calc(100% - 1rem))',
+          padding: '0.9rem 1rem',
+          border: '1px solid rgba(255,255,255,0.08)',
+          borderRadius: 18,
+          background: 'rgba(10,10,10,0.72)',
+          backdropFilter: 'blur(18px)',
+          boxShadow: '0 18px 60px rgba(0,0,0,0.28)',
+          pointerEvents: 'auto',
+        }}>
           <div style={{
             fontFamily: 'var(--font-display)',
-            fontSize: 'clamp(1.8rem, 4vw, 3rem)',
-            lineHeight: 1,
+            fontSize: 'clamp(1.15rem, 2.4vw, 2rem)',
+            lineHeight: 1.05,
             color: 'var(--txt)',
           }}>{work.title}</div>
           <div style={{
-            marginTop: '0.4rem',
+            marginTop: '0.35rem',
             fontFamily: 'var(--font-mono)',
             fontSize: '0.64rem',
             letterSpacing: '0.12em',
@@ -226,13 +221,26 @@ export default function WorkViewer({
           }}>{labels.hint}</div>
         </div>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', flexWrap: 'wrap' }}>
+        <div style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: '0.55rem',
+          flexWrap: 'wrap',
+          justifyContent: 'flex-end',
+          padding: '0.7rem',
+          border: '1px solid rgba(255,255,255,0.08)',
+          borderRadius: 18,
+          background: 'rgba(10,10,10,0.72)',
+          backdropFilter: 'blur(18px)',
+          boxShadow: '0 18px 60px rgba(0,0,0,0.28)',
+          pointerEvents: 'auto',
+        }}>
           <button type="button" className="btn-ghost" onClick={() => handleStepZoom(0.2)}>+</button>
           <button type="button" className="btn-ghost" onClick={() => handleStepZoom(-0.2)}>-</button>
-          <button type="button" className="btn-ghost" onClick={handleNative}>{labels.native}</button>
+          <button type="button" className="btn-ghost" onClick={handleFullscreen}>{labels.fullscreen}</button>
           <button type="button" className="btn-ghost" onClick={handleFit}>{labels.fit}</button>
           <div style={{
-            minWidth: 74,
+            minWidth: 96,
             textAlign: 'center',
             fontFamily: 'var(--font-mono)',
             fontSize: '0.68rem',
@@ -245,65 +253,67 @@ export default function WorkViewer({
       <div
         ref={viewportRef}
         onClick={(event) => event.stopPropagation()}
-        onWheel={handleWheel}
-        onPointerDown={handlePointerDown}
-        onPointerMove={handlePointerMove}
-        onPointerUp={stopDrag}
-        onPointerCancel={stopDrag}
-        onDoubleClick={handleFit}
         style={{
-          position: 'relative',
-          flex: 1,
-          minHeight: 0,
-          overflow: 'hidden',
-          borderRadius: 18,
-          border: '1px solid rgba(255,255,255,0.08)',
+          position: 'absolute',
+          inset: 0,
+          overflow: 'auto',
+          overscrollBehavior: 'contain',
           background: 'radial-gradient(circle at top, rgba(242,57,135,0.08), transparent 40%), rgba(12,12,12,0.88)',
-          touchAction: 'none',
-          cursor: zoom > 1 ? (dragging ? 'grabbing' : 'grab') : 'zoom-in',
+          scrollbarGutter: 'stable both-edges',
         }}
       >
-        {imageSrc ? (
-          <img
-            src={imageSrc}
-            alt={work.title}
-            draggable={false}
-            onLoad={(event) => {
-              setImageSize({
-                width: event.currentTarget.naturalWidth,
-                height: event.currentTarget.naturalHeight,
-              });
-            }}
-            style={{
-              position: 'absolute',
-              left: '50%',
-              top: '50%',
-              maxWidth: 'none',
-              width: `${imageSize.width * getViewerFitScale(imageSize, viewport) * zoom}px`,
-              height: 'auto',
-              transform: `translate3d(calc(-50% + ${offset.x}px), calc(-50% + ${offset.y}px), 0)`,
-              transition: dragging ? 'none' : 'transform 140ms ease-out, width 140ms ease-out',
-              userSelect: 'none',
-              pointerEvents: 'none',
-              boxShadow: '0 40px 100px rgba(0,0,0,0.45)',
-            }}
-          />
-        ) : null}
-        {imageLoading && (
-          <div style={{
-            position: 'absolute',
-            inset: 0,
-            display: 'grid',
-            placeItems: 'center',
-            fontFamily: 'var(--font-mono)',
-            fontSize: '0.74rem',
-            letterSpacing: '0.08em',
-            color: 'var(--mut)',
-            textTransform: 'uppercase',
-          }}>
-            Loading...
-          </div>
-        )}
+        <div
+          style={{
+            width: `${Math.max(renderedWidth, viewport.width)}px`,
+            minHeight: `${Math.max(renderedHeight, viewport.height)}px`,
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'flex-start',
+            paddingTop: '5.5rem',
+            paddingBottom: '2rem',
+          }}
+        >
+          {imageSrc ? (
+            <img
+              src={imageSrc}
+              alt={work.title}
+              draggable={false}
+              onLoad={(event) => {
+                const nextImageSize = {
+                  width: event.currentTarget.naturalWidth,
+                  height: event.currentTarget.naturalHeight,
+                };
+                imageReadyRef.current = true;
+                setImageSize(nextImageSize);
+                initializeView(nextImageSize, viewport);
+              }}
+              style={{
+                display: 'block',
+                width: `${renderedWidth}px`,
+                height: `${renderedHeight}px`,
+                maxWidth: 'none',
+                userSelect: 'none',
+                boxShadow: '0 40px 100px rgba(0,0,0,0.45)',
+              }}
+            />
+          ) : null}
+
+          {imageLoading && (
+            <div style={{
+              position: 'fixed',
+              inset: 0,
+              display: 'grid',
+              placeItems: 'center',
+              fontFamily: 'var(--font-mono)',
+              fontSize: '0.74rem',
+              letterSpacing: '0.08em',
+              color: 'var(--mut)',
+              textTransform: 'uppercase',
+            }}>
+              Loading...
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
