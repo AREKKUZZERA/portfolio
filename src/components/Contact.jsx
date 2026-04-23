@@ -22,9 +22,9 @@ const T = {
 export default function Contact({ lang }) {
   const t = T[lang];
   return (
-    <section id="contact" style={{ padding: '8rem 2.5rem 6rem', maxWidth: 1100, margin: '0 auto' }}>
+    <section id="contact" className="page-section contact-section" style={{ padding: '8rem 2.5rem 6rem', maxWidth: 1100, margin: '0 auto' }}>
       {/* Big CTA */}
-      <div style={{ textAlign: 'center', marginBottom: '5rem' }}>
+      <div className="contact-cta-wrap" style={{ textAlign: 'center', marginBottom: '5rem' }}>
         <p className="section-label" style={{ justifyContent: 'center' }}>{t.label}</p>
 
         <h2 style={{
@@ -44,7 +44,7 @@ export default function Contact({ lang }) {
           maxWidth: 420, margin: '0 auto 2.5rem',
         }}>{t.desc}</p>
 
-        <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
+        <div className="contact-action-row" style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
           {/* Telegram */}
           <a href="https://t.me/bvbvbvbvbvbvbvbvbvvbv" target="_blank" rel="noreferrer"
             className="btn-primary"
@@ -69,7 +69,7 @@ export default function Contact({ lang }) {
       </div>
 
       {/* Divider line decor */}
-      <div style={{
+      <div className="contact-footer-row" style={{
         borderTop: '1px solid var(--b1)', paddingTop: '2.5rem',
         display: 'flex', justifyContent: 'space-between',
         alignItems: 'center', flexWrap: 'wrap', gap: '1rem',

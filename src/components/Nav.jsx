@@ -65,7 +65,7 @@ export default function Nav({ lang, setLang }) {
       </div>
 
       {/* Right side */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+      <div className="nav-actions" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
         {/* Lang toggle */}
         <button onClick={() => setLang(lang === 'ru' ? 'en' : 'ru')} style={{
           fontFamily: 'var(--font-mono)', fontSize: '0.7rem',
@@ -85,6 +85,7 @@ export default function Nav({ lang, setLang }) {
 
         <a href="https://github.com/AREKKUZZERA" target="_blank" rel="noreferrer"
           className="btn-ghost"
+          data-mobile-hide="true"
           style={{ padding: '0.35rem 0.9rem', fontSize: '0.7rem' }}
         >
           GitHub ↗

@@ -67,7 +67,7 @@ export default function Hero({ lang }) {
   );
 
   return (
-    <section id="hero" style={{
+    <section id="hero" className="hero-section" style={{
       minHeight: '100vh', display: 'flex', alignItems: 'center',
       position: 'relative', overflow: 'hidden', padding: '0 2.5rem',
     }}>
@@ -85,7 +85,7 @@ export default function Hero({ lang }) {
       <div style={getHeroAmbientBlobStyle('right')} />
       <div style={getHeroAmbientBlobStyle('left')} />
 
-      <div style={{ position: 'relative', zIndex: 1, width: '100%', maxWidth: 1100, margin: '0 auto', paddingTop: '5rem' }}>
+      <div className="hero-shell" style={{ position: 'relative', zIndex: 1, width: '100%', maxWidth: 1100, margin: '0 auto', paddingTop: '5rem' }}>
         {/* Badge */}
         <div style={{
           display: 'inline-flex', alignItems: 'center', gap: '0.5rem',
@@ -133,26 +133,26 @@ export default function Hero({ lang }) {
         </h1>
 
         {/* Desc + CTA */}
-        <div style={{
+        <div className="hero-main-grid" style={{
           display: 'grid',
           gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
           gap: '3rem',
           alignItems: 'end',
         }}>
-          <div style={{ maxWidth: 560 }}>
+          <div className="hero-copy" style={{ maxWidth: 560 }}>
             <p style={{
               fontFamily: 'var(--font-ui)',
               fontSize: '0.95rem', lineHeight: 1.75,
               color: 'var(--txt2)', marginBottom: '2rem',
             }}>{t.desc}</p>
 
-            <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
+            <div className="hero-cta-row" style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
               <a href="#projects" className="btn-primary">{t.cta1} →</a>
               <a href="#contact" className="btn-ghost">{t.cta2}</a>
             </div>
           </div>
 
-          <div style={{
+          <div className="hero-side-card" style={{
             alignSelf: 'stretch',
             display: 'flex',
             flexDirection: 'column',
@@ -183,7 +183,7 @@ export default function Hero({ lang }) {
               }}>{t.sideDesc}</p>
             </div>
 
-            <div style={{ display: 'flex', gap: '0.85rem', flexWrap: 'wrap' }}>
+            <div className="hero-link-row" style={{ display: 'flex', gap: '0.85rem', flexWrap: 'wrap' }}>
               <a
                 href={HERO_LINKS.telegram}
                 target="_blank"
@@ -216,7 +216,7 @@ export default function Hero({ lang }) {
               </a>
             </div>
 
-            <div style={{ display: 'flex', gap: '0.65rem', flexWrap: 'wrap' }}>
+            <div className="hero-tag-row" style={{ display: 'flex', gap: '0.65rem', flexWrap: 'wrap' }}>
               {t.tags.map((tag) => (
                 <span
                   key={tag}
@@ -237,7 +237,7 @@ export default function Hero({ lang }) {
               ))}
             </div>
 
-            <div style={{ display: 'flex', gap: '2.2rem', flexWrap: 'wrap', paddingTop: '0.2rem' }}>
+            <div className="hero-stats-row" style={{ display: 'flex', gap: '2.2rem', flexWrap: 'wrap', paddingTop: '0.2rem' }}>
               {[
                 { v: t.s1v, l: t.s1l },
                 { v: t.s2v, l: t.s2l },

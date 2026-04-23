@@ -179,6 +179,7 @@ function WorkPreviewCard({ project, t, onOpen }) {
       }}
     >
       <div
+        className="work-preview-card"
         style={{
           position: 'relative',
           overflow: 'hidden',
@@ -213,6 +214,7 @@ function WorkPreviewCard({ project, t, onOpen }) {
           }}
         />
         <div
+          className="work-preview-overlay"
           style={{
             position: 'absolute',
             left: '1rem',
@@ -224,15 +226,16 @@ function WorkPreviewCard({ project, t, onOpen }) {
             gap: '1rem',
           }}
         >
-          <div>
-            <div style={{ fontFamily: 'var(--font-display)', fontSize: '1.6rem', lineHeight: 0.95, color: 'var(--txt)', marginBottom: '0.45rem' }}>
+          <div className="work-preview-copy">
+            <div className="work-preview-title" style={{ fontFamily: 'var(--font-display)', fontSize: '1.6rem', lineHeight: 0.95, color: 'var(--txt)', marginBottom: '0.45rem' }}>
               {project.title}
             </div>
-            <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.64rem', letterSpacing: '0.12em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.68)' }}>
+            <div className="work-preview-hint" style={{ fontFamily: 'var(--font-mono)', fontSize: '0.64rem', letterSpacing: '0.12em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.68)' }}>
               {t.openHint}
             </div>
           </div>
           <div
+            className="work-preview-cta"
             style={{
               flexShrink: 0,
               padding: '0.42rem 0.7rem',
@@ -251,6 +254,7 @@ function WorkPreviewCard({ project, t, onOpen }) {
           </div>
         </div>
         <div
+          className="work-preview-badge"
           style={{
             position: 'absolute',
             top: '1rem',
@@ -317,11 +321,11 @@ export default function Projects({ lang }) {
 
   return (
     <>
-      <section id="projects" style={{ padding: '8rem 2.5rem', maxWidth: 1100, margin: '0 auto' }}>
+      <section id="projects" className="page-section" style={{ padding: '8rem 2.5rem', maxWidth: 1100, margin: '0 auto' }}>
         <p className="section-label">{t.label}</p>
         <h2 className="section-title">{t.title1} <em>{t.title2}</em></h2>
         <SectionHeading title1={t.behanceTitle1} title2={t.behanceTitle2} desc={t.behanceDesc} />
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '1.15rem', marginBottom: '5rem' }}>
+        <div className="work-preview-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '1.15rem', marginBottom: '5rem' }}>
           {behanceProjects.map((project) => (
             <WorkPreviewCard key={project.id} project={project} t={t} onOpen={setActiveWork} />
           ))}

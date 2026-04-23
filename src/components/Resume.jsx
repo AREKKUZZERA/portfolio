@@ -96,11 +96,11 @@ const T = {
 export default function Resume({ lang }) {
   const t = T[lang];
   return (
-    <section id="resume" style={{ padding: '8rem 2.5rem', maxWidth: 1100, margin: '0 auto' }}>
+    <section id="resume" className="page-section" style={{ padding: '8rem 2.5rem', maxWidth: 1100, margin: '0 auto' }}>
       <p className="section-label">{t.label}</p>
       <h2 className="section-title">{t.title1} <em>{t.title2}</em></h2>
 
-      <div style={{
+      <div className="resume-main-grid" style={{
         display: 'grid',
         gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
         gap: '4rem', alignItems: 'start',
@@ -157,9 +157,9 @@ export default function Resume({ lang }) {
             textTransform: 'uppercase', marginBottom: '2rem',
           }}>{t.abLabel}</h3>
 
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
+          <div className="resume-abilities-list" style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
             {t.abilities.map(a => (
-                <div key={a.title} className="card" style={{
+                <div key={a.title} className="card resume-ability-card" style={{
                 padding: '1.1rem 1.4rem',
                 display: 'flex', alignItems: 'center', gap: '1.2rem',
               }}>

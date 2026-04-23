@@ -117,7 +117,7 @@ function ToolCard(tool) {
 export default function Stack({ lang }) {
   const t = T[lang];
   return (
-    <section id="stack" style={{ padding: '8rem 2.5rem', maxWidth: 1100, margin: '0 auto' }}>
+    <section id="stack" className="page-section" style={{ padding: '8rem 2.5rem', maxWidth: 1100, margin: '0 auto' }}>
       <p className="section-label">{t.label}</p>
       <h2 className="section-title">{t.title1} <em>{t.title2}</em></h2>
 
@@ -135,7 +135,7 @@ export default function Stack({ lang }) {
           }}/>
           {t.expertLabel}
         </div>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem' }}>
+        <div className="stack-expert-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem' }}>
           {EXPERT.map(tool => <ToolCard key={tool.name} {...tool} large />)}
         </div>
       </div>
@@ -154,7 +154,7 @@ export default function Stack({ lang }) {
           }}/>
           {t.midLabel}
         </div>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(180px, 1fr))', gap: '0.8rem' }}>
+        <div className="stack-mid-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(180px, 1fr))', gap: '0.8rem' }}>
           {MID.map(tool => <ToolCard key={tool.name} {...tool} />)}
         </div>
       </div>
@@ -173,7 +173,7 @@ export default function Stack({ lang }) {
           }}/>
           {t.codeLabel}
         </div>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(165px, 1fr))', gap: '0.8rem' }}>
+        <div className="stack-code-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(165px, 1fr))', gap: '0.8rem' }}>
           {CODE.map(tool => <ToolCard key={tool.name} {...tool} />)}
         </div>
         <p style={{

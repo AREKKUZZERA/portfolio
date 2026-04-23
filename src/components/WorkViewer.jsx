@@ -170,6 +170,7 @@ export default function WorkViewer({
   return (
     <div
       onClick={onClose}
+      className="work-viewer"
       style={{
         position: 'fixed',
         inset: 0,
@@ -179,6 +180,7 @@ export default function WorkViewer({
       }}
     >
       <div
+        className="work-viewer-panels"
         onClick={(event) => event.stopPropagation()}
         style={{
           position: 'absolute',
@@ -195,7 +197,7 @@ export default function WorkViewer({
           pointerEvents: 'none',
         }}
       >
-        <div style={{
+        <div className="work-viewer-title-panel" style={{
           maxWidth: 'min(36rem, calc(100% - 1rem))',
           padding: '0.9rem 1rem',
           border: '1px solid rgba(255,255,255,0.08)',
@@ -221,7 +223,7 @@ export default function WorkViewer({
           }}>{labels.hint}</div>
         </div>
 
-        <div style={{
+        <div className="work-viewer-controls-panel" style={{
           display: 'flex',
           alignItems: 'center',
           gap: '0.55rem',
@@ -251,6 +253,7 @@ export default function WorkViewer({
       </div>
 
       <div
+        className="work-viewer-scroll"
         ref={viewportRef}
         onClick={(event) => event.stopPropagation()}
         style={{
@@ -263,6 +266,7 @@ export default function WorkViewer({
         }}
       >
         <div
+          className="work-viewer-stage"
           style={{
             width: `${Math.max(renderedWidth, viewport.width)}px`,
             minHeight: `${Math.max(renderedHeight, viewport.height)}px`,

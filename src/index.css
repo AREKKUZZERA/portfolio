@@ -157,6 +157,225 @@ input, textarea {
 }
 
 @media (max-width: 768px) {
-  nav .nav-links { display: none; }
+  nav {
+    padding: 0.9rem 1rem !important;
+    gap: 0.75rem;
+  }
+  nav .nav-links { display: none !important; }
+  nav .nav-actions {
+    margin-left: auto;
+    gap: 0.55rem !important;
+  }
+  nav [data-mobile-hide="true"] {
+    display: none !important;
+  }
+  nav a[href="#"] {
+    font-size: 0.95rem !important;
+  }
   .section-title { font-size: clamp(1.8rem, 8vw, 2.8rem); }
+  .page-section {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+  #hero {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+    padding-top: 5.5rem !important;
+    min-height: auto !important;
+  }
+  .hero-shell {
+    padding-top: 2rem !important;
+  }
+  .hero-main-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1.6rem !important;
+  }
+  .hero-copy p {
+    font-size: 0.88rem !important;
+    line-height: 1.6 !important;
+    margin-bottom: 1.35rem !important;
+  }
+  .hero-cta-row,
+  .hero-link-row {
+    gap: 0.7rem !important;
+  }
+  .hero-side-card {
+    padding: 1rem !important;
+    gap: 1rem !important;
+  }
+  .hero-tag-row {
+    gap: 0.45rem !important;
+  }
+  .hero-stats-row {
+    gap: 1.2rem !important;
+  }
+  .about-ability-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .about-ability-card {
+    min-height: auto !important;
+  }
+  .work-preview-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .work-preview-card {
+    aspect-ratio: 4 / 3 !important;
+  }
+  .work-preview-overlay {
+    left: 0.8rem !important;
+    right: 0.8rem !important;
+    bottom: 0.8rem !important;
+    gap: 0.75rem !important;
+    align-items: flex-start !important;
+    flex-direction: column !important;
+  }
+  .work-preview-copy {
+    max-width: min(72%, 12rem);
+  }
+  .work-preview-title {
+    font-size: 1rem !important;
+    line-height: 0.95 !important;
+    margin-bottom: 0.3rem !important;
+  }
+  .work-preview-hint {
+    font-size: 0.55rem !important;
+    line-height: 1.4 !important;
+  }
+  .work-preview-cta {
+    align-self: flex-end;
+    font-size: 0.56rem !important;
+    padding: 0.38rem 0.6rem !important;
+  }
+  .work-preview-badge {
+    top: 0.7rem !important;
+    left: 0.7rem !important;
+    font-size: 0.54rem !important;
+    padding: 0.34rem 0.52rem !important;
+    max-width: calc(100% - 1.4rem);
+  }
+  .stack-expert-grid,
+  .stack-mid-grid,
+  .stack-code-grid {
+    grid-template-columns: 1fr 1fr !important;
+  }
+  .resume-main-grid {
+    grid-template-columns: 1fr !important;
+    gap: 2rem !important;
+  }
+  .resume-ability-card {
+    padding: 0.95rem 1rem !important;
+    gap: 0.8rem !important;
+    align-items: flex-start !important;
+  }
+  .contact-cta-wrap {
+    margin-bottom: 3rem !important;
+  }
+  .contact-action-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .contact-action-row > a {
+    justify-content: center;
+    width: 100%;
+  }
+  .contact-footer-row {
+    flex-direction: column;
+    align-items: flex-start !important;
+    gap: 0.65rem !important;
+  }
+  .work-viewer-panels {
+    padding: 0.65rem !important;
+    gap: 0.65rem !important;
+    align-items: stretch !important;
+  }
+  .work-viewer-title-panel,
+  .work-viewer-controls-panel {
+    width: 100%;
+    max-width: none !important;
+    border-radius: 14px !important;
+  }
+  .work-viewer-title-panel {
+    padding: 0.75rem 0.85rem !important;
+  }
+  .work-viewer-title-panel > div:first-child {
+    font-size: 1rem !important;
+  }
+  .work-viewer-title-panel > div:last-child {
+    font-size: 0.52rem !important;
+    line-height: 1.4 !important;
+  }
+  .work-viewer-controls-panel {
+    padding: 0.55rem !important;
+    gap: 0.45rem !important;
+  }
+  .work-viewer-controls-panel .btn-ghost,
+  .work-viewer-controls-panel .btn-primary {
+    padding: 0.72rem 0.9rem !important;
+    font-size: 0.62rem !important;
+    flex: 1 1 auto;
+    justify-content: center;
+  }
+  .work-viewer-controls-panel > div {
+    min-width: 82px !important;
+    font-size: 0.6rem !important;
+  }
+  .work-viewer-stage {
+    padding-top: 9.8rem !important;
+  }
+}
+
+@media (max-width: 480px) {
+  nav {
+    padding: 0.8rem 0.85rem !important;
+  }
+  nav button {
+    padding: 0.32rem 0.55rem !important;
+    font-size: 0.64rem !important;
+  }
+  .page-section {
+    padding-left: 0.85rem !important;
+    padding-right: 0.85rem !important;
+  }
+  .work-preview-card {
+    aspect-ratio: 1 / 1 !important;
+  }
+  .work-preview-copy {
+    max-width: 11rem;
+  }
+  .work-preview-title {
+    font-size: 0.86rem !important;
+  }
+  .work-preview-hint,
+  .work-preview-badge,
+  .work-preview-cta {
+    letter-spacing: 0.05em !important;
+  }
+  .stack-expert-grid,
+  .stack-mid-grid,
+  .stack-code-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .hero-side-card a,
+  .hero-cta-row a {
+    width: 100%;
+    justify-content: center;
+  }
+  .hero-stats-row > div {
+    min-width: calc(50% - 0.6rem);
+  }
+  .work-viewer-panels {
+    padding: 0.5rem !important;
+  }
+  .work-viewer-controls-panel {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .work-viewer-controls-panel > div {
+    grid-column: 1 / -1;
+    text-align: left !important;
+    min-width: 0 !important;
+  }
+  .work-viewer-stage {
+    padding-top: 10.8rem !important;
+  }
 }

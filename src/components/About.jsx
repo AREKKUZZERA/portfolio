@@ -33,7 +33,7 @@ const CARDS = (t) => [
 export default function About({ lang }) {
   const t = T[lang];
   return (
-    <section id="about" style={{ padding: '8rem 2.5rem', maxWidth: 1100, margin: '0 auto' }}>
+    <section id="about" className="page-section" style={{ padding: '8rem 2.5rem', maxWidth: 1100, margin: '0 auto' }}>
       <p className="section-label">{t.label}</p>
       <h2 className="section-title">
         {t.title1} <em>{t.title2}</em>
@@ -52,9 +52,9 @@ export default function About({ lang }) {
         </div>
 
         {/* Ability cards */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+        <div className="about-ability-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
           {CARDS(t).map(c => (
-              <div key={c.title} className="card" style={{ padding: '1.4rem' }}>
+              <div key={c.title} className="card about-ability-card" style={{ padding: '1.4rem' }}>
               <div style={{
                 fontFamily: 'var(--font-display)',
                 fontSize: '1.6rem', color: 'var(--acc)',
