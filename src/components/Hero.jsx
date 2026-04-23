@@ -68,8 +68,12 @@ export default function Hero({ lang }) {
 
   return (
     <section id="hero" className="hero-section" style={{
-      minHeight: '100vh', display: 'flex', alignItems: 'center',
-      position: 'relative', overflow: 'hidden', padding: '0 2.5rem',
+      minHeight: '100vh',
+      display: 'flex',
+      alignItems: 'flex-start',
+      position: 'relative',
+      overflow: 'hidden',
+      padding: '0 2.5rem',
     }}>
       {/* Subtle grid lines */}
       <div style={{
@@ -85,7 +89,15 @@ export default function Hero({ lang }) {
       <div style={getHeroAmbientBlobStyle('right')} />
       <div style={getHeroAmbientBlobStyle('left')} />
 
-      <div className="hero-shell" style={{ position: 'relative', zIndex: 1, width: '100%', maxWidth: 1100, margin: '0 auto', paddingTop: '5rem' }}>
+      <div className="hero-shell" style={{
+        position: 'relative',
+        zIndex: 1,
+        width: '100%',
+        maxWidth: 1100,
+        margin: '0 auto',
+        paddingTop: '8rem',
+        paddingBottom: '3rem',
+      }}>
         {/* Badge */}
         <div style={{
           display: 'inline-flex', alignItems: 'center', gap: '0.5rem',
@@ -105,41 +117,41 @@ export default function Hero({ lang }) {
           {t.badge}
         </div>
 
-        {/* Headline */}
-        <h1 style={{ marginBottom: '1.5rem' }}>
-          <span style={{
-            display: 'block',
-            fontFamily: 'var(--font-display)',
-            fontSize: 'clamp(3.5rem, 9vw, 8rem)',
-            fontWeight: 400, lineHeight: 0.92,
-            letterSpacing: '-0.02em', color: 'var(--txt)',
-          }}>{t.role1}</span>
-          <span style={{
-            display: 'block',
-            fontFamily: 'var(--font-display)',
-            fontStyle: 'italic',
-            fontSize: 'clamp(3.5rem, 9vw, 8rem)',
-            fontWeight: 400, lineHeight: 0.92,
-            letterSpacing: '-0.02em',
-            color: 'var(--acc)',
-          }}>{t.role2}</span>
-          <span style={{
-            display: 'block',
-            fontFamily: 'var(--font-ui)',
-            fontSize: 'clamp(1rem, 2.5vw, 1.6rem)',
-            fontWeight: 400, lineHeight: 2,
-            letterSpacing: '0.04em', color: 'var(--txt2)',
-          }}>{t.role3}</span>
-        </h1>
-
         {/* Desc + CTA */}
         <div className="hero-main-grid" style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-          gap: '3rem',
-          alignItems: 'end',
+          gridTemplateColumns: 'minmax(0, 1.15fr) minmax(320px, 0.85fr)',
+          gap: '2.4rem',
+          alignItems: 'start',
         }}>
           <div className="hero-copy" style={{ maxWidth: 560 }}>
+            <h1 style={{ marginBottom: '1.6rem', maxWidth: 700 }}>
+              <span style={{
+                display: 'block',
+                fontFamily: 'var(--font-display)',
+                fontSize: 'clamp(3.5rem, 7.2vw, 6.6rem)',
+                fontWeight: 400, lineHeight: 0.92,
+                letterSpacing: '-0.02em', color: 'var(--txt)',
+              }}>{t.role1}</span>
+              <span style={{
+                display: 'block',
+                fontFamily: 'var(--font-display)',
+                fontStyle: 'italic',
+                fontSize: 'clamp(3.5rem, 7.2vw, 6.6rem)',
+                fontWeight: 400, lineHeight: 0.92,
+                letterSpacing: '-0.02em',
+                color: 'var(--acc)',
+              }}>{t.role2}</span>
+              <span style={{
+                display: 'block',
+                fontFamily: 'var(--font-ui)',
+                fontSize: 'clamp(1rem, 2.5vw, 1.6rem)',
+                fontWeight: 400, lineHeight: 1.5,
+                letterSpacing: '0.04em', color: 'var(--txt2)',
+                marginTop: '0.7rem',
+              }}>{t.role3}</span>
+            </h1>
+
             <p style={{
               fontFamily: 'var(--font-ui)',
               fontSize: '0.95rem', lineHeight: 1.75,
@@ -153,7 +165,7 @@ export default function Hero({ lang }) {
           </div>
 
           <div className="hero-side-card" style={{
-            alignSelf: 'stretch',
+            alignSelf: 'start',
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'space-between',
