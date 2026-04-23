@@ -23,10 +23,10 @@ export function buildSeamlessMarqueeItems(items) {
 
 export function getMarqueeCopies({ baseWidth, viewportWidth }) {
   if (!baseWidth || !viewportWidth) {
-    return 3;
+    return 5;
   }
 
-  return Math.max(3, Math.ceil(viewportWidth / baseWidth) + 2);
+  return Math.max(5, Math.ceil(viewportWidth / baseWidth) + 4);
 }
 
 export function getMarqueeDuration(baseWidth) {
@@ -44,7 +44,11 @@ export function getMarqueeViewportStyle() {
     borderTop: '1px solid var(--b1)',
     paddingTop: '1.2rem',
     paddingBottom: '0.8rem',
-    overflow: 'visible',
+    width: '100vw',
+    marginLeft: 'calc(50% - 50vw)',
+    marginRight: 'calc(50% - 50vw)',
+    overflow: 'hidden',
+    position: 'relative',
   };
 }
 
@@ -58,7 +62,9 @@ export function getMarqueeTrackStyle(baseWidth) {
     animationTimingFunction: 'linear',
     animationIterationCount: 'infinite',
     animationPlayState: 'running',
-    '--marquee-shift': baseWidth ? `-${baseWidth}px` : '-50%',
+    '--marquee-start': baseWidth ? `-${baseWidth}px` : '-50%',
+    '--marquee-shift': baseWidth ? `${baseWidth}px` : '50%',
+    willChange: 'transform',
   };
 }
 

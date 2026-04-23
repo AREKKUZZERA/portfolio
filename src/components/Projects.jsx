@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect, useState } from 'react';
+import { lazy, Suspense, useEffect, useRef, useState } from 'react';
 import previewBwc from '../assets/portfolio/preview/bwc-prev.png';
 import previewDp from '../assets/portfolio/preview/dp-prev.png';
 import { loadGithubRepos } from '../lib/githubRepos';
@@ -11,7 +11,7 @@ const T = {
     label: 'Работы',
     behanceTitle1: 'Отобранные',
     behanceTitle2: 'кейсы',
-    behanceDesc: 'Нажми на работу, чтобы открыть полноэкранный просмотр с масштабированием.',
+    behanceDesc: 'Проекты с Behance и основного портфолио.',
     githubTitle1: 'GitHub',
     githubTitle2: 'репозитории',
     githubDesc: 'Кодовые проекты, плагины и интерфейсные эксперименты.',
@@ -59,7 +59,7 @@ const BEHANCE_PROJECTS = [
   {
     id: 'dark-pink',
     preview: previewDp,
-    imageLoader: () => import('../assets/portfolio/portfolio-dp!.svg'),
+    imageLoader: () => import('../assets/portfolio/portfolio-dp.svg'),
     accent: 'rgba(255,121,176,0.36)',
   },
 ];
@@ -267,7 +267,6 @@ function WorkPreviewCard({ project, t, onOpen }) {
             fontFamily: 'var(--font-mono)',
             fontSize: '0.62rem',
             letterSpacing: '0.08em',
-            backdropFilter: 'blur(10px)',
             transition: 'color 0.24s ease, border-color 0.24s ease',
           }}
         >
@@ -293,23 +292,54 @@ function SectionHeading({ title1, title2, desc }) {
 
 export default function Projects({ lang }) {
   const t = T[lang];
+  const sectionRef = useRef(null);
   const [repos, setRepos] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [shouldLoadRepos, setShouldLoadRepos] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [filter, setFilter] = useState(null);
   const [activeWork, setActiveWork] = useState(null);
 
   useEffect(() => {
+    const sectionNode = sectionRef.current;
+    if (!sectionNode) return undefined;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry?.isIntersecting) return;
+        setLoading(true);
+        setError(null);
+        setShouldLoadRepos(true);
+        observer.disconnect();
+      },
+      { rootMargin: '400px 0px' },
+    );
+
+    observer.observe(sectionNode);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!shouldLoadRepos) return undefined;
+
+    let cancelled = false;
+
     loadGithubRepos()
       .then((data) => {
+        if (cancelled) return;
         setRepos(data);
         setLoading(false);
       })
       .catch((e) => {
+        if (cancelled) return;
         setError(e.message);
         setLoading(false);
       });
-  }, []);
+
+    return () => {
+      cancelled = true;
+    };
+  }, [shouldLoadRepos]);
 
   const activeFilter = filter ?? t.all;
   const langs = [t.all, ...new Set(repos.map((repo) => repo.language).filter(Boolean))];
@@ -321,7 +351,7 @@ export default function Projects({ lang }) {
 
   return (
     <>
-      <section id="projects" className="page-section" style={{ padding: '8rem 2.5rem', maxWidth: 1100, margin: '0 auto' }}>
+      <section ref={sectionRef} id="projects" className="page-section" style={{ padding: '8rem 2.5rem', maxWidth: 1100, margin: '0 auto' }}>
         <p className="section-label">{t.label}</p>
         <h2 className="section-title">{t.title1} <em>{t.title2}</em></h2>
         <SectionHeading title1={t.behanceTitle1} title2={t.behanceTitle2} desc={t.behanceDesc} />

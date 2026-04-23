@@ -4,7 +4,7 @@ import { getMarqueeCopies } from '../lib/marquee';
 export function useSeamlessMarquee(viewportRef, baseRef, items) {
   const [metrics, setMetrics] = useState({
     baseWidth: 0,
-    copyCount: 3,
+    copyCount: 5,
   });
 
   useEffect(() => {

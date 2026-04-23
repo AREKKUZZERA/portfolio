@@ -175,7 +175,6 @@ export default function Hero({ lang }) {
             borderRadius: 18,
             background: 'linear-gradient(180deg, rgba(255,255,255,0.035), rgba(255,255,255,0.012))',
             boxShadow: '0 24px 70px rgba(0,0,0,0.18)',
-            backdropFilter: 'blur(10px)',
           }}>
             <div>
               <div style={{

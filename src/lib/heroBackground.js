@@ -11,7 +11,6 @@ export function getHeroBackgroundTextureStyle() {
     ].join(', '),
     backgroundBlendMode: 'screen, screen, normal, normal',
     opacity: 0.32,
-    filter: 'blur(0px)',
     pointerEvents: 'none',
   };
 }
@@ -32,7 +31,6 @@ export function getHeroAmbientBlobStyle(side) {
       ].join(', '),
       mixBlendMode: 'screen',
       opacity: 0.78,
-      filter: 'blur(92px)',
       animation: 'ambient-drift-reverse 28s ease-in-out infinite alternate',
       pointerEvents: 'none',
     };
@@ -52,7 +50,6 @@ export function getHeroAmbientBlobStyle(side) {
     ].join(', '),
     mixBlendMode: 'screen',
     opacity: 0.72,
-    filter: 'blur(86px)',
     animation: 'ambient-drift 24s ease-in-out infinite alternate',
     pointerEvents: 'none',
   };

@@ -176,7 +176,6 @@ export default function WorkViewer({
         inset: 0,
         zIndex: 320,
         background: 'rgba(6,6,6,0.94)',
-        backdropFilter: 'blur(18px)',
       }}
     >
       <div
@@ -203,7 +202,6 @@ export default function WorkViewer({
           border: '1px solid rgba(255,255,255,0.08)',
           borderRadius: 18,
           background: 'rgba(10,10,10,0.72)',
-          backdropFilter: 'blur(18px)',
           boxShadow: '0 18px 60px rgba(0,0,0,0.28)',
           pointerEvents: 'auto',
         }}>
@@ -233,7 +231,6 @@ export default function WorkViewer({
           border: '1px solid rgba(255,255,255,0.08)',
           borderRadius: 18,
           background: 'rgba(10,10,10,0.72)',
-          backdropFilter: 'blur(18px)',
           boxShadow: '0 18px 60px rgba(0,0,0,0.28)',
           pointerEvents: 'auto',
         }}>
