@@ -28,8 +28,6 @@ const T = {
   },
   en: {
     label: 'Works',
-    title1: 'Selected',
-    title2: 'work',
     behanceTitle1: 'Selected',
     behanceTitle2: 'cases',
     behanceDesc: 'Click a work to open a fullscreen viewer with zoom.',
