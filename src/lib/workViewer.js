@@ -2,6 +2,10 @@ export function clampViewerZoom(zoom, min = 1, max = 4) {
   return Math.min(max, Math.max(min, Number(zoom.toFixed(3))));
 }
 
+export function getWorkViewerKind(work) {
+  return work?.htmlUrl ? 'html' : 'image';
+}
+
 export function getViewerFitScale(image, viewport) {
   if (!image?.width || !image?.height || !viewport?.width || !viewport?.height) {
     return 1;

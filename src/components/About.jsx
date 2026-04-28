@@ -1,3 +1,6 @@
+import sakuraUrl from '../assets/webp/sakura.webp';
+import ScrollParallaxImage from './ScrollParallaxImage';
+
 const T = {
   ru: {
     label: 'Обо мне',
@@ -33,7 +36,17 @@ const CARDS = (t) => [
 export default function About({ lang }) {
   const t = T[lang];
   return (
-    <section id="about" className="page-section" style={{ padding: '8rem 2.5rem', maxWidth: 1100, margin: '0 auto' }}>
+    <section id="about" className="page-section" style={{ position: 'relative', isolation: 'isolate', padding: '8rem 2.5rem', maxWidth: 1100, margin: '0 auto' }}>
+      <ScrollParallaxImage
+        src={sakuraUrl}
+        className="sakura-parallax--about"
+        speed={1}
+        distance={220}
+        xDistance={48}
+        rotateDistance={8}
+        rotate={7}
+        flipX
+      />
       <p className="section-label">{t.label}</p>
       <h2 className="section-title">
         {t.title1} <em>{t.title2}</em>

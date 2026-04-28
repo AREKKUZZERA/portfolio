@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
   clampViewerZoom,
+  getWorkViewerKind,
   getViewerFitScale,
 } from '../lib/workViewer';
 
@@ -14,10 +15,12 @@ export default function WorkViewer({
   const viewportRef = useRef(null);
   const imageReadyRef = useRef(false);
   const initializedRef = useRef(false);
+  const viewerKind = getWorkViewerKind(work);
+  const isHtmlViewer = viewerKind === 'html';
   const [imageSize, setImageSize] = useState(DEFAULT_IMAGE_SIZE);
   const [viewport, setViewport] = useState(DEFAULT_IMAGE_SIZE);
   const [imageSrc, setImageSrc] = useState(work.image ?? null);
-  const [imageLoading, setImageLoading] = useState(!work.image);
+  const [imageLoading, setImageLoading] = useState(viewerKind === 'image' && !work.image);
   const [zoom, setZoom] = useState(1);
 
   const labels = useMemo(() => ({
@@ -43,9 +46,9 @@ export default function WorkViewer({
   }, [lang]);
 
   useEffect(() => {
-    imageReadyRef.current = false;
+    imageReadyRef.current = isHtmlViewer;
     initializedRef.current = false;
-  }, [work, imageSrc]);
+  }, [work, imageSrc, isHtmlViewer]);
 
   useEffect(() => {
     const previousOverflow = document.body.style.overflow;
@@ -67,7 +70,7 @@ export default function WorkViewer({
   useEffect(() => {
     let cancelled = false;
 
-    if (work.image || !work.imageLoader) {
+    if (isHtmlViewer || work.image || !work.imageLoader) {
       return undefined;
     }
 
@@ -80,7 +83,7 @@ export default function WorkViewer({
     return () => {
       cancelled = true;
     };
-  }, [work]);
+  }, [work, isHtmlViewer]);
 
   const scrollToTopCenter = (nextZoom, nextImageSize, nextViewport) => {
     const viewportNode = viewportRef.current;
@@ -140,11 +143,13 @@ export default function WorkViewer({
   }, [imageSize, initializeView]);
 
   const handleFit = () => {
+    if (isHtmlViewer) return;
     setZoom(1);
     scrollToTopCenter(1, imageSize, viewport);
   };
 
   const handleFullscreen = () => {
+    if (isHtmlViewer) return;
     if (!viewport.width || !viewport.height || !imageSize.width || !imageSize.height) return;
 
     const fitScale = getViewerFitScale(imageSize, viewport);
@@ -159,6 +164,7 @@ export default function WorkViewer({
   };
 
   const handleStepZoom = (delta) => {
+    if (isHtmlViewer) return;
     const nextZoom = clampViewerZoom(zoom + delta);
     setZoom(nextZoom);
   };
@@ -166,6 +172,7 @@ export default function WorkViewer({
   const fitScale = getViewerFitScale(imageSize, viewport);
   const renderedWidth = imageSize.width * fitScale * zoom;
   const renderedHeight = imageSize.height * fitScale * zoom;
+  const htmlStageHeight = Math.max(viewport.height - 112, 520);
 
   return (
     <div
@@ -234,17 +241,21 @@ export default function WorkViewer({
           boxShadow: '0 18px 60px rgba(0,0,0,0.28)',
           pointerEvents: 'auto',
         }}>
-          <button type="button" className="btn-ghost" onClick={() => handleStepZoom(0.2)}>+</button>
-          <button type="button" className="btn-ghost" onClick={() => handleStepZoom(-0.2)}>-</button>
-          <button type="button" className="btn-ghost" onClick={handleFullscreen}>{labels.fullscreen}</button>
-          <button type="button" className="btn-ghost" onClick={handleFit}>{labels.fit}</button>
-          <div style={{
-            minWidth: 96,
-            textAlign: 'center',
-            fontFamily: 'var(--font-mono)',
-            fontSize: '0.68rem',
-            color: 'var(--acc)',
-          }}>{labels.zoom}: {Math.round(zoom * 100)}%</div>
+          {!isHtmlViewer && (
+            <>
+              <button type="button" className="btn-ghost" onClick={() => handleStepZoom(0.2)}>+</button>
+              <button type="button" className="btn-ghost" onClick={() => handleStepZoom(-0.2)}>-</button>
+              <button type="button" className="btn-ghost" onClick={handleFullscreen}>{labels.fullscreen}</button>
+              <button type="button" className="btn-ghost" onClick={handleFit}>{labels.fit}</button>
+              <div style={{
+                minWidth: 96,
+                textAlign: 'center',
+                fontFamily: 'var(--font-mono)',
+                fontSize: '0.68rem',
+                color: 'var(--acc)',
+              }}>{labels.zoom}: {Math.round(zoom * 100)}%</div>
+            </>
+          )}
           <button type="button" className="btn-primary" onClick={onClose}>{labels.close}</button>
         </div>
       </div>
@@ -265,8 +276,8 @@ export default function WorkViewer({
         <div
           className="work-viewer-stage"
           style={{
-            width: `${Math.max(renderedWidth, viewport.width)}px`,
-            minHeight: `${Math.max(renderedHeight, viewport.height)}px`,
+            width: isHtmlViewer ? '100%' : `${Math.max(renderedWidth, viewport.width)}px`,
+            minHeight: isHtmlViewer ? `${viewport.height}px` : `${Math.max(renderedHeight, viewport.height)}px`,
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'flex-start',
@@ -274,7 +285,21 @@ export default function WorkViewer({
             paddingBottom: '2rem',
           }}
         >
-          {imageSrc ? (
+          {isHtmlViewer ? (
+            <iframe
+              src={work.htmlUrl}
+              title={work.title}
+              style={{
+                display: 'block',
+                width: 'min(100%, 1440px)',
+                height: `${htmlStageHeight}px`,
+                border: '1px solid rgba(255,255,255,0.08)',
+                borderRadius: 18,
+                background: '#080808',
+                boxShadow: '0 40px 100px rgba(0,0,0,0.45)',
+              }}
+            />
+          ) : imageSrc ? (
             <img
               src={imageSrc}
               alt={work.title}

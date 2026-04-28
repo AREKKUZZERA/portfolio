@@ -1,6 +1,11 @@
-import { lazy, Suspense, useEffect, useRef, useState } from 'react';
-import previewBwc from '../assets/portfolio/preview/bwc-prev.png';
-import previewDp from '../assets/portfolio/preview/dp-prev.png';
+﻿import { lazy, Suspense, useEffect, useRef, useState } from 'react';
+import bwcCaseUrl from '../assets/portfolio/behance_preview_better_web_console_real_ui_EN_v2.html?url';
+import mebeldorCaseUrl from '../assets/portfolio/mebeldor_behance_preview_real_mockup (1).html?url';
+import previewBwc from '../assets/portfolio/preview/bwc-prev.svg';
+import previewDp from '../assets/portfolio/preview/dp-prev.svg';
+import previewMebeldor from '../assets/portfolio/preview/mebeldor-prev.svg';
+import sakuraUrl from '../assets/webp/sakura.webp';
+import ScrollParallaxImage from './ScrollParallaxImage';
 import { loadGithubRepos } from '../lib/githubRepos';
 const WorkViewer = lazy(() => import('./WorkViewer'));
 
@@ -21,16 +26,19 @@ const T = {
     empty: 'Не удалось загрузить репозитории.',
     noDesc: 'Описание не указано.',
     openWork: 'Открыть проект',
-    openHint: 'Полноэкранный просмотр + zoom',
     hoverHint: 'Нажмите, чтобы открыть',
     caseOne: 'BWC — удалённая веб-консоль в виде серверного плагина',
     caseTwo: 'DARK PLEASE! — расширение для браузера, снижающее нагрузку на глаза',
+    caseThree: 'Mebeldor — премиальный лендинг для бренда мебели на заказ',
+    shortOne: 'BWC',
+    shortTwo: 'DARK PLEASE!',
+    shortThree: 'Mebeldor',
   },
   en: {
     label: 'Works',
     behanceTitle1: 'Selected',
     behanceTitle2: 'cases',
-    behanceDesc: 'Click a work to open a fullscreen viewer with zoom.',
+    behanceDesc: 'Projects from Behance and the main portfolio.',
     githubTitle1: 'GitHub',
     githubTitle2: 'repositories',
     githubDesc: 'Code projects, plugins, and interface experiments.',
@@ -40,25 +48,40 @@ const T = {
     empty: 'Could not load repositories.',
     noDesc: 'No description provided.',
     openWork: 'Open project',
-    openHint: 'Fullscreen viewer + zoom',
     hoverHint: 'Click to open',
     caseOne: 'BWC — a remote web console provided as a server plugin',
     caseTwo: 'DARK PLEASE! — a browser extension designed to reduce eye strain',
+    caseThree: 'Mebeldor — a premium landing page for a custom furniture brand',
+    shortOne: 'BWC',
+    shortTwo: 'DARK PLEASE!',
+    shortThree: 'Mebeldor',
   },
 };
 
 const BEHANCE_PROJECTS = [
   {
     id: 'bwc',
+    titleKey: 'caseOne',
+    shortTitleKey: 'shortOne',
     preview: previewBwc,
-    imageLoader: () => import('../assets/portfolio/portfolio-bwc.png'),
+    htmlUrl: bwcCaseUrl,
     accent: 'rgba(242,57,135,0.32)',
   },
   {
     id: 'dark-pink',
+    titleKey: 'caseTwo',
+    shortTitleKey: 'shortTwo',
     preview: previewDp,
     imageLoader: () => import('../assets/portfolio/portfolio-dp.svg'),
     accent: 'rgba(255,121,176,0.36)',
+  },
+  {
+    id: 'mebeldor',
+    titleKey: 'caseThree',
+    shortTitleKey: 'shortThree',
+    preview: previewMebeldor,
+    htmlUrl: mebeldorCaseUrl,
+    accent: 'rgba(201,169,110,0.34)',
   },
 ];
 
@@ -208,7 +231,7 @@ function WorkPreviewCard({ project, t, onOpen }) {
           style={{
             position: 'absolute',
             inset: 0,
-            background: `linear-gradient(180deg, transparent 0%, transparent 46%, rgba(8,8,8,0.68) 100%), radial-gradient(circle at top right, ${project.accent}, transparent 36%)`,
+            background: `linear-gradient(180deg, rgba(8,8,8,0.04) 0%, transparent 38%, rgba(8,8,8,0.82) 100%), radial-gradient(circle at top right, ${project.accent}, transparent 36%)`,
           }}
         />
         <div
@@ -225,11 +248,22 @@ function WorkPreviewCard({ project, t, onOpen }) {
           }}
         >
           <div className="work-preview-copy">
-            <div className="work-preview-title" style={{ fontFamily: 'var(--font-display)', fontSize: '1.6rem', lineHeight: 0.95, color: 'var(--txt)', marginBottom: '0.45rem' }}>
-              {project.title}
-            </div>
-            <div className="work-preview-hint" style={{ fontFamily: 'var(--font-mono)', fontSize: '0.64rem', letterSpacing: '0.12em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.68)' }}>
-              {t.openHint}
+            <div className="work-preview-title" style={{
+              display: 'inline-flex',
+              maxWidth: '100%',
+              padding: '0.46rem 0.68rem',
+              borderRadius: 999,
+              border: '1px solid rgba(255,255,255,0.12)',
+              background: 'rgba(10,10,10,0.54)',
+              backdropFilter: 'blur(14px)',
+              fontFamily: 'var(--font-display)',
+              fontSize: '1.18rem',
+              lineHeight: 0.95,
+              color: 'var(--txt)',
+              marginBottom: '0.48rem',
+              whiteSpace: 'nowrap',
+            }}>
+              {project.shortTitle}
             </div>
           </div>
           <div
@@ -256,7 +290,7 @@ function WorkPreviewCard({ project, t, onOpen }) {
           style={{
             position: 'absolute',
             top: '1rem',
-            left: '1rem',
+            right: '1rem',
             padding: '0.38rem 0.62rem',
             borderRadius: 999,
             background: 'rgba(15,15,15,0.62)',
@@ -344,7 +378,8 @@ export default function Projects({ lang }) {
   const shown = activeFilter === t.all ? repos : repos.filter((repo) => repo.language === activeFilter);
   const behanceProjects = BEHANCE_PROJECTS.map((project) => ({
     ...project,
-    title: project.id === 'bwc' ? t.caseOne : t.caseTwo,
+    title: t[project.titleKey],
+    shortTitle: t[project.shortTitleKey],
   }));
 
   return (
@@ -359,66 +394,77 @@ export default function Projects({ lang }) {
           ))}
         </div>
 
-        <SectionHeading title1={t.githubTitle1} title2={t.githubTitle2} desc={t.githubDesc} />
+        <div className="github-section-anchor" style={{ position: 'relative', isolation: 'isolate' }}>
+          <ScrollParallaxImage
+            src={sakuraUrl}
+            className="sakura-parallax--github"
+            speed={0.85}
+            distance={150}
+            xDistance={-34}
+            rotateDistance={6}
+            rotate={13}
+          />
+          <SectionHeading title1={t.githubTitle1} title2={t.githubTitle2} desc={t.githubDesc} />
 
-        {!loading && !error && (
-          <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginBottom: '2rem' }}>
-            {langs.map((item) => (
-              <button
-                type="button"
-                key={item}
-                onClick={() => setFilter(item)}
-                style={{
-                  padding: '0.28rem 0.85rem',
-                  border: `1px solid ${activeFilter === item ? 'var(--acc)' : 'var(--b2)'}`,
-                  background: activeFilter === item ? 'var(--acc-d)' : 'transparent',
-                  color: activeFilter === item ? 'var(--acc)' : 'var(--mut)',
-                  borderRadius: 5,
-                  fontFamily: 'var(--font-mono)',
-                  fontSize: '0.65rem',
-                  letterSpacing: '0.08em',
-                  transition: 'all 0.2s',
-                }}
-              >
-                {item}
-              </button>
-            ))}
-          </div>
-        )}
+          {!loading && !error && (
+            <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginBottom: '2rem' }}>
+              {langs.map((item) => (
+                <button
+                  type="button"
+                  key={item}
+                  onClick={() => setFilter(item)}
+                  style={{
+                    padding: '0.28rem 0.85rem',
+                    border: `1px solid ${activeFilter === item ? 'var(--acc)' : 'var(--b2)'}`,
+                    background: activeFilter === item ? 'var(--acc-d)' : 'transparent',
+                    color: activeFilter === item ? 'var(--acc)' : 'var(--mut)',
+                    borderRadius: 5,
+                    fontFamily: 'var(--font-mono)',
+                    fontSize: '0.65rem',
+                    letterSpacing: '0.08em',
+                    transition: 'all 0.2s',
+                  }}
+                >
+                  {item}
+                </button>
+              ))}
+            </div>
+          )}
 
-        {loading && (
-          <div style={{ padding: '4rem', textAlign: 'center', color: 'var(--mut)', fontFamily: 'var(--font-mono)', fontSize: '0.8rem' }}>
-            <div style={{ marginBottom: '0.5rem', fontSize: '1.5rem' }}>◌</div>
-            {t.loading}
-          </div>
-        )}
-        {error && (
-          <div
-            style={{
-              padding: '1.5rem',
-              border: '1px solid rgba(242,57,135,0.25)',
-              borderRadius: 8,
-              color: 'var(--acc)',
-              fontFamily: 'var(--font-mono)',
-              fontSize: '0.75rem',
-              background: 'var(--acc-d)',
-            }}
-          >
-            {t.empty}
-          </div>
-        )}
-        {!loading && !error && (
-          <>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(290px, 1fr))', gap: '1.2rem' }}>
-              {shown.map((repo) => <RepoCard key={repo.id} repo={repo} noDesc={t.noDesc} />)}
+          {loading && (
+            <div style={{ padding: '4rem', textAlign: 'center', color: 'var(--mut)', fontFamily: 'var(--font-mono)', fontSize: '0.8rem' }}>
+              <div style={{ marginBottom: '0.5rem', fontSize: '1.5rem' }}>◌</div>
+              {t.loading}
             </div>
-            <div style={{ textAlign: 'center', marginTop: '3rem' }}>
-              <a href={`https://github.com/${GITHUB_USER}?tab=repositories`} target="_blank" rel="noreferrer" className="btn-ghost">
-                {t.allRepos}
-              </a>
+          )}
+          {error && (
+            <div
+              style={{
+                padding: '1.5rem',
+                border: '1px solid rgba(242,57,135,0.25)',
+                borderRadius: 8,
+                color: 'var(--acc)',
+                fontFamily: 'var(--font-mono)',
+                fontSize: '0.75rem',
+                background: 'var(--acc-d)',
+              }}
+            >
+              {t.empty}
             </div>
-          </>
-        )}
+          )}
+          {!loading && !error && (
+            <>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(290px, 1fr))', gap: '1.2rem' }}>
+                {shown.map((repo) => <RepoCard key={repo.id} repo={repo} noDesc={t.noDesc} />)}
+              </div>
+              <div style={{ textAlign: 'center', marginTop: '3rem' }}>
+                <a href={`https://github.com/${GITHUB_USER}?tab=repositories`} target="_blank" rel="noreferrer" className="btn-ghost">
+                  {t.allRepos}
+                </a>
+              </div>
+            </>
+          )}
+        </div>
       </section>
 
       {activeWork && (
@@ -429,3 +475,4 @@ export default function Projects({ lang }) {
     </>
   );
 }
+

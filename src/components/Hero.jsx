@@ -130,7 +130,7 @@ export default function Hero({ lang }) {
                 display: 'block',
                 fontFamily: 'var(--font-display)',
                 fontSize: 'clamp(3.5rem, 7.2vw, 6.6rem)',
-                fontWeight: 400, lineHeight: 0.92,
+                fontWeight: 400, lineHeight: 1.02,
                 letterSpacing: '-0.02em', color: 'var(--txt)',
               }}>{t.role1}</span>
               <span style={{
@@ -138,9 +138,10 @@ export default function Hero({ lang }) {
                 fontFamily: 'var(--font-display)',
                 fontStyle: 'italic',
                 fontSize: 'clamp(3.5rem, 7.2vw, 6.6rem)',
-                fontWeight: 400, lineHeight: 0.92,
+                fontWeight: 400, lineHeight: 1.02,
                 letterSpacing: '-0.02em',
                 color: 'var(--acc)',
+                marginTop: '0.06em',
               }}>{t.role2}</span>
               <span style={{
                 display: 'block',

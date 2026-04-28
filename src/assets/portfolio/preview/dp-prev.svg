@@ -1,0 +1,46 @@
+﻿<svg width="1280" height="800" viewBox="0 0 1280 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1280" height="800" fill="#08080A"/>
+  <defs>
+    <linearGradient id="panel" x1="64" y1="58" x2="1121" y2="741" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#171821"/>
+      <stop offset=".55" stop-color="#0A0A0F"/>
+      <stop offset="1" stop-color="#1C0611"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(880 214) rotate(132) scale(690 610)">
+      <stop stop-color="#FF3E9B" stop-opacity=".78"/>
+      <stop offset=".48" stop-color="#F00678" stop-opacity=".24"/>
+      <stop offset="1" stop-color="#08080A" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="moon" x1="850" y1="144" x2="1030" y2="530" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FF2990"/>
+      <stop offset="1" stop-color="#D50068"/>
+    </linearGradient>
+  </defs>
+  <rect x="38" y="38" width="1204" height="724" rx="44" fill="url(#panel)" stroke="rgba(255,255,255,.09)" stroke-width="2"/>
+  <rect width="1280" height="800" fill="url(#glow)"/>
+  <rect x="112" y="116" width="520" height="472" rx="36" fill="rgba(6,6,8,.88)" stroke="rgba(255,255,255,.12)"/>
+  <rect x="112" y="116" width="520" height="62" rx="36" fill="rgba(255,255,255,.045)"/>
+  <circle cx="154" cy="148" r="8" fill="#F00678"/>
+  <circle cx="184" cy="148" r="8" fill="rgba(255,255,255,.26)"/>
+  <circle cx="214" cy="148" r="8" fill="rgba(255,255,255,.14)"/>
+  <rect x="156" y="222" width="246" height="22" rx="11" fill="#F00678"/>
+  <rect x="156" y="286" width="360" height="15" rx="8" fill="rgba(255,255,255,.32)"/>
+  <rect x="156" y="324" width="306" height="15" rx="8" fill="rgba(255,255,255,.21)"/>
+  <rect x="156" y="362" width="228" height="15" rx="8" fill="rgba(255,255,255,.17)"/>
+  <rect x="156" y="440" width="330" height="94" rx="24" fill="#111117" stroke="rgba(240,6,120,.36)"/>
+  <circle cx="200" cy="487" r="18" fill="#F00678"/>
+  <rect x="244" y="468" width="164" height="15" rx="8" fill="rgba(255,255,255,.34)"/>
+  <rect x="244" y="500" width="112" height="13" rx="7" fill="rgba(255,255,255,.17)"/>
+  <g opacity=".3">
+    <circle cx="920" cy="254" r="230" stroke="#FF3E9B" stroke-width="2"/>
+    <circle cx="920" cy="254" r="158" stroke="#FF3E9B" stroke-width="2"/>
+  </g>
+  <path d="M828 156c101 0 183 82 183 183s-82 183-183 183c-52 0-99-22-132-57 22 10 46 15 72 15 111 0 201-90 201-201 0-58-25-111-64-148 72 30 123 101 123 184 0 110-89 199-200 199-83 0-154-50-184-122-5-18-8-36-8-56 0-99 80-180 192-180Z" fill="url(#moon)" opacity=".95"/>
+  <rect x="738" y="198" width="384" height="174" rx="32" fill="rgba(7,7,10,.86)" stroke="rgba(255,255,255,.17)"/>
+  <text x="774" y="254" fill="#FFFFFF" font-family="Georgia, serif" font-size="40" font-weight="700">DARK MODE</text>
+  <text x="774" y="300" fill="#FF77BD" font-family="Verdana, sans-serif" font-size="17" font-weight="700" letter-spacing="2.2">BROWSER EXTENSION</text>
+  <rect x="774" y="324" width="214" height="3" fill="#F00678"/>
+  <rect x="846" y="532" width="306" height="64" rx="32" fill="rgba(255,255,255,.07)" stroke="rgba(255,255,255,.17)"/>
+  <circle cx="880" cy="564" r="18" fill="#F00678"/>
+  <text x="920" y="571" fill="#F6F1F5" font-family="Verdana, sans-serif" font-size="17" font-weight="800" letter-spacing="2">EYE COMFORT</text>
+</svg>

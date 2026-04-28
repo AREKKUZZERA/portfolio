@@ -83,6 +83,56 @@ input, textarea {
   color: var(--acc);
 }
 
+.sakura-parallax {
+  position: absolute;
+  z-index: 1;
+  width: clamp(340px, 40vw, 620px);
+  height: auto;
+  pointer-events: none;
+  user-select: none;
+  opacity: 0.96;
+  filter: none;
+  transform: translate3d(var(--sakura-x, 0px), var(--sakura-y, 0px), 0) rotate(calc(var(--sakura-rotate, 0deg) + var(--sakura-scroll-rotate, 0deg))) scaleX(var(--sakura-scale-x, 1));
+  transform-origin: center;
+  transition: opacity 0.2s ease;
+  will-change: transform;
+}
+
+.sakura-parallax--about {
+  z-index: 0;
+  top: 5rem;
+  right: -7rem;
+}
+
+#about > :not(.sakura-parallax) {
+  position: relative;
+  z-index: 1;
+}
+
+.sakura-parallax--github {
+  z-index: 0;
+  top: 6.8rem;
+  left: -11rem;
+  width: clamp(320px, 36vw, 560px);
+  opacity: 0.92;
+  filter: none;
+}
+
+.github-section-anchor > :not(.sakura-parallax) {
+  position: relative;
+  z-index: 1;
+}
+
+@media (min-width: 1101px) {
+  .sakura-parallax--about {
+    right: calc((1100px - 100vw) / 2 - 18px);
+  }
+
+  .sakura-parallax--github {
+    left: calc((1100px - 100vw) / 2 - 145px);
+  }
+}
+
 .card {
   background: var(--s1);
   border: 1px solid var(--b1);
@@ -235,10 +285,6 @@ input, textarea {
     line-height: 0.95 !important;
     margin-bottom: 0.3rem !important;
   }
-  .work-preview-hint {
-    font-size: 0.55rem !important;
-    line-height: 1.4 !important;
-  }
   .work-preview-cta {
     align-self: flex-end;
     font-size: 0.56rem !important;
@@ -246,7 +292,7 @@ input, textarea {
   }
   .work-preview-badge {
     top: 0.7rem !important;
-    left: 0.7rem !important;
+    right: 0.7rem !important;
     font-size: 0.54rem !important;
     padding: 0.34rem 0.52rem !important;
     max-width: calc(100% - 1.4rem);
@@ -367,7 +413,6 @@ input, textarea {
   .work-preview-title {
     font-size: 0.86rem !important;
   }
-  .work-preview-hint,
   .work-preview-badge,
   .work-preview-cta {
     letter-spacing: 0.05em !important;

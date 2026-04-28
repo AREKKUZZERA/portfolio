@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 
 import {
   clampViewerOffset,
+  getWorkViewerKind,
   getViewerFitScale,
   getViewerNextState,
 } from './workViewer.js';
@@ -40,4 +41,9 @@ test('getViewerNextState clamps zoom and offset together', () => {
     }),
     { zoom: 4, offset: { x: 1800, y: 1000 } },
   );
+});
+
+test('getWorkViewerKind selects html viewer when htmlUrl is present', () => {
+  assert.equal(getWorkViewerKind({ htmlUrl: '/assets/case.html' }), 'html');
+  assert.equal(getWorkViewerKind({ imageLoader: () => Promise.resolve() }), 'image');
 });
