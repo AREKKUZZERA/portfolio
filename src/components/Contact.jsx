@@ -1,3 +1,6 @@
+import sakuraUrl from '../assets/webp/sakura.webp';
+import ScrollParallaxImage from './ScrollParallaxImage';
+
 const T = {
   ru: {
     label: 'Контакты',
@@ -22,7 +25,17 @@ const T = {
 export default function Contact({ lang }) {
   const t = T[lang];
   return (
-    <section id="contact" className="page-section contact-section" style={{ padding: '8rem 2.5rem 6rem', maxWidth: 1100, margin: '0 auto' }}>
+    <section id="contact" className="page-section contact-section" style={{ position: 'relative', isolation: 'isolate', padding: '8rem 2.5rem 6rem', maxWidth: 1100, margin: '0 auto' }}>
+      <ScrollParallaxImage
+        src={sakuraUrl}
+        className="sakura-parallax--contact"
+        speed={0.9}
+        distance={190}
+        xDistance={36}
+        rotateDistance={7}
+        rotate={-10}
+        flipX
+      />
       {/* Big CTA */}
       <div className="contact-cta-wrap" style={{ textAlign: 'center', marginBottom: '5rem' }}>
         <p className="section-label" style={{ justifyContent: 'center' }}>{t.label}</p>

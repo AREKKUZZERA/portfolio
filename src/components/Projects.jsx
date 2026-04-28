@@ -384,7 +384,16 @@ export default function Projects({ lang }) {
 
   return (
     <>
-      <section ref={sectionRef} id="projects" className="page-section" style={{ padding: '8rem 2.5rem', maxWidth: 1100, margin: '0 auto' }}>
+      <section ref={sectionRef} id="projects" className="page-section" style={{ position: 'relative', isolation: 'isolate', padding: '8rem 2.5rem', maxWidth: 1100, margin: '0 auto' }}>
+        <ScrollParallaxImage
+          src={sakuraUrl}
+          className="sakura-parallax--github"
+          speed={0.85}
+          distance={150}
+          xDistance={-24}
+          rotateDistance={6}
+          rotate={13}
+        />
         <p className="section-label">{t.label}</p>
         <h2 className="section-title">{t.title1} <em>{t.title2}</em></h2>
         <SectionHeading title1={t.behanceTitle1} title2={t.behanceTitle2} desc={t.behanceDesc} />
@@ -395,15 +404,6 @@ export default function Projects({ lang }) {
         </div>
 
         <div className="github-section-anchor" style={{ position: 'relative', isolation: 'isolate' }}>
-          <ScrollParallaxImage
-            src={sakuraUrl}
-            className="sakura-parallax--github"
-            speed={0.85}
-            distance={150}
-            xDistance={-34}
-            rotateDistance={6}
-            rotate={13}
-          />
           <SectionHeading title1={t.githubTitle1} title2={t.githubTitle2} desc={t.githubDesc} />
 
           {!loading && !error && (

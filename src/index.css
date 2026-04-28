@@ -100,8 +100,9 @@ input, textarea {
 
 .sakura-parallax--about {
   z-index: 0;
-  top: 5rem;
-  right: -7rem;
+  top: auto;
+  right: -8rem;
+  bottom: -5rem;
 }
 
 #about > :not(.sakura-parallax) {
@@ -111,11 +112,30 @@ input, textarea {
 
 .sakura-parallax--github {
   z-index: 0;
-  top: 8.4rem;
-  left: -13rem;
-  width: clamp(400px, 44vw, 700px);
+  top: -4.8rem;
+  left: -15rem;
+  width: clamp(360px, 40vw, 640px);
   opacity: 0.92;
   filter: none;
+}
+
+.sakura-parallax--contact {
+  z-index: 0;
+  top: -10rem;
+  right: -16rem;
+  width: clamp(480px, 52vw, 820px);
+  opacity: 0.9;
+  filter: none;
+}
+
+#projects > :not(.sakura-parallax) {
+  position: relative;
+  z-index: 1;
+}
+
+#contact > :not(.sakura-parallax) {
+  position: relative;
+  z-index: 1;
 }
 
 .github-section-anchor > :not(.sakura-parallax) {
@@ -125,11 +145,15 @@ input, textarea {
 
 @media (min-width: 1101px) {
   .sakura-parallax--about {
-    right: calc((1100px - 100vw) / 2 - 18px);
+    right: calc((1100px - 100vw) / 2 - 90px);
   }
 
   .sakura-parallax--github {
-    left: calc((1100px - 100vw) / 2 - 205px);
+    left: calc((1100px - 100vw) / 2 - 235px);
+  }
+
+  .sakura-parallax--contact {
+    right: calc((1100px - 100vw) / 2 - 260px);
   }
 }
 
