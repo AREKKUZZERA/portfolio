@@ -111,9 +111,9 @@ input, textarea {
 
 .sakura-parallax--github {
   z-index: 0;
-  top: 6.8rem;
-  left: -11rem;
-  width: clamp(320px, 36vw, 560px);
+  top: 8.4rem;
+  left: -13rem;
+  width: clamp(400px, 44vw, 700px);
   opacity: 0.92;
   filter: none;
 }
@@ -129,7 +129,7 @@ input, textarea {
   }
 
   .sakura-parallax--github {
-    left: calc((1100px - 100vw) / 2 - 145px);
+    left: calc((1100px - 100vw) / 2 - 205px);
   }
 }
 
