@@ -25,7 +25,7 @@ const T = {
 export default function Contact({ lang }) {
   const t = T[lang];
   return (
-    <section id="contact" className="page-section contact-section" style={{ position: 'relative', isolation: 'isolate', padding: '8rem 2.5rem 6rem', maxWidth: 1100, margin: '0 auto' }}>
+    <section id="contact" className="page-section contact-section" style={{ position: 'relative', zIndex: 1, isolation: 'isolate', padding: '8rem 2.5rem 6rem', maxWidth: 1100, margin: '0 auto' }}>
       <ScrollParallaxImage
         src={sakuraUrl}
         className="sakura-parallax--contact"

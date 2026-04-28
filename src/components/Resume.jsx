@@ -96,7 +96,7 @@ const T = {
 export default function Resume({ lang }) {
   const t = T[lang];
   return (
-    <section id="resume" className="page-section" style={{ padding: '8rem 2.5rem', maxWidth: 1100, margin: '0 auto' }}>
+    <section id="resume" className="page-section" style={{ position: 'relative', zIndex: 2, padding: '8rem 2.5rem', maxWidth: 1100, margin: '0 auto' }}>
       <p className="section-label">{t.label}</p>
       <h2 className="section-title">{t.title1} <em>{t.title2}</em></h2>
 
