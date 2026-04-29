@@ -26,9 +26,9 @@ export const STACK_GROUPS = [
     marker: 'accent',
     gridClassName: 'stack-expert-grid',
     tools: [
-      { name: 'Figma', badge: 'Expert', icon: 'https://skillicons.dev/icons?i=figma', glyph: 'Fg', glyphBg: '#1abc9c', glyphColor: '#071a15', large: true },
-      { name: 'Adobe Photoshop', badge: 'Expert', icon: 'https://skillicons.dev/icons?i=ps', glyph: 'Ps', glyphBg: '#31a8ff', glyphColor: '#06131f', large: true },
-      { name: 'Adobe Illustrator', badge: 'Expert', icon: 'https://skillicons.dev/icons?i=ai', glyph: 'Ai', glyphBg: '#ff9a00', glyphColor: '#201100', large: true },
+      { name: 'Figma', badge: 'Expert', icon: '/skill-icons/figma.svg', glyph: 'Fg', glyphBg: '#1abc9c', glyphColor: '#071a15', large: true },
+      { name: 'Adobe Photoshop', badge: 'Expert', icon: '/skill-icons/ps.svg', glyph: 'Ps', glyphBg: '#31a8ff', glyphColor: '#06131f', large: true },
+      { name: 'Adobe Illustrator', badge: 'Expert', icon: '/skill-icons/ai.svg', glyph: 'Ai', glyphBg: '#ff9a00', glyphColor: '#201100', large: true },
     ],
   },
   {
@@ -37,10 +37,10 @@ export const STACK_GROUPS = [
     marker: 'muted',
     gridClassName: 'stack-mid-grid',
     tools: [
-      { name: 'Adobe AE', badge: 'Mid', icon: 'https://skillicons.dev/icons?i=ae', glyph: 'Ae', glyphBg: '#9999ff', glyphColor: '#101024' },
-      { name: 'Adobe XD', badge: 'Mid', icon: 'https://skillicons.dev/icons?i=xd', glyph: 'Xd', glyphBg: '#ff61f6', glyphColor: '#22041f' },
+      { name: 'Adobe AE', badge: 'Mid', icon: '/skill-icons/ae.svg', glyph: 'Ae', glyphBg: '#9999ff', glyphColor: '#101024' },
+      { name: 'Adobe XD', badge: 'Mid', icon: '/skill-icons/xd.svg', glyph: 'Xd', glyphBg: '#ff61f6', glyphColor: '#22041f' },
       { name: 'Adobe Express', badge: 'Mid', glyph: 'Ex', glyphBg: '#f23987', glyphColor: '#fff' },
-      { name: 'Blender', badge: 'Mid', icon: 'https://skillicons.dev/icons?i=blender', glyph: 'Bl', glyphBg: '#f5792a', glyphColor: '#1d0e03' },
+      { name: 'Blender', badge: 'Mid', icon: '/skill-icons/blender.svg', glyph: 'Bl', glyphBg: '#f5792a', glyphColor: '#1d0e03' },
     ],
   },
   {
@@ -49,10 +49,10 @@ export const STACK_GROUPS = [
     marker: 'dim',
     gridClassName: 'stack-code-grid',
     tools: [
-      { name: 'HTML / CSS', badge: 'Mid', icon: 'https://skillicons.dev/icons?i=html,css', glyph: 'HC', glyphBg: '#e34f26', glyphColor: '#fff', wideIcon: true },
-      { name: 'JavaScript', badge: 'Basic', icon: 'https://skillicons.dev/icons?i=js', glyph: 'JS', glyphBg: '#f7df1e', glyphColor: '#1f1a00' },
-      { name: 'React', badge: 'Basic', icon: 'https://skillicons.dev/icons?i=react', glyph: 'Re', glyphBg: '#61dafb', glyphColor: '#07171d' },
-      { name: 'Git', badge: 'Mid', icon: 'https://skillicons.dev/icons?i=git', glyph: 'Git', glyphBg: '#f05032', glyphColor: '#fff' },
+      { name: 'HTML / CSS', badge: 'Mid', icon: '/skill-icons/html_css.svg', glyph: 'HC', glyphBg: '#e34f26', glyphColor: '#fff', wideIcon: true },
+      { name: 'JavaScript', badge: 'Basic', icon: '/skill-icons/js.svg', glyph: 'JS', glyphBg: '#f7df1e', glyphColor: '#1f1a00' },
+      { name: 'React', badge: 'Basic', icon: '/skill-icons/react.svg', glyph: 'Re', glyphBg: '#61dafb', glyphColor: '#07171d' },
+      { name: 'Git', badge: 'Mid', icon: '/skill-icons/git.svg', glyph: 'Git', glyphBg: '#f05032', glyphColor: '#fff' },
     ],
   },
 ];
