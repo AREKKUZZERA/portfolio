@@ -719,8 +719,8 @@ input, textarea {
 }
 
 .tool-card__visual {
-  width: 32px;
-  height: 32px;
+  width: 40px;
+  height: 40px;
   border-radius: 8px;
   flex-shrink: 0;
   display: grid;
@@ -734,9 +734,13 @@ input, textarea {
   border: 1px solid rgba(255,255,255,0.08);
 }
 
+.tool-card__visual--wide {
+  width: 84px;
+}
+
 .tool-card--large .tool-card__visual {
-  width: 44px;
-  height: 44px;
+  width: 48px;
+  height: 48px;
   font-size: 1rem;
 }
 
@@ -748,8 +752,13 @@ input, textarea {
 }
 
 .tool-card__image--wide {
-  width: 150%;
+  width: 100%;
   max-width: none;
+}
+
+.tool-card--large .tool-card__image {
+  width: 100%;
+  height: 100%;
 }
 
 .tool-card__body {

@@ -1,15 +1,3 @@
-import iconAfterEffects from '../assets/icons/after-effects.svg';
-import iconExpress from '../assets/icons/adobe-express.svg';
-import iconXd from '../assets/icons/adobe-xd.svg';
-import iconBlender from '../assets/icons/blender.svg';
-import iconFigma from '../assets/icons/figma.svg';
-import iconGit from '../assets/icons/git.svg';
-import iconHtmlCss from '../assets/icons/html-css.svg';
-import iconIllustrator from '../assets/icons/illustrator.svg';
-import iconJavascript from '../assets/icons/javascript.svg';
-import iconPhotoshop from '../assets/icons/photoshop.svg';
-import iconReact from '../assets/icons/react.svg';
-
 export const STACK_TEXT = {
   ru: {
     label: 'Инструменты',
@@ -38,9 +26,9 @@ export const STACK_GROUPS = [
     marker: 'accent',
     gridClassName: 'stack-expert-grid',
     tools: [
-      { name: 'Figma', badge: 'Expert', icon: iconFigma, glyph: 'Fg', glyphBg: '#1e1e1e', glyphColor: '#fff', large: true },
-      { name: 'Adobe Photoshop', badge: 'Expert', icon: iconPhotoshop, glyph: 'Ps', glyphBg: '#001e36', glyphColor: '#31a8ff', large: true },
-      { name: 'Adobe Illustrator', badge: 'Expert', icon: iconIllustrator, glyph: 'Ai', glyphBg: '#330000', glyphColor: '#ff9a00', large: true },
+      { name: 'Figma', badge: 'Expert', icon: 'https://skillicons.dev/icons?i=figma', glyph: 'Fg', glyphBg: '#1abc9c', glyphColor: '#071a15', large: true },
+      { name: 'Adobe Photoshop', badge: 'Expert', icon: 'https://skillicons.dev/icons?i=ps', glyph: 'Ps', glyphBg: '#31a8ff', glyphColor: '#06131f', large: true },
+      { name: 'Adobe Illustrator', badge: 'Expert', icon: 'https://skillicons.dev/icons?i=ai', glyph: 'Ai', glyphBg: '#ff9a00', glyphColor: '#201100', large: true },
     ],
   },
   {
@@ -49,10 +37,10 @@ export const STACK_GROUPS = [
     marker: 'muted',
     gridClassName: 'stack-mid-grid',
     tools: [
-      { name: 'Adobe AE', badge: 'Mid', icon: iconAfterEffects, glyph: 'Ae', glyphBg: '#00005b', glyphColor: '#9999ff' },
-      { name: 'Adobe XD', badge: 'Mid', icon: iconXd, glyph: 'Xd', glyphBg: '#470137', glyphColor: '#ff61f6' },
-      { name: 'Adobe Express', badge: 'Mid', icon: iconExpress, glyph: 'Ex', glyphBg: '#2b0320', glyphColor: '#ff61f6' },
-      { name: 'Blender', badge: 'Mid', icon: iconBlender, glyph: 'Bl', glyphBg: '#1e1e1e', glyphColor: '#f5792a' },
+      { name: 'Adobe AE', badge: 'Mid', icon: 'https://skillicons.dev/icons?i=ae', glyph: 'Ae', glyphBg: '#9999ff', glyphColor: '#101024' },
+      { name: 'Adobe XD', badge: 'Mid', icon: 'https://skillicons.dev/icons?i=xd', glyph: 'Xd', glyphBg: '#ff61f6', glyphColor: '#22041f' },
+      { name: 'Adobe Express', badge: 'Mid', glyph: 'Ex', glyphBg: '#f23987', glyphColor: '#fff' },
+      { name: 'Blender', badge: 'Mid', icon: 'https://skillicons.dev/icons?i=blender', glyph: 'Bl', glyphBg: '#f5792a', glyphColor: '#1d0e03' },
     ],
   },
   {
@@ -61,10 +49,10 @@ export const STACK_GROUPS = [
     marker: 'dim',
     gridClassName: 'stack-code-grid',
     tools: [
-      { name: 'HTML / CSS', badge: 'Mid', icon: iconHtmlCss, glyph: 'HC', glyphBg: '#e34f26', glyphColor: '#fff', wideIcon: true },
-      { name: 'JavaScript', badge: 'Basic', icon: iconJavascript, glyph: 'JS', glyphBg: '#f7df1e', glyphColor: '#1f1a00' },
-      { name: 'React', badge: 'Basic', icon: iconReact, glyph: 'Re', glyphBg: '#20232a', glyphColor: '#61dafb' },
-      { name: 'Git', badge: 'Mid', icon: iconGit, glyph: 'Git', glyphBg: '#f05032', glyphColor: '#fff' },
+      { name: 'HTML / CSS', badge: 'Mid', icon: 'https://skillicons.dev/icons?i=html,css', glyph: 'HC', glyphBg: '#e34f26', glyphColor: '#fff', wideIcon: true },
+      { name: 'JavaScript', badge: 'Basic', icon: 'https://skillicons.dev/icons?i=js', glyph: 'JS', glyphBg: '#f7df1e', glyphColor: '#1f1a00' },
+      { name: 'React', badge: 'Basic', icon: 'https://skillicons.dev/icons?i=react', glyph: 'Re', glyphBg: '#61dafb', glyphColor: '#07171d' },
+      { name: 'Git', badge: 'Mid', icon: 'https://skillicons.dev/icons?i=git', glyph: 'Git', glyphBg: '#f05032', glyphColor: '#fff' },
     ],
   },
 ];
