@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DARK PLEASE! — Behance Case Study</title>
+  <style>
+    :root {
+      --bg:#181818; --s1:#1e1e1e; --s2:#212121; --s3:#272727; --s4:#2f2f2f; --s5:#3a3a3a;
+      --b1:rgba(255,255,255,0.055); --b2:rgba(255,255,255,0.10); --b3:rgba(255,255,255,0.17);
+      --acc:#f23987; --acc-d:rgba(242,57,135,0.14); --acc-g:rgba(242,57,135,0.26); --acc-l:#ff79b0;
+      --grn:#00e676; --grn-d:rgba(0,230,118,0.12); --txt:#eeeeee; --txt2:#aaaaaa; --mut:#666666;
+      --radius:13px; --radius-sm:9px; --radius-xs:6px; --max:1280px;
+      --shadow:0 24px 90px rgba(0,0,0,.45); --shadow-soft:0 10px 30px rgba(0,0,0,.35);
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0; background:
+      radial-gradient(circle at top left, rgba(242,57,135,.11), transparent 28%),
+      radial-gradient(circle at 100% 15%, rgba(255,121,176,.08), transparent 20%),
+      linear-gradient(180deg,#111 0%, var(--bg) 18%, #141414 100%);
+      color:var(--txt); font-family:Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      line-height:1.5;
+    }
+    .wrap{width:min(var(--max), calc(100vw - 48px)); margin:0 auto}
+    section{padding:80px 0; position:relative}
+    .eyebrow{color:var(--acc); text-transform:uppercase; letter-spacing:.16em; font-size:12px; font-weight:700; margin-bottom:16px}
+    h1,h2,h3,p{margin:0}
+    h1{font-size:clamp(46px, 7vw, 92px); line-height:.94; letter-spacing:-.06em}
+    h2{font-size:clamp(30px,4vw,54px); line-height:1; letter-spacing:-.04em; margin-bottom:18px}
+    h3{font-size:20px; letter-spacing:-.02em}
+    p.lead{font-size:18px; color:var(--txt2); max-width:760px}
+    .hero{padding:58px 0 36px; min-height:auto; display:flex; align-items:center}
+    .hero-grid{display:grid; grid-template-columns:minmax(0,1fr) minmax(520px, 580px); gap:56px; align-items:center}
+    .hero-copy{display:flex; flex-direction:column; gap:22px; max-width:620px}
+    .logo-chip{display:inline-flex; align-items:center; gap:10px; padding:8px 12px; border:1px solid var(--b2); border-radius:999px; background:rgba(255,255,255,.03); width:max-content; backdrop-filter:blur(8px)}
+    .logo-chip .icon-mark{width:14px; height:14px; border-radius:5px; background:linear-gradient(180deg,#ff4f98,#b31557); box-shadow:0 0 0 1px rgba(255,255,255,.14) inset, 0 6px 18px rgba(242,57,135,.25); position:relative; flex:none}
+    .logo-chip .icon-mark::after{content:""; position:absolute; inset:2px; border-radius:3px; background:linear-gradient(180deg, rgba(255,255,255,.28), rgba(255,255,255,.06));}
+    .hero-copy p.lead{max-width:560px; font-size:17px; line-height:1.65}
+    .meta{display:flex; flex-wrap:wrap; gap:10px; margin-top:4px}
+    .pill{padding:10px 14px; border:1px solid var(--b2); border-radius:999px; background:rgba(255,255,255,.03); color:var(--txt2); font-size:13px}
+    .hero-note{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:6px}
+    .mini-card{padding:18px; border-radius:20px; background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.015)); border:1px solid var(--b2); box-shadow:var(--shadow-soft)}
+    .mini-card strong{display:block; margin-bottom:8px; font-size:11px; text-transform:uppercase; letter-spacing:.16em; color:var(--mut)}
+
+    .device-cluster{position:relative; min-height:690px; padding:16px 0 24px}
+    .device-stage{position:relative; min-height:650px}
+    .glow{position:absolute; width:520px; height:520px; background:radial-gradient(circle, rgba(242,57,135,.20), transparent 64%); filter:blur(16px); top:44px; right:28px}
+    .window{background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02)); border:1px solid var(--b2); border-radius:28px; box-shadow:var(--shadow); overflow:hidden}
+    .window-bar{height:38px; display:flex; align-items:center; gap:8px; padding:0 16px; background:rgba(255,255,255,.025); border-bottom:1px solid var(--b1)}
+    .dot{width:9px; height:9px; border-radius:50%; background:#666}
+    .browser{position:absolute; right:0; top:0; width:min(100%, 560px); z-index:1}
+    .browser-screen{padding:18px; background:linear-gradient(180deg, #1e1e1e, #171717)}
+    .popup{position:absolute; left:0; bottom:12px; width:286px; z-index:2}
+    .hero-browser-head{display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:16px}
+    .hero-browser-copy{max-width:360px}
+    .hero-browser-copy b{display:block; font-size:15px; margin-bottom:4px; color:var(--txt)}
+    .hero-browser-copy span{display:block; font-size:12px; color:var(--txt2); line-height:1.5}
+    .hero-browser-badge{display:flex; align-items:center; gap:8px; font-size:12px; color:var(--txt2)}
+    .segmented{background:var(--s4); border:1px solid var(--b2); border-radius:999px; height:28px; width:100%; min-width:0; position:relative; overflow:hidden; display:flex}
+    .segmented::before{content:""; position:absolute; top:3px; left:3px; height:20px; border-radius:999px; background:var(--acc)}
+    .segmented.two::before{width:calc(50% - 3px)}
+    .segmented.three::before{width:calc(33.333% - 4px)}
+    .segmented .btn{flex:1 1 auto; min-width:0; display:grid; place-items:center; position:relative; z-index:1; font-size:11px; font-weight:700; white-space:nowrap}
+    .segmented .btn:last-child{color:var(--mut)}
+    .segmented .btn.dim{color:var(--mut)}
+    .switch-meta{display:flex; align-items:center; justify-content:center; gap:8px; color:var(--mut); font-size:10px; line-height:1.3; text-align:center}
+    .tiny-icon{width:14px; height:14px; border-radius:999px; border:1px solid var(--b2); background:linear-gradient(180deg,var(--s3),var(--s2))}
+    .theme-grid{display:grid; gap:8px; margin-top:8px}
+    .mini-field{height:28px; display:flex; align-items:center; justify-content:space-between; gap:12px; padding:0 10px; border:1px solid var(--b2); border-radius:8px; background:var(--s2); color:var(--txt2); font-size:11px}
+    .mini-field b{color:var(--txt); font-size:11px}
+    .mini-caption{font-size:10px; color:var(--mut); text-transform:uppercase; letter-spacing:.12em}
+    .settings-content{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px}
+    .settings-item{padding:16px; border-radius:18px; border:1px solid var(--b2); background:linear-gradient(180deg, rgba(255,255,255,.022), rgba(255,255,255,.012)); min-height:132px}
+    .settings-item .title-row{display:flex; align-items:flex-start; gap:10px; margin-bottom:10px}
+    .settings-item .title-box{width:18px; height:18px; border-radius:6px; border:1px solid var(--b2); background:linear-gradient(180deg,var(--s3),var(--s2)); flex:none; margin-top:2px}
+    .settings-item .title-text{font-size:14px; color:var(--txt); font-weight:700; line-height:1.35}
+    .settings-item .cap{font-size:12px; color:var(--mut); line-height:1.55}
+
+    .grid-2{display:grid; grid-template-columns:1fr 1fr; gap:20px}
+    .grid-3{display:grid; grid-template-columns:repeat(3,1fr); gap:20px}
+    .card{background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.015)); border:1px solid var(--b2); border-radius:24px; padding:24px; box-shadow:var(--shadow-soft)}
+    .terms .card{min-height:160px}
+    .term{font-size:13px; color:var(--mut); text-transform:uppercase; letter-spacing:.12em; margin-bottom:10px}
+    .term-desc{color:var(--txt2)}
+
+    .kit{display:block}
+    .design-columns{display:grid; grid-template-columns:minmax(0,1.08fr) minmax(360px,.92fr); gap:24px; align-items:start}
+    .design-column{display:grid; gap:20px; min-width:0}
+    .design-intro{padding:0; background:transparent; border:none; box-shadow:none}
+    .design-intro p.lead{max-width:660px}
+    .principle-row{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; margin-top:22px}
+    .principle{padding:16px; border-radius:18px; background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.012)); border:1px solid var(--b2); min-height:118px}
+    .principle b{display:block; margin-bottom:6px; color:var(--txt); font-size:13px}
+    .principle span{display:block; color:var(--txt2); font-size:13px; line-height:1.42}
+    .kit-board{padding:24px; border-radius:28px; background:linear-gradient(180deg,#1c1c1c,#161616); border:1px solid var(--b2); box-shadow:var(--shadow)}
+    .kit-grid{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; margin-top:18px}
+    .spec-list{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px}
+    .spec{padding:16px; border-radius:18px; background:var(--s1); border:1px solid var(--b2); color:var(--txt2); min-height:132px}
+    .spec b{display:block; color:var(--txt); margin-bottom:6px; font-size:13px}
+    .token-section{padding:22px; border-radius:26px; background:linear-gradient(180deg, rgba(255,255,255,.028), rgba(255,255,255,.012)); border:1px solid var(--b2); box-shadow:var(--shadow-soft)}
+    .token-title{font-size:12px; color:var(--mut); text-transform:uppercase; letter-spacing:.12em; margin-bottom:16px}
+    .palette-grid{display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:12px}
+    .swatch{min-width:0; border:1px solid var(--b2); border-radius:16px; overflow:hidden; background:var(--s1)}
+    .swatch-color{height:54px; border-bottom:1px solid var(--b1)}
+    .swatch-meta{padding:11px 12px}
+    .swatch-name{font-size:12px; font-weight:800; color:var(--txt); white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+    .swatch-value{font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size:11px; color:var(--mut); margin-top:3px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+    .token-metrics{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; margin-top:0}
+    .metric{padding:14px 15px; border-radius:16px; background:var(--s1); border:1px solid var(--b2); min-height:84px}
+    .metric b{display:block; font-size:12px; color:var(--txt); margin-bottom:4px}
+    .metric span{display:block; font-size:12px; color:var(--txt2); line-height:1.4}
+    .metric.wide{grid-column:1 / -1; min-height:auto}
+
+    .ui-block{padding:18px; border-radius:18px; background:var(--s1); border:1px solid var(--b2)}
+    .ui-label{font-size:12px; color:var(--mut); margin-bottom:12px; text-transform:uppercase; letter-spacing:.12em}
+    .toggle{background:var(--s4); border:1px solid var(--b2); border-radius:999px; height:28px; width:100%; min-width:0; position:relative; overflow:hidden; display:flex}
+    .toggle::before{content:""; position:absolute; top:3px; left:3px; width:calc(50% - 3px); height:20px; border-radius:999px; background:var(--acc)}
+    .toggle .btn{flex:1 1 50%; min-width:0; display:grid; place-items:center; position:relative; z-index:1; font-size:12px; font-weight:700; white-space:nowrap}
+    .toggle .btn:last-child{color:var(--mut)}
+    .dropdown{height:28px; width:100%; border-radius:6px; border:1px solid var(--b2); background:var(--s2); display:flex; align-items:center; justify-content:center; color:var(--txt); font-size:12px; font-weight:600}
+    .slider{padding-top:10px}
+    .slider .track{height:4px; border-radius:999px; background:var(--s5); position:relative}
+    .slider .fill{position:absolute; left:0; top:0; height:100%; width:62%; border-radius:999px; background:linear-gradient(90deg, #d62873, var(--acc))}
+    .slider .thumb{position:absolute; top:50%; left:62%; transform:translate(-50%,-50%); width:17px; height:17px; border-radius:50%; background:#fff; box-shadow:0 0 0 5px var(--acc-g), 0 1px 3px rgba(0,0,0,.5)}
+    .tabs{display:flex; gap:8px; flex-wrap:wrap}
+    .tab{padding:10px 14px; background:var(--s2); border:1px solid var(--b2); border-radius:10px; color:var(--txt2); font-size:13px}
+    .tab.active{background:var(--acc-d); color:var(--acc); font-weight:700}
+    .checkline,.listrow,.shortcut{height:38px; display:flex; align-items:center; border:1px solid var(--b2); background:var(--s2); border-radius:10px; padding:0 12px; color:var(--txt2)}
+    .check{width:18px; height:18px; border:1px solid var(--b2); border-radius:5px; margin-right:12px; background:linear-gradient(180deg,var(--s3),var(--s2))}
+    .shortcut{justify-content:space-between}
+    .kbd{padding:6px 10px; border:1px solid var(--b2); border-radius:8px; background:var(--s3); color:var(--txt); font-size:12px}
+
+    .frame-title{display:flex; align-items:center; justify-content:space-between; margin-bottom:16px}
+    .frame-title .text{font-size:12px; text-transform:uppercase; letter-spacing:.12em; color:var(--mut)}
+    .status{display:flex; align-items:center; gap:8px; color:var(--txt2); font-size:12px}
+    .status-dot{width:8px; height:8px; border-radius:50%; background:var(--grn); box-shadow:0 0 0 4px var(--grn-d)}
+
+    .popup-shell{width:100%; padding:10px; background:var(--bg)}
+    .panel{background:var(--s1); border:1px solid var(--b2); border-radius:14px; padding:14px; margin-bottom:10px; overflow:hidden}
+    .logo-row{display:flex; justify-content:center; align-items:center; position:relative; margin-bottom:8px}
+    .logo-row .brand-wordmark{font-size:clamp(16px,1.2vw,18px); font-weight:900; letter-spacing:-.04em; color:#fff; white-space:nowrap; line-height:1; text-align:center}
+    .controls-row{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:10px; align-items:start}
+    .stack{display:flex; flex-direction:column; gap:8px; min-width:0}
+    .desc{font-size:11px; color:var(--mut); text-align:center; white-space:nowrap}
+    .btn-line{height:28px; display:flex; align-items:center; justify-content:center; border-radius:6px; background:var(--s2); border:1px solid var(--b2); color:var(--mut); font-size:12px; font-weight:700}
+    .preset{height:28px; border-radius:9px; border:1px solid var(--b1); background:var(--s2)}
+    .settings-btn{height:30px; display:flex; align-items:center; justify-content:center; gap:8px; background:var(--s2); border:1px solid var(--b2); color:var(--txt2); border-radius:8px; font-size:12px; font-weight:700}
+
+    .settings-frame{display:grid; grid-template-columns:170px minmax(0,1fr); gap:14px; align-items:start}
+    .sidebar{background:var(--s1); border:1px solid var(--b2); border-radius:13px; padding:4px; display:flex; flex-direction:column; gap:2px}
+    .sidebtn{height:34px; border-radius:6px; display:flex; align-items:center; padding:0 12px; color:var(--txt2); font-size:13px; gap:10px}
+    .sidebtn.active{background:var(--acc-d); border:1px solid var(--b2); color:var(--acc); font-weight:700}
+    .ico{width:14px; height:14px; border-radius:4px; background:var(--s5)}
+    .content-panel{background:var(--s1); border:1px solid var(--b2); border-radius:13px; padding:12px; display:flex; flex-direction:column; gap:10px}
+    .group{display:flex; flex-direction:column; gap:6px; padding:8px; border-radius:10px; background:rgba(255,255,255,.015)}
+    .group .cap{font-size:12px; color:var(--mut)}
+    .line2{display:grid; grid-template-columns:24px 1fr 1fr; gap:0}
+    .field{height:28px; display:flex; align-items:center; justify-content:center; border:1px solid var(--b2); background:var(--s2); color:var(--txt2); font-size:12px}
+    .field:first-child{border-top-left-radius:6px; border-bottom-left-radius:6px}
+    .field:last-child{border-top-right-radius:6px; border-bottom-right-radius:6px}
+    .field.mid{border-left:none; border-right:none}
+
+    .mockup-grid{display:grid; gap:28px}
+    .story{display:grid; grid-template-columns:minmax(0,1.02fr) minmax(320px,.98fr); gap:32px; align-items:start}
+    .story.reverse{grid-template-columns:minmax(320px,.98fr) minmax(0,1.02fr)}
+    .bullet-list{display:grid; gap:12px}
+    .bullet{display:flex; gap:12px; align-items:flex-start; padding:14px 16px; background:var(--s1); border:1px solid var(--b2); border-radius:16px}
+    .bullet .num{width:28px; height:28px; border-radius:999px; display:grid; place-items:center; background:var(--acc-d); color:var(--acc); font-weight:800; flex:none}
+    .bullet b{display:block; margin-bottom:2px}
+    .scene{padding:24px; border-radius:28px; background:linear-gradient(180deg,#1b1b1b,#141414); border:1px solid var(--b2); box-shadow:var(--shadow); min-width:0; overflow:hidden}
+    .caption{margin-top:12px; color:var(--txt2); font-size:15px}
+
+    .popup .panel:first-child{padding-top:12px}
+    .popup .logo-row{margin-bottom:10px}
+    .popup .controls-row .stack{gap:7px}
+    .popup .toggle{max-width:none}
+    .popup .desc{font-size:10.5px}
+    .footer{padding:70px 0 90px}
+    .end-card{padding:34px; border-radius:28px; background:linear-gradient(180deg, rgba(242,57,135,.12), rgba(255,255,255,.025)); border:1px solid var(--b2); box-shadow:var(--shadow)}
+    .credits-grid{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:12px; margin-top:24px}
+    .credit-item{padding:16px; border-radius:18px; background:rgba(255,255,255,.035); border:1px solid var(--b2)}
+    .credit-label{font-size:11px; text-transform:uppercase; letter-spacing:.14em; color:var(--mut); margin-bottom:8px; font-weight:700}
+    .credit-value{font-size:18px; color:var(--txt); font-weight:800; letter-spacing:-.02em}
+
+    @media (max-width: 1180px){
+      .hero{padding-top:46px}
+      .hero-grid,.story,.story.reverse,.design-columns,.settings-frame,.grid-3,.grid-2{grid-template-columns:1fr}
+      .device-cluster{min-height:auto; display:grid; gap:18px; padding-bottom:0}
+      .device-stage{min-height:auto; display:grid; gap:18px}
+      .glow{display:none}
+      .browser,.popup{position:relative; inset:auto; margin:0}
+      .browser{width:100%; max-width:none}
+      .popup{width:100%; max-width:320px; justify-self:start}
+      .settings-content{grid-template-columns:1fr 1fr}
+    }
+
+    @media (max-width: 980px){
+      .palette-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+      .principle-row,.token-metrics{grid-template-columns:1fr 1fr}
+      .spec-list{grid-template-columns:1fr}
+    }
+    @media (max-width: 760px){
+      section{padding:54px 0}
+      .wrap{width:min(var(--max), calc(100vw - 24px))}
+      .hero-note,.kit-grid,.palette-grid,.spec-list,.principle-row,.token-metrics,.settings-content{grid-template-columns:1fr}
+      .window-bar{height:36px}
+      .scene,.card,.kit-board{padding:18px}
+      .content-panel,.sidebar,.panel{min-width:0}
+      .controls-row{grid-template-columns:1fr}
+      .checkline,.listrow,.shortcut,.sidebtn{height:auto; min-height:38px; padding-top:9px; padding-bottom:9px}
+      .line2{grid-template-columns:24px 1fr 1fr}
+      .brand-wordmark{font-size:16px}
+      .credits-grid{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <div class="logo-chip"><span class="icon-mark" aria-hidden="true"></span><span>Case Study / Extension UI / Product Design</span></div>
+        <div>
+          <div class="eyebrow">DARK PLEASE!</div>
+          <h1>Automatic dark mode<br>for the entire web.</h1>
+        </div>
+        <p class="lead">This project was completed during the second year of study at RTU MIREA by Alexander Aleksandrov, group TDMO-01-24. The case study presents the extension as an academic UI/UX and front-end design project, focusing on interface structure, product logic, and a practical dark-mode workflow for everyday web use.</p>
+        <div class="meta">
+          <div class="pill">Chrome MV3 Extension</div>
+          <div class="pill">Dynamic / Filter / Filter+ / Static modes</div>
+          <div class="pill">Popup + Settings UI</div>
+          <div class="pill">Design System + UI Kit</div>
+        </div>
+        <div class="hero-note">
+          <div class="mini-card"><strong>Problem</strong>Dark mode tools often break contrast, images, PDFs or already-dark websites. The user needs control without constant manual setup.</div>
+          <div class="mini-card"><strong>Solution</strong>A compact popup for daily actions plus a settings system for site rules, automation, hotkeys and advanced recovery tools.</div>
+        </div>
+      </div>
+      <div class="device-cluster">
+        <div class="glow"></div>
+        <div class="device-stage">
+          <div class="browser window">
+            <div class="window-bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+            <div class="browser-screen">
+              <div class="hero-browser-head">
+                <div class="hero-browser-copy">
+                  <b>Settings system</b>
+                  <span>A separate settings page keeps advanced rules, automation and recovery tools out of the daily popup workflow.</span>
+                </div>
+                <div class="hero-browser-badge"><span class="status-dot"></span><span>General tab</span></div>
+              </div>
+              <div class="settings-frame">
+                <div class="sidebar">
+                  <div class="sidebtn active"><span class="ico"></span>General</div>
+                  <div class="sidebtn"><span class="ico"></span>Site List</div>
+                  <div class="sidebtn"><span class="ico"></span>Automation</div>
+                  <div class="sidebtn"><span class="ico"></span>Hotkeys</div>
+                  <div class="sidebtn"><span class="ico"></span>Advanced</div>
+                  <div class="sidebtn"><span class="ico"></span>About</div>
+                </div>
+                <div class="settings-content">
+                  <div class="settings-item">
+                    <div class="title-row"><span class="title-box"></span><span class="title-text">Enable by default</span></div>
+                    <div class="cap">New websites start with dark mode active, reducing repetitive setup.</div>
+                  </div>
+                  <div class="settings-item">
+                    <div class="title-row"><span class="title-box"></span><span class="title-text">Detect dark theme</span></div>
+                    <div class="cap">Prevents unnecessary overrides on websites that already have a dark interface.</div>
+                  </div>
+                  <div class="settings-item">
+                    <div class="title-row"><span class="title-box"></span><span class="title-text">Enable for PDF files</span></div>
+                    <div class="cap">Keeps documents readable without asking the user to switch modes manually.</div>
+                  </div>
+                  <div class="settings-item">
+                    <div class="title-row"><span class="title-box"></span><span class="title-text">Change browser theme</span></div>
+                    <div class="cap">Extends the dark environment beyond pages and makes browsing feel visually consistent.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="popup window">
+            <div class="window-bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+            <div class="popup-shell">
+              <div class="panel">
+                <div class="logo-row"><div class="brand-wordmark">DARK PLEASE!</div></div>
+                <div class="controls-row">
+                  <div class="stack">
+                    <div class="segmented three"><div class="btn">ON</div><div class="btn dim">AUTO</div><div class="btn">OFF</div></div>
+                    <div class="switch-meta"><span class="tiny-icon"></span><span>Extension enabled</span></div>
+                  </div>
+                  <div class="stack">
+                    <div class="segmented two"><div class="btn">ON</div><div class="btn">OFF</div></div>
+                    <div class="switch-meta"><span class="tiny-icon"></span><span>Current site enabled</span></div>
+                  </div>
+                </div>
+              </div>
+              <div class="panel">
+                <div class="mini-caption">Theme preset</div>
+                <div class="preset" style="margin-top:8px"></div>
+                <div class="theme-grid">
+                  <div class="mini-caption">Brightness</div>
+                  <div class="slider"><div class="track"><div class="fill" style="width:68%"></div><div class="thumb" style="left:68%"></div></div></div>
+                  <div class="mini-caption">Contrast</div>
+                  <div class="slider"><div class="track"><div class="fill" style="width:44%"></div><div class="thumb" style="left:44%"></div></div></div>
+                  <div class="mini-field"><b>Scheme</b><span>Dark</span></div>
+                  <div class="mini-field"><b>Mode</b><span>Dynamic</span></div>
+                  <div class="btn-line">See all options</div>
+                </div>
+              </div>
+              <div class="settings-btn">⚙ Settings</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="terms">
+    <div class="wrap">
+      <div class="eyebrow">Design brief</div>
+      <h2>Problem, designer tasks and product solution.</h2>
+      <div class="grid-3" style="margin-top:28px">
+        <div class="card"><div class="term">User problem</div><div class="term-desc">A user opens many unrelated websites during the day. Some have no dark mode, some are already dark, and some break when colors are inverted too aggressively.</div></div>
+        <div class="card"><div class="term">Designer task</div><div class="term-desc">Create an interface where the user immediately understands what is affected: the whole extension, the current site, or only visual theme parameters.</div></div>
+        <div class="card"><div class="term">Main UX risk</div><div class="term-desc">A dark-mode extension can feel dangerous if it changes every page without clear scope, undo paths and visible per-site exceptions.</div></div>
+        <div class="card"><div class="term">Decision</div><div class="term-desc">Split the product into two layers: a fast popup for daily actions and a structured settings page for persistent rules, automation and advanced controls.</div></div>
+        <div class="card"><div class="term">Design constraints</div><div class="term-desc">The popup is very small, but it still has to show global state, current-site state, theme tuning and a route to deeper settings without visual overload.</div></div>
+        <div class="card"><div class="term">Result</div><div class="term-desc">Users can enable dark mode, exclude a problematic site, tune brightness and contrast, schedule automation and set shortcuts while staying in control.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap kit">
+      <div class="design-columns">
+        <div class="design-column">
+          <div class="design-intro">
+            <div class="eyebrow">Design system</div>
+            <h2>Design system for a high-density extension UI.</h2>
+            <p class="lead">The design system supports a practical workflow: turn the extension on, decide whether it applies to the current site, adjust the generated theme, and move advanced decisions into separate settings. The visual language is intentionally compact because browser extension screens have very limited space.</p>
+            <div class="principle-row">
+              <div class="principle"><b>Scope clarity</b><span>Global and current-site actions are visually separated so the user understands whether a change affects every page or only the active domain.</span></div>
+              <div class="principle"><b>Safe defaults</b><span>Default enablement, dark-theme detection and PDF support reduce setup time while preventing unnecessary changes on pages that already work well.</span></div>
+              <div class="principle"><b>Exception control</b><span>Site rules, custom engines and clear reset/import/export actions give the user a way to recover from broken or unusual websites.</span></div>
+            </div>
+          </div>
+
+          <div class="token-section palette-card">
+            <div class="token-title">Core color palette</div>
+            <div class="palette-grid">
+              <div class="swatch"><div class="swatch-color" style="background:#181818"></div><div class="swatch-meta"><div class="swatch-name">Background</div><div class="swatch-value">#181818</div></div></div>
+              <div class="swatch"><div class="swatch-color" style="background:#1e1e1e"></div><div class="swatch-meta"><div class="swatch-name">Surface 1</div><div class="swatch-value">#1e1e1e</div></div></div>
+              <div class="swatch"><div class="swatch-color" style="background:#212121"></div><div class="swatch-meta"><div class="swatch-name">Surface 2</div><div class="swatch-value">#212121</div></div></div>
+              <div class="swatch"><div class="swatch-color" style="background:#272727"></div><div class="swatch-meta"><div class="swatch-name">Surface 3</div><div class="swatch-value">#272727</div></div></div>
+              <div class="swatch"><div class="swatch-color" style="background:#2f2f2f"></div><div class="swatch-meta"><div class="swatch-name">Surface 4</div><div class="swatch-value">#2f2f2f</div></div></div>
+              <div class="swatch"><div class="swatch-color" style="background:#3a3a3a"></div><div class="swatch-meta"><div class="swatch-name">Surface 5</div><div class="swatch-value">#3a3a3a</div></div></div>
+              <div class="swatch"><div class="swatch-color" style="background:#f23987"></div><div class="swatch-meta"><div class="swatch-name">Accent</div><div class="swatch-value">#f23987</div></div></div>
+              <div class="swatch"><div class="swatch-color" style="background:#ff79b0"></div><div class="swatch-meta"><div class="swatch-name">Accent light</div><div class="swatch-value">#ff79b0</div></div></div>
+              <div class="swatch"><div class="swatch-color" style="background:#00e676"></div><div class="swatch-meta"><div class="swatch-name">Success</div><div class="swatch-value">#00e676</div></div></div>
+              <div class="swatch"><div class="swatch-color" style="background:#eeeeee"></div><div class="swatch-meta"><div class="swatch-name">Text</div><div class="swatch-value">#eeeeee</div></div></div>
+              <div class="swatch"><div class="swatch-color" style="background:#aaaaaa"></div><div class="swatch-meta"><div class="swatch-name">Secondary text</div><div class="swatch-value">#aaaaaa</div></div></div>
+              <div class="swatch"><div class="swatch-color" style="background:#666666"></div><div class="swatch-meta"><div class="swatch-name">Muted text</div><div class="swatch-value">#666666</div></div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="design-column">
+          <div class="kit-board">
+            <div class="frame-title"><div class="text">Component preview</div><div class="status"><span class="status-dot"></span>states + controls</div></div>
+            <div class="kit-grid">
+              <div class="ui-block"><div class="ui-label">Toggle</div><div class="toggle"><div class="btn">ON</div><div class="btn">OFF</div></div></div>
+              <div class="ui-block"><div class="ui-label">Dropdown</div><div class="dropdown">Toggle on/off ▾</div></div>
+              <div class="ui-block"><div class="ui-label">Slider</div><div class="slider"><div class="track"><div class="fill"></div><div class="thumb"></div></div></div></div>
+              <div class="ui-block"><div class="ui-label">Tabs</div><div class="tabs"><div class="tab active">General</div><div class="tab">Automation</div><div class="tab">Advanced</div></div></div>
+              <div class="ui-block"><div class="ui-label">Site rule</div><div class="listrow">github.com</div></div>
+              <div class="ui-block"><div class="ui-label">Shortcut</div><div class="shortcut"><span>Toggle</span><span class="kbd">Alt + Shift + D</span></div></div>
+            </div>
+          </div>
+
+          <div class="token-section">
+            <div class="token-title">Design decisions</div>
+            <div class="spec-list">
+              <div class="spec"><b>Two-level structure</b>Daily actions stay in the popup; long-term preferences live in the settings page. This prevents the popup from becoming a crowded control panel.</div>
+              <div class="spec"><b>Engine choice near tuning</b>Dynamic, Filter, Filter+, and Static modes are placed close to brightness and contrast because engine choice directly affects visual output.</div>
+              <div class="spec"><b>Automation as a mode</b>Time, location and system dark mode are grouped together so users understand automation as one behavior system, not separate hidden features.</div>
+              <div class="spec"><b>Advanced controls isolated</b>Sync, protected pages, context menus, import/export and reset are kept away from the main flow because they are powerful but less frequent.</div>
+            </div>
+          </div>
+
+          <div class="token-section">
+            <div class="token-title">Functional tokens</div>
+            <div class="token-metrics">
+              <div class="metric"><b>Layered surfaces</b><span>Five dark surface levels separate popup sections, option panels, inputs and nested controls.</span></div>
+              <div class="metric"><b>State colors</b><span>Pink marks active choices, green confirms status, gray keeps disabled or secondary content quiet.</span></div>
+              <div class="metric"><b>Compact controls</b><span>Small toggles, sliders and rows preserve readability inside a narrow extension popup.</span></div>
+              <div class="metric"><b>Radius scale</b><span>Large cards, medium inputs and small indicators use different radii to show hierarchy.</span></div>
+              <div class="metric wide"><b>Interaction rhythm</b><span>Short feedback is used for toggles, sliders and tabs so the interface feels immediate rather than animated for decoration.</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap mockup-grid">
+      <div class="story">
+        <div>
+          <div class="eyebrow">Popup</div>
+          <h2>A compact control center for everyday decisions.</h2>
+          <p class="lead">The popup solves the main interaction problem: users need to change dark mode quickly without leaving the current page. The layout prioritizes action scope first, then theme adjustment, then deeper settings.</p>
+          <div class="bullet-list" style="margin-top:22px">
+            <div class="bullet"><div class="num">1</div><div><b>Global vs current site</b>Two separate controls prevent confusion between changing the whole extension and changing only the active website.</div></div>
+            <div class="bullet"><div class="num">2</div><div><b>Immediate visual tuning</b>Brightness, contrast and engine selection are available near the top because they directly affect page readability.</div></div>
+            <div class="bullet"><div class="num">3</div><div><b>Progressive disclosure</b>Advanced theme options and long-term settings stay accessible, but they do not compete with the daily workflow.</div></div>
+          </div>
+        </div>
+        <div class="scene">
+          <div class="frame-title"><div class="text">Popup mockup / compact control center</div><div class="status"><span class="status-dot"></span>compact popup</div></div>
+          <div class="window" style="max-width:332px; width:100%; margin:0 auto; border-radius:24px">
+            <div class="window-bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+            <div class="popup-shell">
+              <div class="panel">
+                <div class="logo-row"><div class="brand-wordmark">DARK PLEASE!</div></div>
+                <div class="controls-row">
+                  <div class="stack"><div class="toggle"><div class="btn">ON</div><div class="btn">OFF</div></div><div class="desc">Extension</div></div>
+                  <div class="stack"><div class="toggle"><div class="btn">ON</div><div class="btn">OFF</div></div><div class="desc">This site</div></div>
+                </div>
+              </div>
+              <div class="panel">
+                <div class="frame-title" style="margin-bottom:10px"><div class="text">Theme group</div><div class="status" style="font-size:11px">Dynamic</div></div>
+                <div class="preset"></div>
+                <div class="stack" style="margin-top:10px">
+                  <div class="ui-label" style="margin:0;color:var(--mut)">Brightness</div>
+                  <div class="slider"><div class="track"><div class="fill" style="width:72%"></div><div class="thumb" style="left:72%"></div></div></div>
+                  <div class="ui-label" style="margin:0;color:var(--mut)">Contrast</div>
+                  <div class="slider"><div class="track"><div class="fill" style="width:56%"></div><div class="thumb" style="left:56%"></div></div></div>
+                  <div class="dropdown">Dynamic / Filter / Filter+ / Static ▾</div>
+                </div>
+              </div>
+              <div class="settings-btn">⚙ Settings</div>
+            </div>
+          </div>
+          <div class="caption">The popup is optimized for quick correction: turn it on, exclude the current site, adjust readability, then return to browsing.</div>
+        </div>
+      </div>
+
+      <div class="story reverse">
+        <div class="scene">
+          <div class="frame-title"><div class="text">Options overview / settings architecture</div><div class="status"><span class="status-dot"></span>General active</div></div>
+          <div class="settings-frame">
+            <div class="sidebar">
+              <div class="sidebtn active"><span class="ico"></span>General</div>
+              <div class="sidebtn"><span class="ico"></span>Site List</div>
+              <div class="sidebtn"><span class="ico"></span>Automation</div>
+              <div class="sidebtn"><span class="ico"></span>Hotkeys</div>
+              <div class="sidebtn"><span class="ico"></span>Advanced</div>
+              <div class="sidebtn"><span class="ico"></span>About</div>
+            </div>
+            <div class="content-panel">
+              <div class="group"><div class="checkline"><span class="check"></span>Enabled by default</div><div class="cap">Default behavior for new websites.</div></div>
+              <div class="group"><div class="checkline"><span class="check"></span>Detect dark theme</div><div class="cap">Prevents conflicts with websites that already ship a dark UI.</div></div>
+              <div class="group"><div class="checkline"><span class="check"></span>Enable for PDF</div><div class="cap">Specific option exposed in General settings.</div></div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="eyebrow">Options page</div>
+          <h2>Settings are grouped by user intention.</h2>
+          <p class="lead">The settings page answers a different question than the popup: not “what should happen right now?”, but “how should the extension behave in the future?”. Each tab represents a clear intention: default behavior, site exceptions, automation, shortcuts and recovery tools.</p>
+          <div class="bullet-list" style="margin-top:22px">
+            <div class="bullet"><div class="num">1</div><div><b>General</b>Default enablement, dark-theme detection and PDF support define the safe baseline.</div></div>
+            <div class="bullet"><div class="num">2</div><div><b>Site List</b>Users can explicitly exclude or include domains when automatic dark mode does not fit a specific website.</div></div>
+            <div class="bullet"><div class="num">3</div><div><b>Advanced</b>High-impact actions such as sync, protected pages, import/export and reset are separated from everyday controls.</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="story">
+        <div>
+          <div class="eyebrow">Automation</div>
+          <h2>Three triggers. One dark experience.</h2>
+          <p class="lead">Automation solves the repetitive behavior problem: users should not manually turn dark mode on every evening and off every morning. The design groups three triggers — time, location and system dark mode — and adds a behavior choice: toggle the extension or switch between dark/light schemes.</p>
+        </div>
+        <div class="scene">
+          <div class="frame-title"><div class="text">Automation tab</div><div class="status"><span class="status-dot"></span>Time / Location / System</div></div>
+          <div class="content-panel">
+            <div class="group">
+              <div class="line2">
+                <div class="field">✓</div><div class="field mid">18:00</div><div class="field">09:00</div>
+              </div>
+              <div class="cap">Set active hours</div>
+            </div>
+            <div class="group">
+              <div class="line2">
+                <div class="field">□</div><div class="field mid">52.52°</div><div class="field">13.40°</div>
+              </div>
+              <div class="cap">Latitude / longitude for sunset-based automation.</div>
+            </div>
+            <div class="group">
+              <div class="line2">
+                <div class="field">✓</div><div class="field" style="grid-column:span 2">System dark mode</div>
+              </div>
+              <div class="cap">Reads system color scheme and syncs the extension.</div>
+            </div>
+            <div class="group">
+              <div class="dropdown">Toggle on/off ▾</div>
+              <div class="cap">Automation behavior</div>
+            </div>
+          </div>
+          <div class="caption">The default time window uses evening-to-morning logic, while system and location triggers cover users with changing schedules.</div>
+        </div>
+      </div>
+
+      <div class="story reverse">
+        <div class="scene">
+          <div class="frame-title"><div class="text">Site List tab</div><div class="status"><span class="status-dot"></span>Enable / disable by site</div></div>
+          <div class="content-panel">
+            <div class="group"><div class="cap" style="margin-bottom:6px">Disable on these websites</div>
+              <div class="listrow">docs.google.com</div>
+              <div class="listrow">*.sharepoint.com</div>
+              <div class="listrow">onedrive.live.com</div>
+            </div>
+            <div class="group"><div class="btn-line">Clear site list</div><div class="cap">Document and office tools are treated as likely exceptions because they often need a safer rendering mode or manual exclusion.</div></div>
+          </div>
+        </div>
+        <div>
+          <div class="eyebrow">Per-site customization</div>
+          <h2>Control where the extension should or should not intervene.</h2>
+          <p class="lead">Per-site customization solves the trust problem. A global dark mode is useful only if the user can quickly protect websites that break, already have a good dark theme, or require special readability rules. The site list makes exceptions visible and editable.</p>
+        </div>
+      </div>
+
+      <div class="story">
+        <div>
+          <div class="eyebrow">Hotkeys</div>
+          <h2>Frequent actions deserve keyboard-first access.</h2>
+          <p class="lead">Hotkeys reduce friction for expert users. The two actions match the main scope model of the product: toggle the entire extension or toggle only the current website.</p>
+        </div>
+        <div class="scene">
+          <div class="frame-title"><div class="text">Hotkeys tab</div><div class="status"><span class="status-dot"></span>2 commands</div></div>
+          <div class="content-panel">
+            <div class="group"><div class="shortcut"><span>Enable/disable the extension</span><span class="kbd">Alt + Shift + D</span></div><div class="cap">Command: toggle</div></div>
+            <div class="group"><div class="shortcut"><span>Toggle the current website</span><span class="kbd">Alt + Shift + S</span></div><div class="cap">Command: addSite</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="story reverse">
+        <div class="scene">
+          <div class="frame-title"><div class="text">Advanced tab</div><div class="status"><span class="status-dot"></span>Power-user settings</div></div>
+          <div class="content-panel">
+            <div class="group"><div class="checkline"><span class="check"></span>Sync settings</div></div>
+            <div class="group"><div class="checkline"><span class="check"></span>Sync config</div></div>
+            <div class="group"><div class="checkline"><span class="check"></span>Enable for protected pages</div></div>
+            <div class="group"><div class="checkline"><span class="check"></span>Context menus</div></div>
+            <div class="group"><div class="btn-line">Import settings</div><div class="btn-line" style="margin-top:8px">Export settings</div></div>
+            <div class="group"><div class="btn-line">Reset settings</div><div class="cap">Recovery and maintenance actions stay visible, but outside the daily workflow.</div></div>
+          </div>
+        </div>
+        <div>
+          <div class="eyebrow">Advanced</div>
+          <h2>Complexity is isolated, not removed.</h2>
+          <p class="lead">Advanced settings protect the core experience from overload. Sync, context menus, protected pages, import/export and reset are important, but they are not everyday decisions, so they are placed in a dedicated maintenance area.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="eyebrow">Designer tasks</div>
+      <h2>Problems, decisions and solved outcomes.</h2>
+      <div class="grid-2" style="margin-top:26px">
+        <div class="card"><h3>1. Make scope understandable</h3><p class="caption"><b>Problem:</b> users may not know whether they are changing all websites or one page. <b>Decision:</b> separate global extension control from current-site control and repeat this logic in hotkeys.</p></div>
+        <div class="card"><h3>2. Prevent broken dark mode</h3><p class="caption"><b>Problem:</b> some websites, PDFs and document tools require different treatment. <b>Decision:</b> expose rendering modes, dark-theme detection, PDF support and per-site lists.</p></div>
+        <div class="card"><h3>3. Reduce daily manual work</h3><p class="caption"><b>Problem:</b> dark mode is often needed only at certain times or system states. <b>Decision:</b> add time range, location, system dark mode and automation behavior settings.</p></div>
+        <div class="card"><h3>4. Keep power without overload</h3><p class="caption"><b>Problem:</b> sync, import/export, protected pages and reset are necessary but not frequent. <b>Decision:</b> place maintenance controls in Advanced and keep the popup focused on quick actions.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="footer">
+    <div class="wrap end-card">
+      <div class="eyebrow">Credits</div>
+      <h2>Project information.</h2>
+      <p class="lead" style="margin-top:16px">Academic UI/UX case study focused on the design of a browser extension: problem definition, interaction scope, settings architecture, visual tokens and interface states.</p>
+      <div class="credits-grid">
+        <div class="credit-item">
+          <div class="credit-label">Initials</div>
+          <div class="credit-value">A. A. R.</div>
+        </div>
+        <div class="credit-item">
+          <div class="credit-label">Group</div>
+          <div class="credit-value">TDMO-01-24</div>
+        </div>
+        <div class="credit-item">
+          <div class="credit-label">Institute</div>
+          <div class="credit-value">RTU MIREA</div>
+        </div>
+        <div class="credit-item">
+          <div class="credit-label">Date</div>
+          <div class="credit-value">12/02/2026</div>
+        </div>
+      </div>
+    </div>
+  </section>
+</body>
+</html>

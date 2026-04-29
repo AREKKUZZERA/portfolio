@@ -12,7 +12,7 @@ export const MARQUEE_ITEMS = [
   'Prototyping',
   'Visual Identity',
   'Art Direction',
-  'Creative Coding',
+  'Coding',
   'Web Design',
   'Interaction Design',
 ];
@@ -23,10 +23,10 @@ export function buildSeamlessMarqueeItems(items) {
 
 export function getMarqueeCopies({ baseWidth, viewportWidth }) {
   if (!baseWidth || !viewportWidth) {
-    return 5;
+    return 3;
   }
 
-  return Math.max(5, Math.ceil(viewportWidth / baseWidth) + 4);
+  return Math.max(3, Math.ceil(viewportWidth / baseWidth) + 2);
 }
 
 export function getMarqueeDuration(baseWidth) {
@@ -47,7 +47,7 @@ export function getMarqueeViewportStyle() {
     width: '100vw',
     marginLeft: 'calc(50% - 50vw)',
     marginRight: 'calc(50% - 50vw)',
-    overflow: 'hidden',
+    overflow: 'visible',
     position: 'relative',
   };
 }
@@ -63,7 +63,7 @@ export function getMarqueeTrackStyle(baseWidth) {
     animationIterationCount: 'infinite',
     animationPlayState: 'running',
     '--marquee-start': baseWidth ? `-${baseWidth}px` : '-50%',
-    '--marquee-shift': baseWidth ? `${baseWidth}px` : '50%',
+    '--marquee-shift': baseWidth ? `-${baseWidth}px` : '-50%',
     willChange: 'transform',
   };
 }

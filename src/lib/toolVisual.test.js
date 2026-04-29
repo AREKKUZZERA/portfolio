@@ -20,9 +20,9 @@ test('getToolVisual returns glyph fallback when icon is missing', () => {
 test('getToolVisual returns image when icon exists', () => {
   const visual = getToolVisual({
     name: 'Figma',
-    icon: 'https://skillicons.dev/icons?i=figma',
+    icon: '/icons/figma.svg',
   });
 
   assert.equal(visual.kind, 'image');
-  assert.equal(visual.src, 'https://skillicons.dev/icons?i=figma');
+  assert.equal(visual.src, '/icons/figma.svg');
 });

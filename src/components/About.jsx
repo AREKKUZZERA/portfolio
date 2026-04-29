@@ -1,4 +1,4 @@
-import sakuraUrl from '../assets/webp/sakura.webp';
+﻿import sakuraUrl from '../assets/webp/sakura.webp';
 import ScrollParallaxImage from './ScrollParallaxImage';
 
 const T = {

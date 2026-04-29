@@ -4,6 +4,9 @@ export function getToolVisual(tool) {
       kind: 'image',
       src: tool.icon,
       alt: tool.name,
+      background: tool.glyphBg ?? 'var(--s3)',
+      color: tool.glyphColor ?? 'var(--txt)',
+      wide: Boolean(tool.wideIcon),
     };
   }
 
