@@ -252,6 +252,26 @@ main {
   padding-bottom: 2rem;
 }
 
+.work-viewer--html .work-viewer-title-panel {
+  max-width: min(42rem, calc(100% - 11rem));
+  padding: 0.75rem 0.9rem;
+}
+
+.work-viewer--html .work-viewer-title {
+  font-size: clamp(1rem, 1.45vw, 1.45rem);
+  line-height: 1.12;
+}
+
+.work-viewer--html .work-viewer-hint {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.work-viewer--html .work-viewer-stage {
+  padding-top: 7.8rem;
+}
+
 .work-viewer-frame {
   display: block;
   width: min(100%, 1440px);
@@ -1283,6 +1303,16 @@ input, textarea {
   .work-viewer-stage {
     padding-top: 9.8rem !important;
   }
+  .work-viewer--html .work-viewer-title-panel {
+    max-width: none !important;
+  }
+  .work-viewer--html .work-viewer-title {
+    font-size: 0.95rem !important;
+    line-height: 1.2 !important;
+  }
+  .work-viewer--html .work-viewer-stage {
+    padding-top: 10.8rem !important;
+  }
 }
 
 @media (max-width: 1100px) {
@@ -1361,5 +1391,8 @@ input, textarea {
   }
   .work-viewer-stage {
     padding-top: 10.8rem !important;
+  }
+  .work-viewer--html .work-viewer-stage {
+    padding-top: 11.6rem !important;
   }
 }

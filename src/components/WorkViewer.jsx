@@ -31,7 +31,7 @@ export default function WorkViewer({ work, lang, onClose }) {
   };
 
   return (
-    <div onClick={onClose} className="work-viewer">
+    <div onClick={onClose} className={`work-viewer ${isHtmlViewer ? 'work-viewer--html' : ''}`}>
       <div className="work-viewer-panels" onClick={(event) => event.stopPropagation()}>
         <div className="work-viewer-title-panel">
           <div className="work-viewer-title">{work.title}</div>
