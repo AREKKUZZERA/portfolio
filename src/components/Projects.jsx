@@ -21,9 +21,16 @@ export default function Projects({ lang }) {
   const shown = activeFilter === t.all ? repos : repos.filter((repo) => repo.language === activeFilter);
   const behanceProjects = BEHANCE_PROJECTS.map((project) => ({
     ...project,
+    htmlUrl: project.htmlUrls?.[lang] ?? project.htmlUrl,
     title: t[project.titleKey],
     shortTitle: t[project.shortTitleKey],
   }));
+  const activeWorkForLang = activeWork
+    ? {
+        ...activeWork,
+        htmlUrl: activeWork.htmlUrls?.[lang] ?? activeWork.htmlUrl,
+      }
+    : null;
 
   return (
     <>
@@ -110,9 +117,9 @@ export default function Projects({ lang }) {
         </div>
       </section>
 
-      {activeWork && (
+      {activeWorkForLang && (
         <Suspense fallback={null}>
-          <WorkViewer key={activeWork.id} work={activeWork} lang={lang} onClose={() => setActiveWork(null)} />
+          <WorkViewer key={`${activeWorkForLang.id}-${lang}`} work={activeWorkForLang} lang={lang} onClose={() => setActiveWork(null)} />
         </Suspense>
       )}
     </>

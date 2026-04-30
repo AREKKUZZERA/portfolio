@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BWC — кейс</title>
+  <style>
+    @font-face{font-family:'Syne';font-style:normal;font-weight:400 800;font-display:swap;src:url('/fonts/syne-latin-wght-normal.woff2') format('woff2-variations')}
+    @font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:100 800;font-display:swap;src:url('/fonts/jetbrains-mono-latin-wght-normal.woff2') format('woff2-variations')}
+    :root{--bg:#0c0c0e;--panel:#121216;--panel2:#18181d;--line:rgba(255,255,255,.09);--text:#f2f2f2;--muted:#a2a2ad;--pink:#f23987;--pink2:#ff79b0;--green:#00e676;--mono:'JetBrains Mono',monospace;--ui:'Syne',system-ui,sans-serif}
+    *{box-sizing:border-box}html{scrollbar-width:thin;scrollbar-color:var(--pink) var(--bg)}::-webkit-scrollbar{width:3px;height:3px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--pink);border-radius:2px}
+    body{margin:0;background:radial-gradient(circle at top,rgba(242,57,135,.12),transparent 30rem),var(--bg);color:var(--text);font-family:var(--mono)}
+    .page{width:min(1460px,calc(100% - 44px));margin:0 auto;padding:32px 0 88px}.hero,.section{border:1px solid var(--line);border-radius:28px;background:linear-gradient(180deg,rgba(255,255,255,.035),rgba(255,255,255,.012)),var(--panel);box-shadow:0 30px 90px rgba(0,0,0,.34);overflow:hidden}.hero{display:grid;grid-template-columns:1fr .95fr;gap:26px;min-height:680px;padding:32px}.kicker{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--pink2);margin-bottom:14px}.brand{font-family:var(--ui);font-size:22px;color:#fff;margin-bottom:62px}.brand span{color:var(--pink)}h1{font-family:var(--ui);font-size:clamp(46px,7vw,96px);line-height:.92;letter-spacing:-.04em;margin:0 0 22px}h1 em{color:var(--pink2);font-style:normal}.lead{font-size:16px;line-height:1.8;color:#d7d7df;max-width:760px}.chips{display:flex;gap:10px;flex-wrap:wrap;margin-top:28px}.chip{border:1px solid var(--line);border-radius:999px;padding:10px 12px;color:var(--muted);background:rgba(255,255,255,.035);font-size:12px}
+    .mock{background:#181818;border:1px solid rgba(255,255,255,.12);border-radius:24px;overflow:hidden;align-self:center;box-shadow:0 30px 70px rgba(0,0,0,.45)}.bar{height:42px;background:#1e1e1e;border-bottom:1px solid rgba(255,255,255,.08);display:flex;align-items:center;gap:8px;padding:0 14px}.dot{width:9px;height:9px;border-radius:50%;background:#555}.tabs{height:38px;background:#212121;border-bottom:1px solid rgba(255,255,255,.06);display:flex;align-items:center;gap:6px;padding:0 12px}.tab{padding:8px 12px;border-radius:8px;background:#272727;color:#aaa;font-size:11px}.tab.active{background:rgba(242,57,135,.16);color:var(--pink)}.console{height:360px;padding:14px;background:#181818;overflow:hidden}.line{font-size:12px;line-height:1.8;color:#eaeaea}.line span{color:var(--pink2)}.dashboard{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:12px;background:#181818}.kpi{border:1px solid rgba(255,255,255,.08);border-radius:16px;background:#1e1e1e;padding:14px}.kpi b{display:block;font-family:var(--ui);font-size:28px;color:#fff}.kpi small{color:#888}
+    .section{margin-top:24px;padding:32px}.section-head{display:grid;grid-template-columns:minmax(260px,420px) 1fr;gap:42px;margin-bottom:28px}h2{font-family:var(--ui);font-size:clamp(32px,5vw,64px);line-height:1;margin:0}.section-head p,.card p{margin:0;color:var(--muted);line-height:1.8}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.card{border:1px solid var(--line);border-radius:22px;background:var(--panel2);padding:22px;min-height:220px}.card b{display:block;color:var(--pink2);font-family:var(--ui);font-size:24px;margin-bottom:12px}.flow{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}.step{border:1px solid var(--line);border-radius:18px;padding:18px;background:#151519;min-height:130px}.step strong{display:block;color:var(--pink2);margin-bottom:8px}.step span{color:#d9d9e2;line-height:1.55;font-size:13px}.palette{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.sw{min-height:120px;border-radius:18px;padding:14px;display:flex;flex-direction:column;justify-content:flex-end;border:1px solid rgba(255,255,255,.1)}.result{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.metric{padding:22px;border:1px solid var(--line);border-radius:20px;background:#151519}.metric b{display:block;font-family:var(--ui);font-size:44px;color:var(--pink2);line-height:1}.metric span{display:block;color:var(--muted);font-size:13px;line-height:1.5;margin-top:10px}
+    @media(max-width:900px){.hero,.section-head{grid-template-columns:1fr}.grid,.flow,.palette,.result{grid-template-columns:1fr 1fr}.hero{padding:22px}.page{width:min(100% - 28px,1460px)}}@media(max-width:560px){.grid,.flow,.palette,.result{grid-template-columns:1fr}.console{height:300px}}
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="hero">
+      <div>
+        <div class="brand">Better Web <span>Console</span></div>
+        <div class="kicker">Кейс / серверный плагин</div>
+        <h1>Удаленная веб-консоль для управления <em>Minecraft-сервером</em></h1>
+        <p class="lead">BWC превращает серверную консоль в защищенный веб-интерфейс: администратор видит логи, состояние сервера, игроков, алиасы команд и быстрые действия без доступа к терминалу хостинга.</p>
+        <div class="chips"><div class="chip">UX/UI</div><div class="chip">Панель управления</div><div class="chip">JavaScript</div><div class="chip">Minecraft plugin</div></div>
+      </div>
+      <div class="mock">
+        <div class="bar"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+        <div class="tabs"><div class="tab active">Console</div><div class="tab">Dashboard</div><div class="tab">Players</div><div class="tab">Aliases</div></div>
+        <div class="console">
+          <div class="line"><span>[INFO]</span> Server started on port 25565</div>
+          <div class="line"><span>[BWC]</span> Web socket connected</div>
+          <div class="line"><span>[CMD]</span> /say Maintenance in 10 minutes</div>
+          <div class="line"><span>[PLAYER]</span> AREKKUZZERA joined the game</div>
+          <div class="line"><span>[WARN]</span> High memory usage detected</div>
+          <div class="line"><span>[OK]</span> Backup completed successfully</div>
+        </div>
+        <div class="dashboard"><div class="kpi"><b>19.98</b><small>TPS</small></div><div class="kpi"><b>4</b><small>players</small></div><div class="kpi"><b>3.4GB</b><small>RAM</small></div></div>
+      </div>
+    </section>
+    <section class="section">
+      <div class="section-head"><div><div class="kicker">01 / задача</div><h2>Сделать консоль понятной без потери контроля</h2></div><p>Обычный терминал быстрый, но неудобен для удаленного администрирования. Нужно было сохранить ощущение живой консоли и добавить интерфейсные слои для частых действий.</p></div>
+      <div class="grid"><div class="card"><b>Безопасный вход</b><p>Экран авторизации отделяет рабочую зону от публичного доступа и задает системный тон интерфейса.</p></div><div class="card"><b>Живые логи</b><p>Лента сообщений сохраняет формат сервера, но получает цветовые уровни, табы и читаемую плотность.</p></div><div class="card"><b>Сводка сервера</b><p>Dashboard показывает TPS, RAM, игроков и активность, чтобы администратор не искал состояние по логам.</p></div></div>
+    </section>
+    <section class="section">
+      <div class="section-head"><div><div class="kicker">02 / логика</div><h2>Интерфейс строится вокруг рабочих сценариев</h2></div><p>Вместо декоративной панели проект разделен на реальные зоны: консоль, дашборд, игроки, алиасы и настройки. Каждый раздел отвечает на конкретный вопрос администратора.</p></div>
+      <div class="flow"><div class="step"><strong>Login</strong><span>Проверка доступа перед консолью.</span></div><div class="step"><strong>Console</strong><span>Команды и лог сервера в одном месте.</span></div><div class="step"><strong>Dashboard</strong><span>Метрики, графики и состояние.</span></div><div class="step"><strong>Players</strong><span>Список игроков и быстрые действия.</span></div><div class="step"><strong>Aliases</strong><span>Готовые команды для повторяемых задач.</span></div></div>
+    </section>
+    <section class="section">
+      <div class="section-head"><div><div class="kicker">03 / визуальная система</div><h2>Темная системная среда с розовым акцентом</h2></div><p>Цвета, радиусы и плотность совпадают с характером Minecraft-плагина: интерфейс должен выглядеть как инструмент, а не как промо-страница.</p></div>
+      <div class="palette"><div class="sw" style="background:#181818"><b>#181818</b><span>base</span></div><div class="sw" style="background:#272727"><b>#272727</b><span>surface</span></div><div class="sw" style="background:#f23987;color:#fff"><b>#F23987</b><span>accent</span></div><div class="sw" style="background:#00e676;color:#08140d"><b>#00E676</b><span>success</span></div></div>
+    </section>
+    <section class="section">
+      <div class="section-head"><div><div class="kicker">04 / результат</div><h2>Веб-консоль стала полноценной админ-панелью</h2></div><p>Проект показывает не только красивую оболочку, а рабочую архитектуру интерфейса: статусы, команды, таблицы, графики и повторяемые действия.</p></div>
+      <div class="result"><div class="metric"><b>5</b><span>ключевых разделов панели</span></div><div class="metric"><b>4</b><span>типа данных: логи, игроки, метрики, команды</span></div><div class="metric"><b>1</b><span>единый визуальный язык плагина</span></div><div class="metric"><b>0</b><span>лишних декоративных экранов</span></div></div>
+    </section>
+  </main>
+</body>
+</html>

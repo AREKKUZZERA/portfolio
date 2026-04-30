@@ -3,9 +3,11 @@ import { useWorkViewer } from '../hooks/useWorkViewer';
 export default function WorkViewer({ work, lang, onClose }) {
   const {
     handleFit,
+    handleFrameLoad,
     handleFullscreen,
     handleImageLoad,
     handleStepZoom,
+    frameRef,
     htmlStageHeight,
     imageLoading,
     imageSrc,
@@ -58,10 +60,12 @@ export default function WorkViewer({ work, lang, onClose }) {
         <div className="work-viewer-stage" style={stageStyle}>
           {isHtmlViewer ? (
             <iframe
+              ref={frameRef}
               src={work.htmlUrl}
               title={work.title}
               className="work-viewer-frame"
               style={mediaStyle}
+              onLoad={handleFrameLoad}
             />
           ) : imageSrc ? (
             <img

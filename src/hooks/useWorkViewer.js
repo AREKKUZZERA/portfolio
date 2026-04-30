@@ -6,6 +6,8 @@ import {
 } from '../lib/workViewer';
 
 const DEFAULT_IMAGE_SIZE = { width: 1600, height: 1000 };
+const FRAME_VIEWPORT_LOCK_STYLE_ID = 'work-viewer-viewport-lock';
+const FRAME_HEIGHT_PROPERTIES = ['height', 'min-height', 'max-height'];
 
 const LABELS = {
   ru: {
@@ -24,8 +26,61 @@ const LABELS = {
   },
 };
 
+function getHtmlFrameViewportHeight(viewportHeight) {
+  return Math.max((viewportHeight ?? 0) - 112, 520);
+}
+
+function replaceViewportHeightUnits(value, viewportHeight) {
+  return value.replace(/(-?\d*\.?\d+)vh\b/g, (_, rawValue) => (
+    `${Number((Number(rawValue) * viewportHeight / 100).toFixed(3))}px`
+  ));
+}
+
+function collectFrameViewportHeightRules(rules, viewportHeight) {
+  return [...rules].flatMap((rule) => {
+    if ('cssRules' in rule) {
+      const nestedRules = collectFrameViewportHeightRules(rule.cssRules, viewportHeight).join('');
+      return nestedRules ? [`${rule.conditionText ? `@media ${rule.conditionText}` : rule.cssText.split('{')[0]}{${nestedRules}}`] : [];
+    }
+
+    if (!rule.selectorText || !rule.style) return [];
+
+    const declarations = FRAME_HEIGHT_PROPERTIES
+      .map((property) => {
+        const value = rule.style.getPropertyValue(property);
+        if (!value.includes('vh')) return null;
+        return `${property}:${replaceViewportHeightUnits(value, viewportHeight)} !important;`;
+      })
+      .filter(Boolean)
+      .join('');
+
+    return declarations ? [`${rule.selectorText}{${declarations}}`] : [];
+  });
+}
+
+function lockFrameViewportHeight(frameDocument, viewportHeight) {
+  const previousStyle = frameDocument.getElementById(FRAME_VIEWPORT_LOCK_STYLE_ID);
+  previousStyle?.remove();
+
+  const rules = [...frameDocument.styleSheets].flatMap((styleSheet) => {
+    try {
+      return collectFrameViewportHeightRules(styleSheet.cssRules, viewportHeight);
+    } catch {
+      return [];
+    }
+  });
+
+  if (!rules.length) return;
+
+  const style = frameDocument.createElement('style');
+  style.id = FRAME_VIEWPORT_LOCK_STYLE_ID;
+  style.textContent = rules.join('');
+  frameDocument.head.append(style);
+}
+
 export function useWorkViewer({ work, lang, onClose }) {
   const viewportRef = useRef(null);
+  const frameRef = useRef(null);
   const imageReadyRef = useRef(false);
   const initializedRef = useRef(false);
   const viewerKind = getWorkViewerKind(work);
@@ -34,6 +89,7 @@ export function useWorkViewer({ work, lang, onClose }) {
   const [viewport, setViewport] = useState(DEFAULT_IMAGE_SIZE);
   const [imageSrc, setImageSrc] = useState(work.image ?? null);
   const [imageLoading, setImageLoading] = useState(viewerKind === 'image' && !work.image);
+  const [htmlStageHeight, setHtmlStageHeight] = useState(DEFAULT_IMAGE_SIZE.height);
   const [zoom, setZoom] = useState(1);
 
   const labels = useMemo(() => LABELS[lang] ?? LABELS.en, [lang]);
@@ -44,7 +100,9 @@ export function useWorkViewer({ work, lang, onClose }) {
   }, [work, imageSrc, isHtmlViewer]);
 
   useEffect(() => {
+    const previousHtmlOverflow = document.documentElement.style.overflow;
     const previousOverflow = document.body.style.overflow;
+    document.documentElement.style.overflow = 'hidden';
     document.body.style.overflow = 'hidden';
 
     const handleKeyDown = (event) => {
@@ -55,10 +113,31 @@ export function useWorkViewer({ work, lang, onClose }) {
 
     window.addEventListener('keydown', handleKeyDown);
     return () => {
+      document.documentElement.style.overflow = previousHtmlOverflow;
       document.body.style.overflow = previousOverflow;
       window.removeEventListener('keydown', handleKeyDown);
     };
   }, [onClose]);
+
+  const updateFrameHeight = useCallback(() => {
+    if (!isHtmlViewer || !frameRef.current) return;
+
+    const frameDocument = frameRef.current.contentDocument;
+    if (!frameDocument) return;
+
+    frameDocument.documentElement.style.overflow = 'hidden';
+    frameDocument.body.style.overflow = 'hidden';
+    lockFrameViewportHeight(frameDocument, getHtmlFrameViewportHeight(viewport.height));
+
+    const nextHeight = Math.max(
+      frameDocument.documentElement.scrollHeight,
+      frameDocument.body.scrollHeight,
+      getHtmlFrameViewportHeight(viewport.height),
+      520,
+    );
+
+    setHtmlStageHeight(nextHeight);
+  }, [isHtmlViewer, viewport.height]);
 
   useEffect(() => {
     let cancelled = false;
@@ -135,6 +214,10 @@ export function useWorkViewer({ work, lang, onClose }) {
     return () => observer.disconnect();
   }, [imageSize, initializeView]);
 
+  useEffect(() => {
+    updateFrameHeight();
+  }, [updateFrameHeight]);
+
   const handleFit = () => {
     if (isHtmlViewer) return;
     setZoom(1);
@@ -165,8 +248,6 @@ export function useWorkViewer({ work, lang, onClose }) {
   const fitScale = getViewerFitScale(imageSize, viewport);
   const renderedWidth = imageSize.width * fitScale * zoom;
   const renderedHeight = imageSize.height * fitScale * zoom;
-  const htmlStageHeight = Math.max(viewport.height - 112, 520);
-
   const handleImageLoad = (event) => {
     const nextImageSize = {
       width: event.currentTarget.naturalWidth,
@@ -177,8 +258,14 @@ export function useWorkViewer({ work, lang, onClose }) {
     initializeView(nextImageSize, viewport);
   };
 
+  const handleFrameLoad = () => {
+    updateFrameHeight();
+  };
+
   return {
+    frameRef,
     handleFit,
+    handleFrameLoad,
     handleFullscreen,
     handleImageLoad,
     handleStepZoom,
