@@ -1,4 +1,4 @@
-import { lazy, Suspense, useRef, useState } from 'react';
+import { lazy, Suspense, useCallback, useLayoutEffect, useRef, useState } from 'react';
 import sakuraUrl from '../assets/webp/sakura.webp';
 import { useGithubRepos } from '../hooks/useGithubRepos';
 import { BEHANCE_PROJECTS, GITHUB_USER, PROJECTS_TEXT } from '../data/projects';
@@ -8,6 +8,7 @@ import SectionHeading from './projects/SectionHeading';
 import WorkPreviewCard from './projects/WorkPreviewCard';
 
 const WorkViewer = lazy(() => import('./WorkViewer'));
+const VIEWER_LOCK_CLASS = 'work-viewer-page-lock';
 
 export default function Projects({ lang }) {
   const t = PROJECTS_TEXT[lang];
@@ -31,6 +32,26 @@ export default function Projects({ lang }) {
         htmlUrl: activeWork.htmlUrls?.[lang] ?? activeWork.htmlUrl,
       }
     : null;
+  const openWork = useCallback((project) => {
+    document.documentElement.classList.add(VIEWER_LOCK_CLASS);
+    document.body.classList.add(VIEWER_LOCK_CLASS);
+    setActiveWork(project);
+  }, []);
+  const closeWork = useCallback(() => {
+    setActiveWork(null);
+  }, []);
+
+  useLayoutEffect(() => {
+    if (!activeWork) return undefined;
+
+    document.documentElement.classList.add(VIEWER_LOCK_CLASS);
+    document.body.classList.add(VIEWER_LOCK_CLASS);
+
+    return () => {
+      document.documentElement.classList.remove(VIEWER_LOCK_CLASS);
+      document.body.classList.remove(VIEWER_LOCK_CLASS);
+    };
+  }, [activeWork]);
 
   return (
     <>
@@ -49,7 +70,7 @@ export default function Projects({ lang }) {
         <SectionHeading title1={t.behanceTitle1} title2={t.behanceTitle2} desc={t.behanceDesc} />
         <div className="work-preview-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '1.15rem', marginBottom: '5rem' }}>
           {behanceProjects.map((project) => (
-            <WorkPreviewCard key={project.id} project={project} t={t} onOpen={setActiveWork} />
+            <WorkPreviewCard key={project.id} project={project} t={t} onOpen={openWork} />
           ))}
         </div>
 
@@ -119,7 +140,7 @@ export default function Projects({ lang }) {
 
       {activeWorkForLang && (
         <Suspense fallback={null}>
-          <WorkViewer key={`${activeWorkForLang.id}-${lang}`} work={activeWorkForLang} lang={lang} onClose={() => setActiveWork(null)} />
+          <WorkViewer key={`${activeWorkForLang.id}-${lang}`} work={activeWorkForLang} lang={lang} onClose={closeWork} />
         </Suspense>
       )}
     </>

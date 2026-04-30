@@ -124,6 +124,18 @@ html {
   scroll-behavior: smooth;
 }
 
+html.work-viewer-page-lock,
+body.work-viewer-page-lock {
+  overflow: hidden;
+  scrollbar-width: none;
+}
+
+html.work-viewer-page-lock::-webkit-scrollbar,
+body.work-viewer-page-lock::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
 body {
   width: 100%;
   max-width: 100%;
