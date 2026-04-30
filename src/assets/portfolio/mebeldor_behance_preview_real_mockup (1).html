@@ -114,6 +114,16 @@
     .strategy-card .mark{font-family:var(--display);font-size:64px;color:var(--gold-2);line-height:.9}
     .strategy-card h3{font-size:24px;line-height:1.1;margin:28px 0 12px}
     .strategy-card p{margin:0;color:var(--muted);line-height:1.65;font-size:14px}
+    .research-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:22px}
+    .research-stack{display:grid;gap:14px}
+    .research-card{border:1px solid var(--line);border-radius:22px;background:linear-gradient(180deg,rgba(232,201,138,.07),rgba(243,234,217,.018));padding:22px}
+    .research-card b{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold-2);margin-bottom:10px}
+    .research-card span{display:block;color:var(--muted);line-height:1.7;font-size:15px}
+    .thesis-panel{min-height:100%;display:flex;flex-direction:column;justify-content:space-between;gap:34px}
+    .thesis-mark{font-family:var(--display);font-size:clamp(76px,10vw,156px);line-height:.82;color:var(--gold-2)}
+    .thesis-meta{display:grid;gap:10px}
+    .thesis-meta span{display:flex;justify-content:space-between;gap:18px;border-top:1px solid rgba(232,201,138,.16);padding-top:10px;color:var(--muted);font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.08em}
+    .thesis-meta strong{color:var(--cream);font-weight:500;text-align:right}
 
     .system{display:grid;grid-template-columns:.86fr 1.14fr;gap:22px}
     .palette{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
@@ -198,7 +208,7 @@
       .page{width:min(100% - 28px,1500px);padding-top:14px}
       .hero,.hero-inner{min-height:680px}
       .hero-inner{padding:22px}
-      .case-nav,.hero-bottom,.section-head,.overview,.system,.responsive{grid-template-columns:1fr}
+      .case-nav,.hero-bottom,.section-head,.overview,.research-grid,.system,.responsive{grid-template-columns:1fr}
       .role-grid,.strategy-grid,.result-grid{grid-template-columns:1fr 1fr}
       .screens{grid-template-columns:1fr}
       .screen-shot:nth-child(2){margin-top:0}
@@ -230,22 +240,22 @@
         <div class="case-nav">
           <div class="brand">Mebel<span>Dor</span></div>
           <div class="case-meta">
+            <div class="pill">Brand identity</div>
             <div class="pill">Landing page</div>
-            <div class="pill">React + Vite</div>
-            <div class="pill">Furniture brand</div>
+            <div class="pill">UX/UI</div>
           </div>
         </div>
         <div class="hero-copy">
-          <div class="kicker">Case study / 2026</div>
-          <h1><em>Премиальный</em> лендинг для мебели под интерьер</h1>
-          <p class="lead">MebelDor нужен был лендинг, который продает не набор позиций, а доверие к большой покупке: понятный путь от замера до монтажа, визуальное подтверждение качества и спокойный премиальный тон без давления.</p>
+          <div class="kicker">MebelDor / фирменный стиль / 2026</div>
+          <h1><em>Премиальный</em> лендинг MebelDor</h1>
+          <p class="lead">Лендинг стал цифровым носителем фирменного стиля мебельной компании: он передает премиальный характер MebelDor, показывает качество работ и спокойно объясняет путь от первого интереса до заявки на расчет.</p>
         </div>
         <div class="hero-bottom">
           <div class="role-grid">
-            <div class="role-card"><b>Роль</b><span>UX, визуальный дизайн, frontend</span></div>
-            <div class="role-card"><b>Сегмент</b><span>Индивидуальная мебель, Москва и область</span></div>
-            <div class="role-card"><b>Цель</b><span>Больше осмысленных заявок на расчет</span></div>
-            <div class="role-card"><b>Фокус</b><span>Доверие, премиальность, ясный путь</span></div>
+            <div class="role-card"><b>Задача</b><span>Разработать айдентику и показать ее в цифровой среде</span></div>
+            <div class="role-card"><b>Роль</b><span>Исследование, UX/UI, визуальная система, frontend</span></div>
+            <div class="role-card"><b>Решение</b><span>Темная галерея, теплый акцент, понятный сценарий заявки</span></div>
+            <div class="role-card"><b>Результат</b><span>Кейс для ВКР: фирменный стиль, лендинг и адаптив</span></div>
           </div>
           <div class="scroll-note">Scroll case</div>
         </div>
@@ -255,7 +265,35 @@
     <section class="section">
       <div class="section-head">
         <div>
-          <div class="kicker">01 / Problem</div>
+          <div class="kicker">01 / Проектная рамка</div>
+          <h2>Разработка фирменного стиля мебельной компании</h2>
+        </div>
+        <p>Проект выполнен в рамках ВКР на втором курсе направления «Дизайн» в РТУ МИРЭА. В кейсе показано, как фирменный стиль работает не только в логотипе и цветах, но и в сценарии сайта: от первого впечатления до заявки на расчет.</p>
+      </div>
+      <div class="research-grid">
+        <div class="panel panel-pad thesis-panel">
+          <div class="thesis-mark">ВКР</div>
+          <div class="thesis-meta">
+            <span>Университет <strong>РТУ МИРЭА</strong></span>
+            <span>Студент <strong>Александров Александр Романович</strong></span>
+            <span>Тема <strong>Разработка фирменного стиля мебельной компании</strong></span>
+            <span>Курс <strong>2 курс</strong></span>
+            <span>Направление <strong>Дизайн</strong></span>
+            <span>Результат <strong>UX/UI + frontend</strong></span>
+          </div>
+        </div>
+        <div class="research-stack">
+          <div class="research-card"><b>Что проектировалось</b><span>Фирменный стиль мебельной компании и его цифровое применение: сайт должен передавать премиальность, надежность и понятный процесс индивидуального заказа.</span></div>
+          <div class="research-card"><b>Принцип айдентики</b><span>Спокойная премиальность, реальные материалы и прозрачный клиентский сценарий делают бренд надежнее и превращают заявку в естественное продолжение знакомства с компанией.</span></div>
+          <div class="research-card"><b>Как шла работа</b><span>Анализ мебельного сегмента и визуальных кодов премиальности, аудит конкурентов, определение целевой аудитории, карта пользовательских барьеров, мудборд, подбор палитры и типографики, проектирование экранов, адаптивная верстка и проверка читаемости интерфейса.</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <div class="kicker">02 / Problem</div>
           <h2>Сложную услугу нужно было объяснить за один экран</h2>
         </div>
         <p>Покупка мебели под интерьер начинается не с кнопки, а с доверия. Клиент еще не знает точную цену, но уже должен поверить в процесс: замер, проект, материалы, производство и монтаж. Поэтому страница строится вокруг контроля, качества и спокойной уверенности, а не вокруг скидок и громких обещаний.</p>
@@ -281,7 +319,22 @@
     <section class="section">
       <div class="section-head">
         <div>
-          <div class="kicker">02 / Strategy</div>
+          <div class="kicker">03 / Исследование</div>
+          <h2>Выводы исследования переведены в интерфейсные решения</h2>
+        </div>
+        <p>Работа началась не с декоративного стиля, а с пользовательских барьеров. Каждый барьер получил конкретный ответ в структуре страницы, тексте и адаптивном поведении.</p>
+      </div>
+      <div class="strategy-grid">
+        <div class="strategy-card"><div class="mark">01</div><div><h3>Аудитория</h3><p>Пользователь выбирает мебель для конкретного интерьера и боится ошибки в размере, стиле и бюджете. Поэтому интерфейс показывает не товарную витрину, а управляемый процесс.</p></div></div>
+        <div class="strategy-card"><div class="mark">02</div><div><h3>Барьеры</h3><p>Цена становится понятной только после замера, качество сложно оценить онлайн, а длинная форма выглядит как давление. Эти точки стали основой сценария.</p></div></div>
+        <div class="strategy-card"><div class="mark">03</div><div><h3>Решения</h3><p>Фотографии, этапы работы, короткая заявка и стабильные мобильные карточки помогают объяснить услугу без перегруза и сохранить ощущение премиальности.</p></div></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <div class="kicker">04 / Strategy</div>
           <h2>Структура ведет от доверия к заявке</h2>
         </div>
         <p>Сначала посетитель считывает уровень бренда, затем видит доказательства качества, выбирает подходящее направление и понимает, что будет происходить после заявки. CTA появляется не раньше, чем у пользователя появляется основание доверять.</p>
@@ -296,7 +349,7 @@
     <section class="section">
       <div class="section-head">
         <div>
-          <div class="kicker">03 / Visual system</div>
+          <div class="kicker">05 / Visual system</div>
           <h2>Темная мебельная галерея с теплым акцентом</h2>
         </div>
         <p>Дизайн использует контраст темного фона и кремовой типографики, чтобы фотографии выглядели дороже. Золотой акцент работает дозированно: статусы, линии, CTA и важные числа.</p>
@@ -323,22 +376,22 @@
     <section class="section">
       <div class="section-head">
         <div>
-          <div class="kicker">04 / Screens</div>
+          <div class="kicker">06 / Screens</div>
           <h2>Ключевые блоки лендинга</h2>
         </div>
         <p>Каждый экран решает отдельное возражение: увидеть уровень работ, понять ассортимент, проверить процесс и оставить заявку без лишних шагов.</p>
       </div>
       <div class="screens">
         <article class="screen-shot">
-          <img src="/mebeldor-case/workshop.jpg" alt="Рабочая зона MebelDor" />
+          <img src="/mebeldor-case/workshop.png" alt="Рабочая зона MebelDor" />
           <div class="panel-pad"><h3>Первый экран</h3><p>Большой интерьерный кадр, короткий оффер и две команды: рассчитать стоимость или посмотреть работы. Никаких лишних промо-блоков до доверия.</p></div>
         </article>
         <article class="screen-shot">
-          <img src="/mebeldor-case/wardrobe.jpg" alt="Шкаф MebelDor" />
+          <img src="/mebeldor-case/wardrobe.png" alt="Шкаф MebelDor" />
           <div class="panel-pad"><h3>Каталог решений</h3><p>Каталог не перегружен SKU. Он показывает типы заказов: кухни, шкафы, гардеробные, детская мебель и корпусные решения.</p></div>
         </article>
         <article class="screen-shot">
-          <img src="/mebeldor-case/detail.jpg" alt="Детали мебели MebelDor" />
+          <img src="/mebeldor-case/detail.png" alt="Детали мебели MebelDor" />
           <div class="panel-pad"><h3>Процесс и заявка</h3><p>Пятишаговая схема снижает тревожность: заявка, замер, дизайн, производство, установка. Финальная форма закрепляет ценность услуги и собирает только нужные данные.</p></div>
         </article>
       </div>
@@ -347,7 +400,7 @@
     <section class="section">
       <div class="responsive">
         <div>
-          <div class="kicker">05 / Responsive</div>
+          <div class="kicker">07 / Responsive</div>
           <h2>Мобильная версия сохраняет ощущение салона</h2>
           <div class="decision-list">
             <div class="decision"><span>Hero перестраивается в вертикальный сценарий: фото остается главным, но текст и CTA не перекрывают ключевую фактуру.</span></div>
@@ -420,10 +473,10 @@
     <section class="section">
       <div class="section-head">
         <div>
-          <div class="kicker">06 / Result</div>
+          <div class="kicker">08 / Итог</div>
           <h2>Итог: сайт продает доверие до заявки</h2>
         </div>
-        <p>Лендинг стал не просто витриной работ, а понятным маршрутом для клиента: увидеть уровень, выбрать направление, понять процесс и оставить заявку на расчет.</p>
+        <p>Работа оформлена как полноценный Behance-кейс: от контекста ВКР и исследования пользовательских барьеров до визуальной системы, адаптивных экранов и frontend-реализации.</p>
       </div>
       <div class="result-grid">
         <div class="metric"><b>20+</b><span>лет опыта вынесены в первый уровень доверия</span></div>

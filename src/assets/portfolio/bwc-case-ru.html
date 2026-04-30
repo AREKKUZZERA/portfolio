@@ -87,6 +87,7 @@ body{padding:0}
 .uikit-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
 .ui-sample{background:#121216;border:1px solid var(--line);border-radius:20px;padding:18px}
 .ui-sample-title{font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);margin-bottom:14px}
+.kpi-preview-grid{display:grid;grid-template-columns:repeat(2,minmax(150px,1fr));gap:10px}
 .divider{height:1px;background:var(--line);margin:22px 0}
 .mockups{display:grid;grid-template-columns:1fr;gap:28px}
 .mockup-wrap{background:linear-gradient(180deg,rgba(255,255,255,.018),transparent 22%),#0f0f12;border:1px solid var(--line);border-radius:30px;padding:24px}
@@ -138,8 +139,8 @@ body{padding:0}
 .real-ui .kpi.blue:before{background:var(--info)} .real-ui .kpi.purple:before{background:var(--purple)}
 .real-ui .kpi.warn:before{background:var(--warn)} .real-ui .kpi.red:before{background:var(--danger)} .real-ui .kpi.teal:before{background:var(--success)}
 .real-ui .kpi-label{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--text-dim);margin-bottom:6px}
-.real-ui .kpi-value{font-size:28px;font-weight:700;font-family:var(--ui);line-height:1}
-.real-ui .kpi-sub{font-size:11px;color:var(--text-dim);margin-top:4px}
+.real-ui .kpi-value{font-size:28px;font-weight:700;font-family:var(--ui);line-height:1;white-space:nowrap}
+.real-ui .kpi-sub{font-size:11px;color:var(--text-dim);margin-top:4px;line-height:1.35}
 .real-ui .dash-charts{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
 .real-ui .chart-card{background:linear-gradient(180deg,rgba(255,255,255,.018),transparent 28%),var(--bg2);border:1px solid var(--border2);border-radius:18px;padding:14px 16px}
 .real-ui .chart-card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
@@ -189,6 +190,7 @@ body{padding:0}
   .logic{grid-template-columns:1fr}
   .arrow{transform:rotate(90deg)}
   .real-ui .dash-grid,.real-ui .dash-charts{grid-template-columns:1fr}
+  .kpi-preview-grid{grid-template-columns:1fr}
 }
 </style>
 </head>
@@ -196,11 +198,10 @@ body{padding:0}
 <div class="page">
   <section class="section hero">
     <div class="hero-copy">
-      <div class="kicker">Кейс Александров А. Р. ТДМО-01-24</div>
+      <div class="kicker">Minecraft plugin / Web console / 2026</div>
       <h1>Better<br>Web Console</h1>
       <p>
-        Это учебный проект, разработанный в ходе обучения в <b>РТУ МИРЭА</b> на <b>втором курсе</b>.
-        Он показывает Better Web Console через ключевые экраны, элементы интерфейса и сценарии взаимодействия: вход в систему, живой поток консоли, аналитику панели, управление игроками и алиасы команд.
+        Better Web Console превращает администрирование Minecraft-сервера в защищенную web-панель: вход, live-консоль, dashboard, управление игроками и алиасы команд собраны в один рабочий сценарий.
       </p>
       <div class="meta">
         <div class="chip">Paper / Minecraft plugin</div>
@@ -223,7 +224,7 @@ body{padding:0}
       </div>
       <div class="mini-panel">
         <div class="label">Связь дизайна и продукта</div>
-        <div class="small">Login / Console / Dashboard / Players / Aliases — каждый экран показывает, как продуктовая логика превращена в понятный интерфейс. Цвета, шрифты, радиусы, кнопки и типы карточек сохраняют связь с <b>webconsole.html</b>, а кейс объясняет, зачем эти решения нужны администратору.</div>
+        <div class="small">Login / Console / Dashboard / Players / Aliases — каждый экран закрывает отдельный рабочий сценарий администратора. Цвета, шрифты, радиусы, кнопки и карточки собраны в единую систему, чтобы интерфейс ощущался как продукт, а не как набор технических страниц.</div>
       </div>
     </div>
   </section>
@@ -246,7 +247,7 @@ body{padding:0}
         <h3>Web-консоль внутри плагина с приоритетом безопасности</h3>
         <p>Плагин запускает встроенный web-сервер и открывает панель управления в браузере: живую консоль через WebSocket, аналитику сервера, действия с игроками и быстрые алиасы команд. Визуальный язык остается терминальным: темная рабочая среда, резкий розовый акцент, понятная иерархия и интерфейс, построенный вокруг данных.</p>
         <div class="divider"></div>
-        <div class="quote">«DevOps-подход к администрированию Minecraft, превращенный в понятный продуктовый интерфейс».</div>
+        <div class="quote">«Администрирование сервера без прыжков между SSH, логами и разрозненными командами».</div>
       </div>
     </div>
   </section>
@@ -310,7 +311,7 @@ body{padding:0}
         <div class="ui-sample">
           <div class="ui-sample-title">KPI-карточки</div>
           <div class="real-ui" style="background:none;border:none">
-            <div class="dash-grid" style="grid-template-columns:1fr;gap:10px">
+            <div class="kpi-preview-grid">
               <div class="kpi"><div class="kpi-label">TPS</div><div class="kpi-value">19.98</div><div class="kpi-sub">Tick rate сервера</div></div>
               <div class="kpi blue"><div class="kpi-label">RAM</div><div class="kpi-value">3.4GB</div><div class="kpi-sub">Heap memory</div></div>
             </div>

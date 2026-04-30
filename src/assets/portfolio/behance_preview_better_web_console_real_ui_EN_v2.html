@@ -85,6 +85,7 @@ body{padding:0}
 .uikit-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
 .ui-sample{background:#121216;border:1px solid var(--line);border-radius:20px;padding:18px}
 .ui-sample-title{font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);margin-bottom:14px}
+.kpi-preview-grid{display:grid;grid-template-columns:repeat(2,minmax(150px,1fr));gap:10px}
 .divider{height:1px;background:var(--line);margin:22px 0}
 .mockups{display:grid;grid-template-columns:1fr;gap:28px}
 .mockup-wrap{background:linear-gradient(180deg,rgba(255,255,255,.018),transparent 22%),#0f0f12;border:1px solid var(--line);border-radius:30px;padding:24px}
@@ -136,8 +137,8 @@ body{padding:0}
 .real-ui .kpi.blue:before{background:var(--info)} .real-ui .kpi.purple:before{background:var(--purple)}
 .real-ui .kpi.warn:before{background:var(--warn)} .real-ui .kpi.red:before{background:var(--danger)} .real-ui .kpi.teal:before{background:var(--success)}
 .real-ui .kpi-label{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--text-dim);margin-bottom:6px}
-.real-ui .kpi-value{font-size:28px;font-weight:700;font-family:var(--ui);line-height:1}
-.real-ui .kpi-sub{font-size:11px;color:var(--text-dim);margin-top:4px}
+.real-ui .kpi-value{font-size:28px;font-weight:700;font-family:var(--ui);line-height:1;white-space:nowrap}
+.real-ui .kpi-sub{font-size:11px;color:var(--text-dim);margin-top:4px;line-height:1.35}
 .real-ui .dash-charts{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
 .real-ui .chart-card{background:linear-gradient(180deg,rgba(255,255,255,.018),transparent 28%),var(--bg2);border:1px solid var(--border2);border-radius:18px;padding:14px 16px}
 .real-ui .chart-card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
@@ -187,6 +188,7 @@ body{padding:0}
   .logic{grid-template-columns:1fr}
   .arrow{transform:rotate(90deg)}
   .real-ui .dash-grid,.real-ui .dash-charts{grid-template-columns:1fr}
+  .kpi-preview-grid{grid-template-columns:1fr}
 }
 </style>
 </head>
@@ -194,11 +196,10 @@ body{padding:0}
 <div class="page">
   <section class="section hero">
     <div class="hero-copy">
-      <div class="kicker">Study case Aleksandrov A. R. TDMO-01-24</div>
+      <div class="kicker">Minecraft plugin / Web console / 2026</div>
       <h1>Better<br>Web Console</h1>
       <p>
-        This case study was created as an academic project for <b>RTU MIREA</b> during the <b>second year</b> of study.
-        It showcases the Better Web Console through key screens, interface elements and interaction patterns, including the login flow, live console stream, dashboard analytics, player management and command aliases.
+        Better Web Console turns Minecraft server administration into a secure web panel: login, live console, dashboard, player management and command aliases are brought into one working flow.
       </p>
       <div class="meta">
         <div class="chip">Paper / Minecraft plugin</div>
@@ -221,7 +222,7 @@ body{padding:0}
       </div>
       <div class="mini-panel">
         <div class="label">Design-to-product logic</div>
-        <div class="small">Login / Console / Dashboard / Players / Aliases — every screen explains how product logic becomes a usable admin interface. Colors, type, radii, buttons and card patterns stay connected to <b>webconsole.html</b>, while the case study focuses on why each decision helps the server admin.</div>
+        <div class="small">Login / Console / Dashboard / Players / Aliases — each screen covers a specific admin workflow. Colors, type, radii, buttons and cards form one visual system, so the interface feels like a product rather than a set of technical pages.</div>
       </div>
     </div>
   </section>
@@ -244,7 +245,7 @@ body{padding:0}
         <h3>A secure-first web console embedded inside the plugin</h3>
         <p>The project runs an embedded web server and provides a browser-based control panel with a WebSocket live console, dashboard analytics, player actions and shortcut aliases. Its visual language is intentionally terminal-first: a dark workspace, a sharp pink accent, clear hierarchy and a data-driven layout.</p>
         <div class="divider"></div>
-        <div class="quote">“A DevOps approach to Minecraft administration, shaped as a product experience.”</div>
+        <div class="quote">“Server administration without jumping between SSH, logs and scattered commands.”</div>
       </div>
     </div>
   </section>
@@ -308,7 +309,7 @@ body{padding:0}
         <div class="ui-sample">
           <div class="ui-sample-title">KPI Cards</div>
           <div class="real-ui" style="background:none;border:none">
-            <div class="dash-grid" style="grid-template-columns:1fr;gap:10px">
+            <div class="kpi-preview-grid">
               <div class="kpi"><div class="kpi-label">TPS</div><div class="kpi-value">19.98</div><div class="kpi-sub">Server tick rate</div></div>
               <div class="kpi blue"><div class="kpi-label">RAM</div><div class="kpi-value">3.4GB</div><div class="kpi-sub">Heap memory</div></div>
             </div>
