@@ -16,9 +16,9 @@ const T = {
   en: {
     label: 'About me',
     title1: 'Design is', title2: 'my language',
-    bio1: 'I\'m a designer with an academic background: a Bachelor\'s in Design and currently completing a Master\'s degree in the same field. My work is turning complex ideas into clear, beautiful, and functional visual solutions.',
-    bio2: 'I specialise in UI/UX, brand identity, and product design. I love a systematic approach: from research and information architecture to the final pixel-perfect screen.',
-    bio3: 'I work across the full Adobe CC suite, Figma, and use code as a tool for prototyping and bringing designs to life — not as my primary discipline.',
+    bio1: 'I am a designer working at the intersection of engineering thinking, visual communication, and user experience. My academic path — from engineering and technology to a Master\'s degree in Design — helps me approach tasks systematically and create design where complex ideas become clear, expressive, and convenient for users.',
+    bio2: 'My specialisation is UI/UX, brand identity, and product design. I rely on research, information architecture, prototyping, and careful visual refinement so the result is not only beautiful, but also functional.',
+    bio3: 'I use the full Adobe CC suite, Figma, and code as a tool for prototyping and bringing design to life.',
     card1t: 'Product Design',   card1d: 'Building UX from scratch: research, wireframes, prototypes, design systems.',
     card2t: 'Brand Identity',   card2d: 'Logos, brand books, guidelines — creating cohesive brand systems.',
     card3t: 'UI Systems',       card3d: 'Scalable component libraries in Figma with Auto Layout and Variables.',

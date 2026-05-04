@@ -32,7 +32,7 @@ export const HERO_TEXT = {
     behance: 'Behance',
     github: 'GitHub',
     telegram: 'Telegram',
-    tags: ['UI/UX', 'Figma', 'Adobe CC', 'Branding', 'Systems', 'Frontend'],
+    tags: ['UI/UX', 'Graphic', 'Adobe CC', 'Design', 'Frontend'],
     stats: [
       { value: '6+', label: 'Years in design' },
       { value: '20+', label: 'Projects' },

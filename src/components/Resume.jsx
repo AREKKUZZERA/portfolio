@@ -60,26 +60,26 @@ const T = {
       {
         year: '2024 — now',
         title: "Master's in Design",
-        place: 'University',
+        place: 'University: RTU MIREA',
         desc: "Advanced study of design theory, research methodologies, and design management. Focus on systematic digital product design.",
       },
       {
         year: '2023',
         title: "Bachelor's in Design",
-        place: 'University — Honours Degree',
-        desc: "Obtained a Bachelor's degree in Design. Thesis project: comprehensive brand identity and digital platform development for a cultural institution.",
+        place: 'University: RTU MIREA',
+        desc: "Obtained a Bachelor's degree in Design. My thesis focused on the comprehensive development of a workspace: a modern computer desk and its modular system for everyday use, with an emphasis on ergonomics, adaptability, and efficient workspace organisation.",
       },
       {
         year: '2021 — 2023',
-        title: 'Graphic Designer',
-        place: 'Agency / Studio',
-        desc: 'Working with brands: logos, packaging, advertising materials. First UX projects — website and mobile app redesigns.',
+        title: 'First steps',
+        place: 'Part-time work',
+        desc: 'Worked with individual entrepreneurs: logos, packaging, and advertising materials. First UX projects — redesigning flyers, menus, and banners.',
       },
       {
         year: '2018',
         title: 'The beginning',
         place: 'Self-taught',
-        desc: 'First steps in design: Photoshop, Illustrator, fundamentals of typography and colour. Realised design is a profession, not just a hobby.',
+        desc: 'First steps in design: Photoshop, Illustrator, fundamentals of typography and colour. At that time it was a hobby for me.',
       },
     ],
     abilities: [
