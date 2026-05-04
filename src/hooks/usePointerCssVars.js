@@ -4,8 +4,14 @@ import { normalizePointerPosition } from '../lib/parallax';
 export function usePointerCssVars() {
   useEffect(() => {
     const root = document.documentElement;
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const coarsePointer = window.matchMedia('(pointer: coarse)');
     let rafId = 0;
     let nextPosition = { x: 0, y: 0 };
+
+    if (reduceMotion.matches || coarsePointer.matches) {
+      return undefined;
+    }
 
     const flushPointer = () => {
       root.style.setProperty('--pointer-x', String(nextPosition.x));
@@ -34,7 +40,7 @@ export function usePointerCssVars() {
       }
     };
 
-    window.addEventListener('pointermove', handlePointerMove);
+    window.addEventListener('pointermove', handlePointerMove, { passive: true });
     window.addEventListener('pointerleave', handlePointerLeave);
 
     return () => {

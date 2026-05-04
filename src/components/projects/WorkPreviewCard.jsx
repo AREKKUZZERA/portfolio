@@ -4,6 +4,7 @@ export default function WorkPreviewCard({ project, t, onOpen }) {
       type="button"
       onClick={() => onOpen(project)}
       className="work-preview-button"
+      aria-label={`${t.openWork}: ${project.title}`}
       style={{ '--work-accent': project.accent }}
     >
       <div className="work-preview-card">

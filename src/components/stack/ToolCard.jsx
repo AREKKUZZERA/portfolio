@@ -25,6 +25,8 @@ export default function ToolCard(tool) {
             className={`tool-card__image ${visual.wide ? 'tool-card__image--wide' : ''}`}
             src={visual.src}
             alt={visual.alt}
+            loading="lazy"
+            decoding="async"
             onError={() => setImageFailed(true)}
           />
         ) : visual.label}

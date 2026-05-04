@@ -22,7 +22,8 @@ export default function Nav({ lang, setLang }) {
 
   useEffect(() => {
     const fn = () => setScrolled(window.scrollY > 50);
-    window.addEventListener('scroll', fn);
+    fn();
+    window.addEventListener('scroll', fn, { passive: true });
     return () => window.removeEventListener('scroll', fn);
   }, []);
 
@@ -39,7 +40,7 @@ export default function Nav({ lang, setLang }) {
       transition: 'all 0.4s ease',
     }}>
       {/* Logo */}
-      <a href="#" style={{
+      <a href="#hero" className="nav-logo" style={{
         fontFamily: 'var(--font-display)',
         fontSize: '1.15rem',
         color: 'var(--txt)',
@@ -67,7 +68,11 @@ export default function Nav({ lang, setLang }) {
       {/* Right side */}
       <div className="nav-actions" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
         {/* Lang toggle */}
-        <button onClick={() => setLang(lang === 'ru' ? 'en' : 'ru')} style={{
+        <button
+          type="button"
+          aria-label={lang === 'ru' ? 'Switch language to English' : 'Переключить язык на русский'}
+          onClick={() => setLang(lang === 'ru' ? 'en' : 'ru')}
+          style={{
           fontFamily: 'var(--font-mono)', fontSize: '0.7rem',
           letterSpacing: '0.12em',
           background: 'var(--b1)',
@@ -76,7 +81,7 @@ export default function Nav({ lang, setLang }) {
           padding: '0.35rem 0.75rem',
           borderRadius: '5px',
           transition: 'all 0.2s',
-        }}
+          }}
         onMouseEnter={e => { e.target.style.borderColor = 'var(--acc)'; e.target.style.color = 'var(--acc)'; }}
         onMouseLeave={e => { e.target.style.borderColor = 'var(--b2)'; e.target.style.color = 'var(--txt2)'; }}
         >
