@@ -1,7 +1,6 @@
 import { HERO_TEXT } from '../data/hero';
 import { getGridParallaxStyle } from '../lib/parallax';
 import { getHeroAmbientBlobStyle, getHeroBackgroundTextureStyle } from '../lib/heroBackground';
-import HeroBadge from './hero/HeroBadge';
 import HeroIntro from './hero/HeroIntro';
 import HeroMarquee from './hero/HeroMarquee';
 import HeroProfileCard from './hero/HeroProfileCard';
@@ -17,7 +16,6 @@ export default function Hero({ lang }) {
       <div style={getHeroAmbientBlobStyle('left')} />
 
       <div className="hero-shell">
-        <HeroBadge>{t.badge}</HeroBadge>
         <div className="hero-main-grid">
           <HeroIntro t={t} />
           <HeroProfileCard t={t} />

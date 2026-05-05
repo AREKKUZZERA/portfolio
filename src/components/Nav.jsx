@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 const LINKS = {
   ru: [
@@ -19,26 +19,37 @@ const LINKS = {
 
 export default function Nav({ lang, setLang }) {
   const [scrolled, setScrolled] = useState(false);
-
-  useEffect(() => {
-    const fn = () => setScrolled(window.scrollY > 50);
-    fn();
-    window.addEventListener('scroll', fn, { passive: true });
-    return () => window.removeEventListener('scroll', fn);
-  }, []);
-
+  const scrolledRef = useRef(false);
   const links = LINKS[lang];
 
+  useEffect(() => {
+    let rafId = 0;
+
+    const update = () => {
+      rafId = 0;
+      const nextScrolled = scrolledRef.current ? window.scrollY > 40 : window.scrollY > 96;
+
+      if (nextScrolled !== scrolledRef.current) {
+        scrolledRef.current = nextScrolled;
+        setScrolled(nextScrolled);
+      }
+    };
+
+    const requestUpdate = () => {
+      if (!rafId) rafId = window.requestAnimationFrame(update);
+    };
+
+    requestUpdate();
+    window.addEventListener('scroll', requestUpdate, { passive: true });
+
+    return () => {
+      window.removeEventListener('scroll', requestUpdate);
+      if (rafId) window.cancelAnimationFrame(rafId);
+    };
+  }, []);
+
   return (
-    <nav style={{
-      position: 'fixed', top: 0, left: 0, right: 0, zIndex: 200,
-      padding: '1rem 2.5rem',
-      display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-      background: scrolled ? 'rgba(24,24,24,0.88)' : 'transparent',
-      backdropFilter: scrolled ? 'blur(20px)' : 'none',
-      borderBottom: scrolled ? '1px solid var(--b1)' : 'none',
-      transition: 'all 0.4s ease',
-    }}>
+    <nav className={`site-nav${scrolled ? ' site-nav--scrolled' : ''}`}>
       {/* Logo */}
       <a href="#hero" className="nav-logo" style={{
         fontFamily: 'var(--font-display)',

@@ -39,7 +39,7 @@ export const STACK_GROUPS = [
     tools: [
       { name: 'Adobe AE', badge: 'Mid', icon: '/skill-icons/ae.svg', glyph: 'Ae', glyphBg: '#9999ff', glyphColor: '#101024' },
       { name: 'Adobe XD', badge: 'Mid', icon: '/skill-icons/xd.svg', glyph: 'Xd', glyphBg: '#ff61f6', glyphColor: '#22041f' },
-      { name: 'Adobe Express', badge: 'Mid', glyph: 'Ex', glyphBg: '#f23987', glyphColor: '#fff' },
+      { name: 'Adobe Express', badge: 'Mid', icon: '/skill-icons/ex.jpg', glyph: 'Ex', glyphBg: '#f23987', glyphColor: '#fff' },
       { name: 'Blender', badge: 'Mid', icon: '/skill-icons/blender.svg', glyph: 'Bl', glyphBg: '#f5792a', glyphColor: '#1d0e03' },
     ],
   },

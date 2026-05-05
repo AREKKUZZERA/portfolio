@@ -21,6 +21,9 @@ export default function WorkPreviewCard({ project, t, onOpen }) {
             <div className="work-preview-title">
               {project.shortTitle}
             </div>
+            <div className="work-preview-desc">
+              {project.previewDesc}
+            </div>
           </div>
           <div className="work-preview-cta">
             {t.openWork}

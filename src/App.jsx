@@ -1,6 +1,5 @@
 import { lazy, Suspense, useState } from 'react';
 import { usePointerCssVars } from './hooks/usePointerCssVars';
-import Cursor from './components/Cursor';
 import Nav from './components/Nav';
 import Hero from './components/Hero';
 import About from './components/About';
@@ -16,7 +15,6 @@ export default function App() {
 
   return (
     <>
-      <Cursor />
       <Nav lang={lang} setLang={setLang} />
       <main>
         <Hero lang={lang} />

@@ -1,4 +1,5 @@
 ﻿import sakuraUrl from '../assets/webp/sakura.webp';
+import AboutCurve from './about/AboutCurve';
 import ScrollParallaxImage from './ScrollParallaxImage';
 
 const T = {
@@ -37,6 +38,7 @@ export default function About({ lang }) {
   const t = T[lang];
   return (
     <section id="about" className="page-section" style={{ position: 'relative', isolation: 'isolate', padding: '8rem 2.5rem', maxWidth: 1100, margin: '0 auto' }}>
+      <AboutCurve />
       <ScrollParallaxImage
         src={sakuraUrl}
         className="sakura-parallax--about"

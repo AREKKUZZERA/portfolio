@@ -4,9 +4,9 @@ import darkPleaseCaseRuUrl from '../assets/portfolio/dark-please-case-ru.html?ur
 import dpCaseUrl from '../assets/portfolio/dp!-behance-prev.html?url';
 import MebelDorCaseEnUrl from '../assets/portfolio/mebeldor-case-en.html?url';
 import MebelDorCaseUrl from '../assets/portfolio/mebeldor_behance_preview_real_mockup (1).html?url';
-import previewBwc from '../assets/portfolio/preview/bwc-prev.svg';
-import previewDp from '../assets/portfolio/preview/dp-prev.svg';
-import previewMebelDor from '../assets/portfolio/preview/mebeldor-prev.svg';
+import previewBwc from '../assets/portfolio/preview/bwc-preview-v4.svg';
+import previewDp from '../assets/portfolio/preview/dp-preview-v4.svg';
+import previewMebelDor from '../assets/portfolio/preview/mebeldor-preview-v4.svg';
 
 export const GITHUB_USER = 'AREKKUZZERA';
 
@@ -62,6 +62,7 @@ export const BEHANCE_PROJECTS = [
     id: 'bwc',
     titleKey: 'caseOne',
     shortTitleKey: 'shortOne',
+    previewDesc: 'Server plugin console',
     preview: previewBwc,
     htmlUrls: {
       ru: bwcCaseRuUrl,
@@ -73,6 +74,7 @@ export const BEHANCE_PROJECTS = [
     id: 'dark-pink',
     titleKey: 'caseTwo',
     shortTitleKey: 'shortTwo',
+    previewDesc: 'Dark mode extension',
     preview: previewDp,
     htmlUrls: {
       ru: darkPleaseCaseRuUrl,
@@ -84,6 +86,7 @@ export const BEHANCE_PROJECTS = [
     id: 'MebelDor',
     titleKey: 'caseThree',
     shortTitleKey: 'shortThree',
+    previewDesc: 'Furniture landing page',
     preview: previewMebelDor,
     htmlUrls: {
       ru: MebelDorCaseUrl,
