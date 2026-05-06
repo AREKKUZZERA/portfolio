@@ -18,10 +18,17 @@ export function useSeamlessMarquee(viewportRef, baseRef, items) {
     const measure = () => {
       const baseWidth = Math.round(baseNode.getBoundingClientRect().width);
       const viewportWidth = Math.round(viewportNode.getBoundingClientRect().width);
+      const copyCount = getMarqueeCopies({ baseWidth, viewportWidth });
 
-      setMetrics({
-        baseWidth,
-        copyCount: getMarqueeCopies({ baseWidth, viewportWidth }),
+      setMetrics((current) => {
+        if (current.baseWidth === baseWidth && current.copyCount === copyCount) {
+          return current;
+        }
+
+        return {
+          baseWidth,
+          copyCount,
+        };
       });
     };
 

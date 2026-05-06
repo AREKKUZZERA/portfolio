@@ -1,22 +1,21 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 
-import { getHeroAmbientBlobStyle, getHeroBackgroundTextureStyle } from './heroBackground.js';
+import { getHeroAmbientWashStyle, getHeroBackgroundTextureStyle } from './heroBackground.js';
 
-test('getHeroBackgroundTextureStyle uses dithered texture to reduce banding', () => {
+test('getHeroBackgroundTextureStyle keeps soft color without diagonal texture', () => {
   const style = getHeroBackgroundTextureStyle();
 
-  assert.match(style.backgroundImage, /repeating-linear-gradient/);
   assert.match(style.backgroundImage, /radial-gradient/);
+  assert.doesNotMatch(style.backgroundImage, /repeating-linear-gradient/);
   assert.equal(style.pointerEvents, 'none');
 });
 
-test('getHeroAmbientBlobStyle returns animated pink blob layers', () => {
-  const rightBlob = getHeroAmbientBlobStyle('right');
-  const leftBlob = getHeroAmbientBlobStyle('left');
+test('getHeroAmbientWashStyle returns static pink wash layers', () => {
+  const wash = getHeroAmbientWashStyle();
 
-  assert.match(rightBlob.backgroundImage, /rgba\(242,57,135/);
-  assert.match(leftBlob.backgroundImage, /rgba\(242,57,135/);
-  assert.match(rightBlob.animation, /ambient-drift/);
-  assert.match(leftBlob.animation, /ambient-drift-reverse/);
+  assert.match(wash.backgroundImage, /rgba\(242,57,135/);
+  assert.match(wash.backgroundImage, /ellipse/);
+  assert.equal(wash.animation, undefined);
+  assert.equal(wash.pointerEvents, 'none');
 });

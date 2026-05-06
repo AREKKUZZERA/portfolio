@@ -1,4 +1,6 @@
-export default function WorkPreviewCard({ project, t, onOpen }) {
+import { memo } from 'react';
+
+function WorkPreviewCard({ project, t, onOpen }) {
   return (
     <button
       type="button"
@@ -36,3 +38,5 @@ export default function WorkPreviewCard({ project, t, onOpen }) {
     </button>
   );
 }
+
+export default memo(WorkPreviewCard);

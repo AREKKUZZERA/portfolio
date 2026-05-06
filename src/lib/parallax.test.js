@@ -28,10 +28,10 @@ test('getParallaxStyle builds transform from pointer css vars', () => {
   assert.match(style.transform, /scale\(1.02\)/);
 });
 
-test('getGridParallaxStyle offsets background without 3d transform artifacts', () => {
-  const style = getGridParallaxStyle({ x: 12, y: 8 });
+test('getGridParallaxStyle keeps grid static to avoid repainting on pointer move', () => {
+  const style = getGridParallaxStyle();
 
   assert.equal(style.transform, 'none');
-  assert.match(style.backgroundPosition, /var\(--pointer-x, 0\) \* 12px/);
-  assert.match(style.backgroundPosition, /var\(--pointer-y, 0\) \* 8px/);
+  assert.equal(style.backgroundPosition, undefined);
+  assert.equal(style.willChange, undefined);
 });

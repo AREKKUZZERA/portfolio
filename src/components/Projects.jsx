@@ -1,4 +1,4 @@
-import { lazy, Suspense, useCallback, useLayoutEffect, useRef, useState } from 'react';
+import { lazy, Suspense, useCallback, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import sakuraUrl from '../assets/webp/sakura.webp';
 import { useGithubRepos } from '../hooks/useGithubRepos';
 import { BEHANCE_PROJECTS, GITHUB_USER, PROJECTS_TEXT } from '../data/projects';
@@ -18,20 +18,32 @@ export default function Projects({ lang }) {
   const [activeWork, setActiveWork] = useState(null);
 
   const activeFilter = filter ?? t.all;
-  const langs = [t.all, ...new Set(repos.map((repo) => repo.language).filter(Boolean))];
-  const shown = activeFilter === t.all ? repos : repos.filter((repo) => repo.language === activeFilter);
-  const behanceProjects = BEHANCE_PROJECTS.map((project) => ({
-    ...project,
-    htmlUrl: project.htmlUrls?.[lang] ?? project.htmlUrl,
-    title: t[project.titleKey],
-    shortTitle: t[project.shortTitleKey],
-  }));
-  const activeWorkForLang = activeWork
-    ? {
+  const langs = useMemo(
+    () => [t.all, ...new Set(repos.map((repo) => repo.language).filter(Boolean))],
+    [repos, t.all],
+  );
+  const shown = useMemo(
+    () => (activeFilter === t.all ? repos : repos.filter((repo) => repo.language === activeFilter)),
+    [activeFilter, repos, t.all],
+  );
+  const behanceProjects = useMemo(
+    () => BEHANCE_PROJECTS.map((project) => ({
+      ...project,
+      htmlUrl: project.htmlUrls?.[lang] ?? project.htmlUrl,
+      title: t[project.titleKey],
+      shortTitle: t[project.shortTitleKey],
+    })),
+    [lang, t],
+  );
+  const activeWorkForLang = useMemo(
+    () => (activeWork
+      ? {
         ...activeWork,
         htmlUrl: activeWork.htmlUrls?.[lang] ?? activeWork.htmlUrl,
       }
-    : null;
+      : null),
+    [activeWork, lang],
+  );
   const openWork = useCallback((project) => {
     document.documentElement.classList.add(VIEWER_LOCK_CLASS);
     document.body.classList.add(VIEWER_LOCK_CLASS);

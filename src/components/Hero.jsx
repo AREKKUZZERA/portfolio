@@ -1,6 +1,6 @@
 import { HERO_TEXT } from '../data/hero';
 import { getGridParallaxStyle } from '../lib/parallax';
-import { getHeroAmbientBlobStyle, getHeroBackgroundTextureStyle } from '../lib/heroBackground';
+import { getHeroAmbientWashStyle, getHeroBackgroundTextureStyle } from '../lib/heroBackground';
 import HeroIntro from './hero/HeroIntro';
 import HeroMarquee from './hero/HeroMarquee';
 import HeroProfileCard from './hero/HeroProfileCard';
@@ -10,10 +10,9 @@ export default function Hero({ lang }) {
 
   return (
     <section id="hero" className="hero-section">
-      <div className="hero-grid-bg" style={getGridParallaxStyle({ x: 10, y: 8 })} />
+      <div className="hero-grid-bg" style={getGridParallaxStyle()} />
       <div style={getHeroBackgroundTextureStyle()} />
-      <div style={getHeroAmbientBlobStyle('right')} />
-      <div style={getHeroAmbientBlobStyle('left')} />
+      <div style={getHeroAmbientWashStyle()} />
 
       <div className="hero-shell">
         <div className="hero-main-grid">

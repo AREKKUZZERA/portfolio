@@ -41,17 +41,13 @@ test('getMarqueeDuration clamps to a usable range', () => {
   assert.equal(getMarqueeDuration(6000), '40s');
 });
 
-test('getMarqueeItemStyle highlights and enlarges hovered item', () => {
-  const baseStyle = getMarqueeItemStyle({ isAccent: false, isHovered: false });
-  const hoveredStyle = getMarqueeItemStyle({ isAccent: false, isHovered: true });
+test('getMarqueeItemStyle keeps marquee item layout stable', () => {
+  const style = getMarqueeItemStyle();
 
-  assert.equal(baseStyle.transform, 'scale(1)');
-  assert.equal(baseStyle.color, 'var(--mut)');
-  assert.equal(hoveredStyle.transform, 'scale(1.06)');
-  assert.equal(hoveredStyle.color, 'var(--acc)');
-  assert.equal(hoveredStyle.boxShadow, 'none');
-  assert.match(hoveredStyle.textShadow, /rgba\(242,57,135,0.35\)/);
-  assert.match(hoveredStyle.transition, /cubic-bezier/);
+  assert.equal(style.flex, 'none');
+  assert.equal(style.whiteSpace, 'nowrap');
+  assert.equal(style.transformOrigin, 'center');
+  assert.match(style.willChange, /transform/);
 });
 
 test('getMarqueeViewportStyle allows hover glow to extend outside strip', () => {

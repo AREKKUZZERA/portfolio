@@ -1,7 +1,8 @@
+import { memo } from 'react';
 import { GitBranch, Send, Sparkles } from 'lucide-react';
 import { HERO_LINKS } from '../../data/hero';
 
-export default function HeroProfileCard({ t }) {
+function HeroProfileCard({ t }) {
   return (
     <aside className="hero-side-card">
       <div>
@@ -39,3 +40,5 @@ export default function HeroProfileCard({ t }) {
     </aside>
   );
 }
+
+export default memo(HeroProfileCard);

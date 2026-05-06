@@ -29,11 +29,8 @@ export function getParallaxStyle({
   };
 }
 
-export function getGridParallaxStyle({ x = 0, y = 0 } = {}) {
+export function getGridParallaxStyle() {
   return {
     transform: 'none',
-    backgroundPosition: `calc(var(--pointer-x, 0) * ${x}px) calc(var(--pointer-y, 0) * ${y}px), calc(var(--pointer-x, 0) * ${x * 0.6}px) calc(var(--pointer-y, 0) * ${y * 0.6}px)`,
-    transition: 'background-position 140ms cubic-bezier(0.22, 1, 0.36, 1)',
-    willChange: 'background-position',
   };
 }

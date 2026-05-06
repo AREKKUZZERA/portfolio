@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { useSeamlessMarquee } from '../../hooks/useSeamlessMarquee';
 import {
   getMarqueeItemStyle,
@@ -10,19 +10,33 @@ import {
 export default function HeroMarquee() {
   const marqueeViewportRef = useRef(null);
   const marqueeBaseRef = useRef(null);
-  const [hoveredMarqueeIndex, setHoveredMarqueeIndex] = useState(null);
+  const marqueeTrackRef = useRef(null);
   const { baseWidth, renderedCopies } = useSeamlessMarquee(
     marqueeViewportRef,
     marqueeBaseRef,
     MARQUEE_ITEMS,
   );
 
+  useEffect(() => {
+    const viewportNode = marqueeViewportRef.current;
+    const trackNode = marqueeTrackRef.current;
+
+    if (!viewportNode || !trackNode || !('IntersectionObserver' in window)) {
+      return undefined;
+    }
+
+    const observer = new IntersectionObserver(([entry]) => {
+      trackNode.style.animationPlayState = entry.isIntersecting ? 'running' : 'paused';
+    });
+
+    observer.observe(viewportNode);
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <div ref={marqueeViewportRef} style={getMarqueeViewportStyle()}>
-      <div
-        style={getMarqueeTrackStyle(baseWidth)}
-        onMouseLeave={() => setHoveredMarqueeIndex(null)}
-      >
+      <div ref={marqueeTrackRef} style={getMarqueeTrackStyle(baseWidth)}>
         {renderedCopies.map((copyIndex) => (
           <div
             key={copyIndex}
@@ -32,13 +46,12 @@ export default function HeroMarquee() {
             {MARQUEE_ITEMS.map((item, itemIndex) => {
               const itemKey = `${copyIndex}-${itemIndex}`;
               const isAccent = itemIndex % MARQUEE_ITEMS.length === 0;
-              const isHovered = hoveredMarqueeIndex === itemKey;
 
               return (
                 <span
                   key={itemKey}
-                  onMouseEnter={() => setHoveredMarqueeIndex(itemKey)}
-                  style={getMarqueeItemStyle({ isAccent, isHovered })}
+                  className={`hero-marquee-item${isAccent ? ' hero-marquee-item--accent' : ''}`}
+                  style={getMarqueeItemStyle()}
                 >
                   {item}{itemIndex % 3 === 0 ? ' ✦' : ' ·'}
                 </span>

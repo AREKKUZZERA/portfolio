@@ -1,5 +1,4 @@
 import { lazy, Suspense, useState } from 'react';
-import { usePointerCssVars } from './hooks/usePointerCssVars';
 import Nav from './components/Nav';
 import Hero from './components/Hero';
 import About from './components/About';
@@ -11,7 +10,6 @@ const Contact = lazy(() => import('./components/Contact'));
 
 export default function App() {
   const [lang, setLang] = useState('ru');
-  usePointerCssVars();
 
   return (
     <>

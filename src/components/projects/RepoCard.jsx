@@ -1,6 +1,7 @@
+import { memo } from 'react';
 import { LANG_COLORS } from '../../data/projects';
 
-export default function RepoCard({ repo, noDesc }) {
+function RepoCard({ repo, noDesc }) {
   const langColor = LANG_COLORS[repo.language] || LANG_COLORS.default;
 
   return (
@@ -33,3 +34,5 @@ export default function RepoCard({ repo, noDesc }) {
     </a>
   );
 }
+
+export default memo(RepoCard);

@@ -1,4 +1,6 @@
-export default function HeroIntro({ t }) {
+import { memo } from 'react';
+
+function HeroIntro({ t }) {
   return (
     <div className="hero-copy">
       <h1 className="hero-title">
@@ -14,3 +16,5 @@ export default function HeroIntro({ t }) {
     </div>
   );
 }
+
+export default memo(HeroIntro);
