@@ -518,11 +518,11 @@ input, textarea {
 
 .about-curve {
   position: absolute;
-  top: -176px;
+  top: clamp(-176px, -12vw, -96px);
   left: 50%;
   z-index: 2;
   width: 100vw;
-  height: clamp(190px, 22vw, 300px);
+  height: clamp(130px, 18vw, 260px);
   color: rgba(255,255,255,0.12);
   opacity: 1;
   pointer-events: none;
@@ -1267,6 +1267,13 @@ input, textarea {
     padding-top: 5.5rem !important;
     min-height: auto !important;
   }
+  #about {
+    padding-top: 4.4rem !important;
+  }
+  .about-curve {
+    top: -88px;
+    height: 128px;
+  }
   .hero-shell {
     padding-top: 2rem !important;
   }
@@ -1470,6 +1477,13 @@ input, textarea {
   .page-section {
     padding-left: 0.85rem !important;
     padding-right: 0.85rem !important;
+  }
+  #about {
+    padding-top: 3.6rem !important;
+  }
+  .about-curve {
+    top: -74px;
+    height: 112px;
   }
   .work-preview-card {
     aspect-ratio: 1 / 1 !important;
