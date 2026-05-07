@@ -41,7 +41,6 @@ export function getMarqueeDuration(baseWidth) {
 export function getMarqueeViewportStyle() {
   return {
     marginTop: '6rem',
-    borderTop: '1px solid var(--b1)',
     paddingTop: '1.2rem',
     paddingBottom: '0.8rem',
     width: '100vw',

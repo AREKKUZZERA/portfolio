@@ -8,14 +8,14 @@ test('getHeroBackgroundTextureStyle keeps soft color without diagonal texture', 
 
   assert.match(style.backgroundImage, /radial-gradient/);
   assert.doesNotMatch(style.backgroundImage, /repeating-linear-gradient/);
+  assert.equal(style.filter, 'blur(56px)');
   assert.equal(style.pointerEvents, 'none');
 });
 
-test('getHeroAmbientWashStyle returns static pink wash layers', () => {
+test('getHeroAmbientWashStyle stays disabled to avoid background artifacts', () => {
   const wash = getHeroAmbientWashStyle();
 
-  assert.match(wash.backgroundImage, /rgba\(242,57,135/);
-  assert.match(wash.backgroundImage, /ellipse/);
+  assert.equal(wash.backgroundImage, 'none');
   assert.equal(wash.animation, undefined);
   assert.equal(wash.pointerEvents, 'none');
 });

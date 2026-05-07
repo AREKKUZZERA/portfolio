@@ -1,10 +1,9 @@
 export const HERO_TEXT = {
   ru: {
-    badge: 'Открыт к сотрудничеству',
     role1: 'Графический',
     role2: 'дизайнер',
-    role3: 'интерфейсов & визуальных систем',
-    desc: 'Создаю продуманные цифровые продукты — от UX-концепции до пиксельно-точного финала. Figma, Adobe CC, фирменный стиль, UI-системы.',
+    role3: 'визуального дизайна и коммуникаций',
+    desc: 'Создаю понятный и современный дизайн для разных задач: сайтов, интерфейсов, презентаций, соцсетей и фирменных материалов — от идеи до готового макета.',
     cta1: 'Смотреть работы',
     cta2: 'Связаться',
     name: 'Александр Александров',
@@ -20,11 +19,10 @@ export const HERO_TEXT = {
     ],
   },
   en: {
-    badge: 'Available for work',
     role1: 'Graphic',
     role2: 'Designer',
-    role3: 'interfaces & visual systems',
-    desc: 'Creating thoughtful digital products — from UX concept to pixel-perfect delivery. Figma, Adobe CC, brand identity, UI systems.',
+    role3: 'visual design and communication',
+    desc: 'I create clear, modern designs for a wide range of needs: websites, interfaces, presentations, social media, and branded materials — from concept to final layout.',
     cta1: 'View works',
     cta2: 'Contact',
     name: 'Alexander Alexandrov',

@@ -576,11 +576,16 @@ input, textarea {
   display: grid;
   grid-template-columns: minmax(0, 1.15fr) minmax(320px, 0.85fr);
   gap: 2.4rem;
-  align-items: start;
+  align-items: stretch;
 }
 
 .hero-copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   max-width: 560px;
+  min-width: 0;
+  min-height: 100%;
 }
 
 .hero-title {
@@ -642,7 +647,7 @@ input, textarea {
 }
 
 .hero-side-card {
-  align-self: start;
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -650,8 +655,9 @@ input, textarea {
   padding: 1.6rem;
   border: 1px solid var(--b1);
   border-radius: 18px;
-  background: linear-gradient(180deg, rgba(255,255,255,0.035), rgba(255,255,255,0.012));
-  backdrop-filter: blur(1.7px);
+  background: rgba(18,18,18,0.72);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
+  overflow: hidden;
 }
 
 .hero-profile-name {
@@ -678,6 +684,10 @@ input, textarea {
 .hero-link-button {
   padding: 0.95rem 1.35rem;
   font-size: 0.82rem;
+}
+
+.hero-link-button:hover {
+  box-shadow: 0 16px 42px rgba(242,57,135,0.2);
 }
 
 .hero-tag-row {
