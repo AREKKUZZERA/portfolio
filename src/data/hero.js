@@ -2,8 +2,8 @@ export const HERO_TEXT = {
   ru: {
     role1: 'Графический',
     role2: 'дизайнер',
-    role3: 'визуального дизайна и коммуникаций',
-    desc: 'Создаю понятный и современный дизайн для разных задач: сайтов, интерфейсов, презентаций, соцсетей и фирменных материалов — от идеи до готового макета.',
+    role3: 'брендинг, сайты и коммуникации',
+    desc: 'Создаю визуальные решения, которые помогают брендам выглядеть цельно, современно и узнаваемо — на сайтах, в презентациях, соцсетях и фирменных материалах.',
     cta1: 'Смотреть работы',
     cta2: 'Связаться',
     name: 'Александр Александров',
@@ -21,8 +21,8 @@ export const HERO_TEXT = {
   en: {
     role1: 'Graphic',
     role2: 'Designer',
-    role3: 'visual design and communication',
-    desc: 'I create clear, modern designs for a wide range of needs: websites, interfaces, presentations, social media, and branded materials — from concept to final layout.',
+    role3: 'branding, websites, and visual communications',
+    desc: 'I design visual solutions that help brands look cohesive, modern, and recognizable — across websites, presentations, social media, and branded materials.',
     cta1: 'View works',
     cta2: 'Contact',
     name: 'Alexander Alexandrov',
