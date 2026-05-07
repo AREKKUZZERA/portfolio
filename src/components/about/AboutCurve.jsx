@@ -85,7 +85,7 @@ export default function AboutCurve() {
         d={getCurveLinePath(214)}
         fill="none"
         stroke="currentColor"
-        strokeWidth="1.2"
+        strokeWidth="1.8"
       />
     </svg>
   );

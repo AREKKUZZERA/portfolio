@@ -523,7 +523,7 @@ input, textarea {
   z-index: 2;
   width: 100vw;
   height: clamp(130px, 18vw, 260px);
-  color: rgba(255,255,255,0.12);
+  color: rgba(242,57,135,0.72);
   opacity: 1;
   pointer-events: none;
   transform: translateX(-50%);
@@ -534,7 +534,11 @@ input, textarea {
 }
 
 .about-curve__line {
-  opacity: 0.62;
+  opacity: 1;
+  filter:
+    drop-shadow(0 0 8px rgba(242,57,135,0.42))
+    drop-shadow(0 0 24px rgba(242,57,135,0.28))
+    drop-shadow(0 0 48px rgba(242,57,135,0.16));
 }
 
 .hero-shell {
