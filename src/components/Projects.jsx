@@ -80,7 +80,7 @@ export default function Projects({ lang }) {
         <p className="section-label">{t.label}</p>
         <h2 className="section-title">{t.title1} <em>{t.title2}</em></h2>
         <SectionHeading title1={t.behanceTitle1} title2={t.behanceTitle2} desc={t.behanceDesc} />
-        <div className="work-preview-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '1.15rem', marginBottom: '5rem' }}>
+        <div className="work-preview-grid">
           {behanceProjects.map((project) => (
             <WorkPreviewCard key={project.id} project={project} t={t} onOpen={openWork} />
           ))}
@@ -137,7 +137,7 @@ export default function Projects({ lang }) {
           )}
           {!loading && !error && (
             <>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(290px, 1fr))', gap: '1.2rem' }}>
+              <div className="repo-grid">
                 {shown.map((repo) => <RepoCard key={repo.id} repo={repo} noDesc={t.noDesc} />)}
               </div>
               <div style={{ textAlign: 'center', marginTop: '3rem' }}>
