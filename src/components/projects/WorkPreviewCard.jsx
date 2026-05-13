@@ -12,7 +12,9 @@ function WorkPreviewCard({ project, t, onOpen }) {
       <div className="work-preview-card">
         <img
           className="work-preview-card__image"
-          src={project.preview}
+          src={project.previewCard ?? project.preview}
+          srcSet={project.previewCard ? `${project.previewCard} 1008w, ${project.preview} 1672w` : undefined}
+          sizes="(max-width: 760px) calc(100vw - 3rem), 340px"
           alt={project.title}
           loading="lazy"
           decoding="async"

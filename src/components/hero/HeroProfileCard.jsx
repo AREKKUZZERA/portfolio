@@ -15,10 +15,14 @@ function HeroProfileCard({ t }) {
           <Send size={16} strokeWidth={2.2} />
           {t.telegram}
         </a>
-        <a href={HERO_LINKS.behance} target="_blank" rel="noreferrer" className="btn-ghost hero-link-button">
+        <span
+          className="btn-ghost hero-link-button hero-link-button--disabled"
+          aria-disabled="true"
+          title="В разработке"
+        >
           <Sparkles size={16} strokeWidth={2.2} />
           {t.behance}
-        </a>
+        </span>
         <a href={HERO_LINKS.github} target="_blank" rel="noreferrer" className="btn-ghost hero-link-button">
           <GitBranch size={16} strokeWidth={2.2} />
           {t.github}
