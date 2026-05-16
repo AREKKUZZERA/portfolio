@@ -5,6 +5,13 @@ import { HERO_LINKS } from '../../data/hero';
 function HeroProfileCard({ t }) {
   return (
     <aside className="hero-side-card">
+      <span className="hero-card-border" aria-hidden="true">
+        <span className="hero-card-border__segment hero-card-border__segment--top" />
+        <span className="hero-card-border__segment hero-card-border__segment--right" />
+        <span className="hero-card-border__segment hero-card-border__segment--bottom" />
+        <span className="hero-card-border__segment hero-card-border__segment--left" />
+      </span>
+
       <div>
         <div className="hero-profile-name">{t.name}</div>
         <p className="hero-profile-desc">{t.sideDesc}</p>
