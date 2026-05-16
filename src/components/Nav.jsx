@@ -19,7 +19,9 @@ const LINKS = {
 
 export default function Nav({ lang, setLang }) {
   const [scrolled, setScrolled] = useState(false);
+  const [heroVisible, setHeroVisible] = useState(true);
   const scrolledRef = useRef(false);
+  const heroVisibleRef = useRef(true);
   const links = LINKS[lang];
 
   useEffect(() => {
@@ -48,10 +50,54 @@ export default function Nav({ lang, setLang }) {
     };
   }, []);
 
+  useEffect(() => {
+    const hero = document.getElementById('hero');
+    if (!hero) return undefined;
+
+    const syncHeroVisible = (nextHeroVisible) => {
+      if (nextHeroVisible !== heroVisibleRef.current) {
+        heroVisibleRef.current = nextHeroVisible;
+        setHeroVisible(nextHeroVisible);
+      }
+    };
+
+    if (!('IntersectionObserver' in window)) {
+      let rafId = 0;
+
+      const update = () => {
+        rafId = 0;
+        const rect = hero.getBoundingClientRect();
+        syncHeroVisible(rect.bottom > 0 && rect.top < window.innerHeight);
+      };
+
+      const requestUpdate = () => {
+        if (!rafId) rafId = window.requestAnimationFrame(update);
+      };
+
+      requestUpdate();
+      window.addEventListener('scroll', requestUpdate, { passive: true });
+      window.addEventListener('resize', requestUpdate);
+
+      return () => {
+        window.removeEventListener('scroll', requestUpdate);
+        window.removeEventListener('resize', requestUpdate);
+        if (rafId) window.cancelAnimationFrame(rafId);
+      };
+    }
+
+    const observer = new IntersectionObserver(([entry]) => {
+      syncHeroVisible(entry.isIntersecting);
+    });
+
+    observer.observe(hero);
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <nav className={`site-nav${scrolled ? ' site-nav--scrolled' : ''}`}>
       {/* Logo */}
-      <a href="#hero" className="nav-logo" style={{
+      <a href="#hero" className={`nav-logo${heroVisible ? ' nav-logo--hero-visible' : ''}`} style={{
         fontFamily: 'var(--font-display)',
         fontSize: '1.15rem',
         color: 'var(--txt)',
