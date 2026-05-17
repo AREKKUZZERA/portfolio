@@ -470,16 +470,25 @@ input, textarea {
 .sakura-parallax {
   position: absolute;
   z-index: 1;
+  display: block;
   width: clamp(340px, 40vw, 620px);
-  height: auto;
+  aspect-ratio: var(--sakura-aspect, 461 / 387);
   pointer-events: none;
   user-select: none;
   opacity: 0.96;
   filter: none;
-  transform: translate3d(var(--sakura-x, 0px), var(--sakura-y, 0px), 0) rotate(calc(var(--sakura-rotate, 0deg) + var(--sakura-scroll-rotate, 0deg))) scaleX(var(--sakura-scale-x, 1));
-  transform-origin: center;
+  overflow: visible;
   transition: opacity 0.2s ease;
-  will-change: transform;
+}
+
+.sakura-parallax canvas {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: block;
+  width: calc(100% + var(--sakura-overscan, 220px));
+  height: calc(100% + var(--sakura-overscan, 220px));
+  transform: translate(-50%, -50%);
 }
 
 .sakura-parallax--about {
@@ -606,39 +615,14 @@ input, textarea {
     linear-gradient(180deg, rgba(8,8,8,0.02), rgba(8,8,8,0.46));
 }
 
-.hero-grid-bg {
+.hero-grid-canvas {
   position: absolute;
   inset: 0;
-  background-image:
-    linear-gradient(rgba(255,255,255,0.065) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.065) 1px, transparent 1px),
-    linear-gradient(rgba(255,255,255,0.09) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.09) 1px, transparent 1px);
-  background-position:
-    calc(50% + var(--hero-grid-minor-half)) calc(50% + var(--hero-grid-minor-half)),
-    calc(50% + var(--hero-grid-minor-half)) calc(50% + var(--hero-grid-minor-half)),
-    calc(50% + var(--hero-grid-major-half)) calc(50% + var(--hero-grid-major-half)),
-    calc(50% + var(--hero-grid-major-half)) calc(50% + var(--hero-grid-major-half));
-  background-size:
-    var(--hero-grid-minor) var(--hero-grid-minor),
-    var(--hero-grid-minor) var(--hero-grid-minor),
-    var(--hero-grid-major) var(--hero-grid-major),
-    var(--hero-grid-major) var(--hero-grid-major);
-  mask-image: radial-gradient(circle at 52% 46%, #000 0 76%, transparent 98%);
+  display: block;
+  width: 100%;
+  height: 100%;
   opacity: 1;
-}
-
-.hero-bg-rulers {
-  position: absolute;
-  inset: 0;
-  opacity: 0.1;
-  background:
-    linear-gradient(to bottom, transparent calc(50% - var(--hero-grid-major) - 0.5px), var(--hero-ruler-color) calc(50% - var(--hero-grid-major) - 0.5px) calc(50% - var(--hero-grid-major) + 0.5px), transparent calc(50% - var(--hero-grid-major) + 0.5px)),
-    linear-gradient(to bottom, transparent calc(50% - 0.5px), var(--hero-ruler-center-color) calc(50% - 0.5px) calc(50% + 0.5px), transparent calc(50% + 0.5px)),
-    linear-gradient(to bottom, transparent calc(50% + var(--hero-grid-major) - 0.5px), var(--hero-ruler-color) calc(50% + var(--hero-grid-major) - 0.5px) calc(50% + var(--hero-grid-major) + 0.5px), transparent calc(50% + var(--hero-grid-major) + 0.5px)),
-    linear-gradient(90deg, transparent calc(50% - var(--hero-grid-major) - 0.5px), var(--hero-ruler-color) calc(50% - var(--hero-grid-major) - 0.5px) calc(50% - var(--hero-grid-major) + 0.5px), transparent calc(50% - var(--hero-grid-major) + 0.5px)),
-    linear-gradient(90deg, transparent calc(50% - 0.5px), var(--hero-ruler-center-color) calc(50% - 0.5px) calc(50% + 0.5px), transparent calc(50% + 0.5px)),
-    linear-gradient(90deg, transparent calc(50% + var(--hero-grid-major) - 0.5px), var(--hero-ruler-color) calc(50% + var(--hero-grid-major) - 0.5px) calc(50% + var(--hero-grid-major) + 0.5px), transparent calc(50% + var(--hero-grid-major) + 0.5px));
+  pointer-events: none;
 }
 
 .hero-bg-corner {
@@ -2083,7 +2067,7 @@ input, textarea {
   }
 
   .sakura-parallax,
-  .hero-grid-bg,
+  .hero-grid-canvas,
   .work-preview-card__image {
     transform: none !important;
   }

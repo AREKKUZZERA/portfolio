@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { HERO_TEXT } from '../data/hero';
-import { getGridParallaxStyle } from '../lib/parallax';
 import { getHeroAmbientWashStyle, getHeroBackgroundTextureStyle } from '../lib/heroBackground';
+import HeroCanvasGrid from './hero/HeroCanvasGrid';
 import HeroIntro from './hero/HeroIntro';
 import HeroMarquee from './hero/HeroMarquee';
 import HeroProfileCard from './hero/HeroProfileCard';
@@ -62,9 +62,8 @@ export default function Hero({ lang }) {
 
   return (
     <section id="hero" className="hero-section">
-      <div className="hero-technical-bg" style={getGridParallaxStyle()} aria-hidden="true">
-        <div className="hero-grid-bg" />
-        <div className="hero-bg-rulers" />
+      <div className="hero-technical-bg" aria-hidden="true">
+        <HeroCanvasGrid />
         <div className="hero-bg-corner hero-bg-corner--left">
           <span />
           <span />
