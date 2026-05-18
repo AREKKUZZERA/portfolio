@@ -1664,6 +1664,16 @@ input, textarea {
     rgba(255,255,255,0.035);
   border: 1px solid var(--b2);
   border-radius: var(--r);
+  transition: transform 0.25s, background 0.25s, border-color 0.25s, box-shadow 0.25s;
+}
+
+.resume-trust-card:hover {
+  background:
+    linear-gradient(135deg, rgba(242,57,135,0.16), transparent 58%),
+    var(--s2);
+  border-color: var(--b3);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(0,0,0,0.4);
 }
 
 .resume-trust-card__label {
