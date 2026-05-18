@@ -1345,6 +1345,45 @@ input, textarea {
   box-shadow: 0 16px 42px rgba(242,57,135,0.2);
 }
 
+.hero-link-button--disabled {
+  position: relative;
+  opacity: 0.58;
+}
+
+.hero-link-button--disabled:hover {
+  border-color: rgba(255,255,255,0.16);
+  color: var(--txt2);
+  background: rgba(255,255,255,0.035);
+  box-shadow: none;
+  cursor: url('./assets/cursor/08_unavailable.cur'), not-allowed;
+}
+
+.hero-link-button--disabled::after {
+  content: 'В разработке';
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 0.55rem);
+  transform: translate(-50%, 0.25rem);
+  padding: 0.36rem 0.55rem;
+  border: 1px solid var(--b2);
+  border-radius: 6px;
+  background: rgba(18,18,18,0.94);
+  color: var(--txt);
+  font-family: var(--font-ui);
+  font-size: 0.68rem;
+  line-height: 1;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.16s ease, transform 0.16s ease;
+}
+
+.hero-link-button--disabled:hover::after,
+.hero-link-button--disabled:focus-visible::after {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
 .hero-tag-row {
   gap: 0.5rem;
   row-gap: 0.45rem;
