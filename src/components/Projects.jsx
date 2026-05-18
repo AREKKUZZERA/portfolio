@@ -13,7 +13,7 @@ const VIEWER_LOCK_CLASS = 'work-viewer-page-lock';
 export default function Projects({ lang }) {
   const t = PROJECTS_TEXT[lang];
   const sectionRef = useRef(null);
-  const { error, loading, repos } = useGithubRepos(sectionRef);
+  const { error, loading, repos, retry } = useGithubRepos(sectionRef);
   const [filter, setFilter] = useState(null);
   const [activeWork, setActiveWork] = useState(null);
 
@@ -26,6 +26,8 @@ export default function Projects({ lang }) {
     () => (activeFilter === t.all ? repos : repos.filter((repo) => repo.language === activeFilter)),
     [activeFilter, repos, t.all],
   );
+  const hasRepos = repos.length > 0;
+  const hasShownRepos = shown.length > 0;
   const behanceProjects = useMemo(
     () => BEHANCE_PROJECTS.map((project) => ({
       ...project,
@@ -48,8 +50,6 @@ export default function Projects({ lang }) {
     [activeWork, lang],
   );
   const openWork = useCallback((project) => {
-    document.documentElement.classList.add(VIEWER_LOCK_CLASS);
-    document.body.classList.add(VIEWER_LOCK_CLASS);
     setActiveWork(project);
   }, []);
   const closeWork = useCallback(() => {
@@ -70,7 +70,7 @@ export default function Projects({ lang }) {
 
   return (
     <>
-      <section ref={sectionRef} id="projects" className="page-section" style={{ position: 'relative', isolation: 'isolate', padding: '8rem 2.5rem', maxWidth: 1100, margin: '0 auto' }}>
+      <section ref={sectionRef} id="projects" className="page-section projects-section">
         <ScrollParallaxImage
           src={sakuraUrl}
           className="sakura-parallax--github"
@@ -81,7 +81,6 @@ export default function Projects({ lang }) {
           rotate={13}
         />
         <p className="section-label">{t.label}</p>
-        <h2 className="section-title">{t.title1} <em>{t.title2}</em></h2>
         <SectionHeading title1={t.behanceTitle1} title2={t.behanceTitle2} desc={t.behanceDesc} />
         <div className="work-preview-grid">
           {behanceProjects.map((project) => (
@@ -89,10 +88,10 @@ export default function Projects({ lang }) {
           ))}
         </div>
 
-        <div className="github-section-anchor" style={{ position: 'relative', isolation: 'isolate' }}>
+        <div className="github-section-anchor">
           <SectionHeading title1={t.githubTitle1} title2={t.githubTitle2} desc={t.githubDesc} />
 
-          {!loading && !error && (
+          {!loading && !error && hasRepos && (
             <div className="project-filter-row">
               {langs.map((item) => (
                 <button
@@ -109,21 +108,30 @@ export default function Projects({ lang }) {
           )}
 
           {loading && (
-            <div className="github-loading">
+            <div className="github-loading" role="status" aria-live="polite">
               <div className="github-loading__mark">◌</div>
               {t.loading}
             </div>
           )}
           {error && (
-            <div className="github-error">
-              {t.empty}
+            <div className="github-error" role="alert">
+              <span>{t.empty}</span>
+              <button type="button" className="btn-ghost github-retry-button" onClick={retry}>
+                {t.retryRepos}
+              </button>
             </div>
           )}
           {!loading && !error && (
             <>
-              <div className="repo-grid">
-                {shown.map((repo) => <RepoCard key={repo.id} repo={repo} noDesc={t.noDesc} />)}
-              </div>
+              {hasShownRepos ? (
+                <div className="repo-grid">
+                  {shown.map((repo) => <RepoCard key={repo.id} repo={repo} noDesc={t.noDesc} />)}
+                </div>
+              ) : (
+                <div className="github-empty" role="status">
+                  {t.noRepos}
+                </div>
+              )}
               <div className="github-repo-action">
                 <a href={`https://github.com/${GITHUB_USER}?tab=repositories`} target="_blank" rel="noreferrer" className="btn-ghost">
                   {t.allRepos}

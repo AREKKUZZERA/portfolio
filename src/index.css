@@ -516,6 +516,16 @@ input, textarea {
   max-width: min(1100px, 100%);
 }
 
+.projects-section {
+  --projects-block-gap: clamp(4rem, 7vw, 5rem);
+  --projects-heading-gap: 1.8rem;
+  position: relative;
+  isolation: isolate;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 8rem 2.5rem;
+}
+
 .section-label--center {
   justify-content: center;
 }
@@ -592,6 +602,12 @@ input, textarea {
 .github-section-anchor > :not(.sakura-parallax) {
   position: relative;
   z-index: 1;
+}
+
+.github-section-anchor {
+  position: relative;
+  isolation: isolate;
+  margin-top: var(--projects-block-gap);
 }
 
 @media (min-width: 1101px) {
@@ -1762,6 +1778,10 @@ input, textarea {
   margin-bottom: 1.8rem;
 }
 
+.projects-section .section-heading {
+  margin-bottom: var(--projects-heading-gap);
+}
+
 .section-heading__title {
   font-family: var(--font-display);
   font-size: clamp(2.6rem, 6vw, 4.8rem);
@@ -1789,7 +1809,7 @@ input, textarea {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
   gap: 1.15rem;
-  margin-bottom: 5rem;
+  margin-bottom: 0;
 }
 
 .repo-grid {
@@ -1912,6 +1932,10 @@ input, textarea {
   min-width: 0;
 }
 
+.work-preview-button:focus-visible {
+  outline: none;
+}
+
 .work-preview-card {
   position: relative;
   overflow: hidden;
@@ -1925,10 +1949,17 @@ input, textarea {
   transition: transform 0.28s ease, border-color 0.28s ease, box-shadow 0.28s ease;
 }
 
-.work-preview-button:hover .work-preview-card {
+.work-preview-button:hover .work-preview-card,
+.work-preview-button:focus-visible .work-preview-card {
   border-color: rgba(242,57,135,0.28);
   box-shadow: 0 24px 70px rgba(0,0,0,0.34);
   transform: translateY(-4px);
+}
+
+.work-preview-button:focus-visible .work-preview-card {
+  box-shadow:
+    0 0 0 3px rgba(242,57,135,0.32),
+    0 24px 70px rgba(0,0,0,0.34);
 }
 
 .work-preview-card__image {
@@ -1945,7 +1976,8 @@ input, textarea {
   backface-visibility: hidden;
 }
 
-.work-preview-button:hover .work-preview-card__image {
+.work-preview-button:hover .work-preview-card__image,
+.work-preview-button:focus-visible .work-preview-card__image {
   transform: translateZ(0) scale(1.035);
 }
 
@@ -2044,7 +2076,8 @@ input, textarea {
   transition: all 0.24s ease;
 }
 
-.work-preview-button:hover .work-preview-cta {
+.work-preview-button:hover .work-preview-cta,
+.work-preview-button:focus-visible .work-preview-cta {
   background: rgba(242,57,135,0.16);
   color: var(--acc-l);
 }
@@ -2066,7 +2099,8 @@ input, textarea {
   transition: color 0.24s ease, border-color 0.24s ease, opacity 0.24s ease, transform 0.24s ease;
 }
 
-.work-preview-button:hover .work-preview-badge {
+.work-preview-button:hover .work-preview-badge,
+.work-preview-button:focus-visible .work-preview-badge {
   color: var(--acc-l);
   opacity: 1;
   transform: translateY(0);
@@ -2111,6 +2145,11 @@ input, textarea {
 }
 
 .github-error {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
   padding: 1.5rem;
   border: 1px solid rgba(242,57,135,0.25);
   border-radius: 8px;
@@ -2118,6 +2157,22 @@ input, textarea {
   color: var(--acc);
   font-family: var(--font-mono);
   font-size: 0.75rem;
+}
+
+.github-empty {
+  padding: 1.5rem;
+  border: 1px solid var(--b1);
+  border-radius: 8px;
+  background: rgba(255,255,255,0.025);
+  color: var(--mut);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+}
+
+.github-retry-button {
+  flex-shrink: 0;
+  padding: 0.54rem 0.9rem;
+  font-size: 0.65rem;
 }
 
 .github-repo-action {
@@ -2286,7 +2341,7 @@ input, textarea {
   .work-preview-grid {
     grid-template-columns: 1fr !important;
     gap: 1rem !important;
-    margin-bottom: 4rem !important;
+    margin-bottom: 0 !important;
   }
   .work-preview-card {
     aspect-ratio: 16 / 9 !important;
@@ -2446,6 +2501,17 @@ input, textarea {
 }
 
 @media (pointer: coarse) {
+  .work-preview-badge {
+    color: var(--acc-l);
+    opacity: 1;
+    transform: none;
+  }
+
+  .work-preview-cta {
+    background: rgba(242,57,135,0.16);
+    color: var(--acc-l);
+  }
+
   body,
   #root,
   main,

@@ -1,11 +1,19 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { loadGithubRepos } from '../lib/githubRepos';
 
 export function useGithubRepos(sectionRef) {
   const [repos, setRepos] = useState([]);
   const [shouldLoadRepos, setShouldLoadRepos] = useState(false);
+  const [requestId, setRequestId] = useState(0);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+
+  const requestRepos = useCallback(() => {
+    setError(null);
+    setLoading(true);
+    setShouldLoadRepos(true);
+    setRequestId((current) => current + 1);
+  }, []);
 
   useEffect(() => {
     const sectionNode = sectionRef.current;
@@ -14,9 +22,7 @@ export function useGithubRepos(sectionRef) {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (!entry?.isIntersecting) return;
-        setLoading(true);
-        setError(null);
-        setShouldLoadRepos(true);
+        requestRepos();
         observer.disconnect();
       },
       { rootMargin: '400px 0px' },
@@ -24,10 +30,10 @@ export function useGithubRepos(sectionRef) {
 
     observer.observe(sectionNode);
     return () => observer.disconnect();
-  }, [sectionRef]);
+  }, [requestRepos, sectionRef]);
 
   useEffect(() => {
-    if (!shouldLoadRepos) return undefined;
+    if (!shouldLoadRepos || requestId === 0) return undefined;
 
     let cancelled = false;
 
@@ -46,11 +52,12 @@ export function useGithubRepos(sectionRef) {
     return () => {
       cancelled = true;
     };
-  }, [shouldLoadRepos]);
+  }, [requestId, shouldLoadRepos]);
 
   return {
     error,
     loading,
     repos,
+    retry: requestRepos,
   };
 }

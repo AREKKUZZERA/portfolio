@@ -15,7 +15,7 @@ function WorkPreviewCard({ project, t, onOpen }) {
           src={project.previewCard ?? project.preview}
           srcSet={project.previewCard ? `${project.previewCard} 1008w, ${project.preview} 1672w` : undefined}
           sizes="(max-width: 760px) calc(100vw - 3rem), 340px"
-          alt={project.title}
+          alt=""
           loading="lazy"
           decoding="async"
         />
