@@ -143,7 +143,7 @@ export default function Projects({ lang }) {
       </section>
 
       {activeWorkForLang && (
-        <Suspense fallback={null}>
+        <Suspense fallback={<div className="work-viewer-loading" role="status">{t.loading}</div>}>
           <WorkViewer key={`${activeWorkForLang.id}-${lang}`} work={activeWorkForLang} lang={lang} onClose={closeWork} />
         </Suspense>
       )}

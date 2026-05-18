@@ -2,32 +2,39 @@ const T = {
   ru: {
     label: 'Резюме',
     title1: 'Опыт &', title2: 'образование',
+    trustLabel: 'Факты',
     tlLabel: 'Путь',
     abLabel: 'Компетенции',
+    trust: [
+      { label: 'Что делаю', value: 'UI/UX, брендинг, дизайн-системы, лендинги' },
+      { label: 'Для кого', value: 'Продуктовые команды, агентства, малый бизнес' },
+      { label: 'Результат', value: '20+ проектов: интерфейсы, айдентика, презентации' },
+      { label: 'Инструменты', value: 'Figma, Adobe CC, Blender, React-прототипы' },
+    ],
     timeline: [
       {
         year: '2025 — наст.',
         title: 'Дизайнер-фрилансер',
         place: 'Самозанятый',
-        desc: 'Разработка UI/UX для продуктовых компаний и агентств. Фирменный стиль, дизайн-системы, веб-интерфейсы. Портфолио включает более 20 завершённых проектов.',
+        desc: 'Проектирую интерфейсы, айдентику и визуальные системы для цифровых продуктов и коммерческих сайтов.',
       },
       {
         year: '2024 — наст.',
         title: 'Магистратура по дизайну',
         place: 'Университет: РТУ МИРЭА',
-        desc: 'Углублённое изучение теории дизайна, исследовательских методологий и дизайн-менеджмента. Фокус на системном проектировании цифровых продуктов.',
+        desc: 'Углубляю исследовательский подход, дизайн-менеджмент и системное проектирование цифровых продуктов.',
       },
       {
         year: '2023',
         title: 'Бакалавриат по дизайну',
         place: 'Университет: РТУ МИРЭА',
-        desc: 'Получил степень бакалавра в области дизайна. Моя дипломная работа была посвящена комплексной разработке рабочего пространства — современного компьютерного стола и его модульной системы для повседневного использования, с акцентом на исследование эргономики, адаптивности и эффективности организации рабочей среды.',
+        desc: 'Дипломный проект: модульная рабочая среда с фокусом на эргономику, адаптивность и сценарии использования.',
       },
       {
         year: '2021 — 2023',
         title: 'Первые шаги',
         place: 'Подработка',
-        desc: 'Работа с ИП: создание логотипов, упаковки, рекламных материалов. Первые UX-проекты — редизайн листовок, меню, а также баннеров.',
+        desc: 'Работал с ИП над логотипами, упаковкой, рекламными материалами и первыми UX-редизайнами.',
       },
       {
         year: '2018',
@@ -48,32 +55,39 @@ const T = {
   en: {
     label: 'Resume',
     title1: 'Experience &', title2: 'education',
+    trustLabel: 'Proof points',
     tlLabel: 'Journey',
     abLabel: 'Competencies',
+    trust: [
+      { label: 'What I do', value: 'UI/UX, branding, design systems, landing pages' },
+      { label: 'For whom', value: 'Product teams, agencies, small businesses' },
+      { label: 'Result', value: '20+ projects: interfaces, identity, presentations' },
+      { label: 'Tools', value: 'Figma, Adobe CC, Blender, React prototypes' },
+    ],
     timeline: [
       {
         year: '2025 — now',
         title: 'Freelance Designer',
         place: 'Self-employed',
-        desc: 'Developing UI/UX for product companies and agencies. Brand identity, design systems, web interfaces. Portfolio includes 20+ completed projects.',
+        desc: 'Designing interfaces, identity, and visual systems for digital products and commercial websites.',
       },
       {
         year: '2024 — now',
         title: "Master's in Design",
         place: 'University: RTU MIREA',
-        desc: "Advanced study of design theory, research methodologies, and design management. Focus on systematic digital product design.",
+        desc: "Deepening research practice, design management, and systematic digital product design.",
       },
       {
         year: '2023',
         title: "Bachelor's in Design",
         place: 'University: RTU MIREA',
-        desc: "Obtained a Bachelor's degree in Design. My thesis focused on the comprehensive development of a workspace: a modern computer desk and its modular system for everyday use, with an emphasis on ergonomics, adaptability, and efficient workspace organisation.",
+        desc: 'Thesis project: a modular workspace focused on ergonomics, adaptability, and daily-use scenarios.',
       },
       {
         year: '2021 — 2023',
         title: 'First steps',
         place: 'Part-time work',
-        desc: 'Worked with individual entrepreneurs: logos, packaging, and advertising materials. First UX projects — redesigning flyers, menus, and banners.',
+        desc: 'Worked with entrepreneurs on logos, packaging, advertising materials, and early UX redesigns.',
       },
       {
         year: '2018',
@@ -99,6 +113,18 @@ export default function Resume({ lang }) {
     <section id="resume" className="page-section resume-section">
       <p className="section-label">{t.label}</p>
       <h2 className="section-title">{t.title1} <em>{t.title2}</em></h2>
+
+      <div className="resume-trust-block" aria-labelledby="resume-trust-label">
+        <h3 id="resume-trust-label" className="resume-column-label">{t.trustLabel}</h3>
+        <div className="resume-trust-grid">
+          {t.trust.map((item) => (
+            <div key={item.label} className="resume-trust-card">
+              <div className="resume-trust-card__label">{item.label}</div>
+              <div className="resume-trust-card__value">{item.value}</div>
+            </div>
+          ))}
+        </div>
+      </div>
 
       <div className="resume-main-grid">
         <div>
