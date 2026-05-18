@@ -29,6 +29,8 @@ export const PROJECTS_TEXT = {
     noDesc: 'Описание не указано.',
     openWork: 'Открыть проект',
     hoverHint: 'Нажмите, чтобы открыть',
+    roleLabel: 'Роль',
+    resultLabel: 'Фокус',
     caseOne: 'BWC — удалённая веб-консоль в виде серверного плагина',
     caseTwo: 'DARK PLEASE! — расширение для браузера, снижающее нагрузку на глаза',
     caseThree: 'MebelDor — премиальный лендинг для бренда мебели на заказ',
@@ -51,6 +53,8 @@ export const PROJECTS_TEXT = {
     noDesc: 'No description provided.',
     openWork: 'Open project',
     hoverHint: 'Click to open',
+    roleLabel: 'Role',
+    resultLabel: 'Focus',
     caseOne: 'BWC — a remote web console provided as a server plugin',
     caseTwo: 'DARK PLEASE! — a browser extension designed to reduce eye strain',
     caseThree: 'MebelDor — a premium landing page for a custom furniture brand',
@@ -65,7 +69,18 @@ export const BEHANCE_PROJECTS = [
     id: 'bwc',
     titleKey: 'caseOne',
     shortTitleKey: 'shortOne',
-    previewDesc: 'Server plugin console',
+    previewDesc: {
+      ru: 'Веб-консоль для серверного плагина',
+      en: 'Server plugin console',
+    },
+    role: {
+      ru: 'UI/UX, визуальная система',
+      en: 'UI/UX, visual system',
+    },
+    result: {
+      ru: 'Консоль, dashboard, игроки, алиасы',
+      en: 'Console, dashboard, players, aliases',
+    },
     preview: previewBwc,
     previewCard: previewBwcCard,
     htmlUrls: {
@@ -78,7 +93,18 @@ export const BEHANCE_PROJECTS = [
     id: 'dark-pink',
     titleKey: 'caseTwo',
     shortTitleKey: 'shortTwo',
-    previewDesc: 'Dark mode extension',
+    previewDesc: {
+      ru: 'Расширение с гибкой темной темой',
+      en: 'Dark mode extension',
+    },
+    role: {
+      ru: 'Product UI, settings UX',
+      en: 'Product UI, settings UX',
+    },
+    result: {
+      ru: 'Архитектура настроек и UI states',
+      en: 'Settings architecture and UI states',
+    },
     preview: previewDp,
     previewCard: previewDpCard,
     htmlUrls: {
@@ -91,7 +117,18 @@ export const BEHANCE_PROJECTS = [
     id: 'MebelDor',
     titleKey: 'caseThree',
     shortTitleKey: 'shortThree',
-    previewDesc: 'Furniture landing page',
+    previewDesc: {
+      ru: 'Лендинг для мебели на заказ',
+      en: 'Furniture landing page',
+    },
+    role: {
+      ru: 'Landing design, brand tone',
+      en: 'Landing design, brand tone',
+    },
+    result: {
+      ru: 'Каталог, процесс, заявка, визуальная система',
+      en: 'Catalog, process, lead form, visual system',
+    },
     preview: previewMebelDor,
     previewCard: previewMebelDorCard,
     htmlUrls: {

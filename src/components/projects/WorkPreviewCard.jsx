@@ -28,6 +28,10 @@ function WorkPreviewCard({ project, t, onOpen }) {
             <div className="work-preview-desc">
               {project.previewDesc}
             </div>
+            <div className="work-preview-meta">
+              <span>{project.role}</span>
+              <span>{project.result}</span>
+            </div>
           </div>
           <div className="work-preview-cta">
             {t.openWork}

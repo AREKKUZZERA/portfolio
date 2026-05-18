@@ -96,90 +96,40 @@ const T = {
 export default function Resume({ lang }) {
   const t = T[lang];
   return (
-    <section id="resume" className="page-section" style={{ position: 'relative', zIndex: 2, padding: '8rem 2.5rem', maxWidth: 1100, margin: '0 auto' }}>
+    <section id="resume" className="page-section resume-section">
       <p className="section-label">{t.label}</p>
       <h2 className="section-title">{t.title1} <em>{t.title2}</em></h2>
 
-      <div className="resume-main-grid" style={{
-        display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-        gap: '4rem', alignItems: 'start',
-      }}>
-        {/* Timeline */}
+      <div className="resume-main-grid">
         <div>
-          <h3 style={{
-            fontFamily: 'var(--font-mono)', fontSize: '0.65rem',
-            letterSpacing: '0.18em', color: 'var(--mut)',
-            textTransform: 'uppercase', marginBottom: '2rem',
-          }}>{t.tlLabel}</h3>
+          <h3 className="resume-column-label">{t.tlLabel}</h3>
 
-          <div style={{ position: 'relative' }}>
-            <div style={{
-              position: 'absolute', left: 0, top: 0, bottom: 0,
-              width: 1, background: 'var(--b2)',
-            }} />
+          <div className="resume-timeline">
+            <div className="resume-timeline__line" />
             {t.timeline.map((item, i) => (
-              <div key={i} style={{ paddingLeft: '1.8rem', marginBottom: '2.2rem', position: 'relative' }}>
-                <div style={{
-                  position: 'absolute', left: -4, top: 5,
-                  width: 9, height: 9, borderRadius: '50%',
-                  background: i === 0 ? 'var(--acc)' : 'var(--s4)',
-                  border: `2px solid ${i === 0 ? 'var(--acc)' : 'var(--b3)'}`,
-                  boxShadow: i === 0 ? '0 0 8px var(--acc-g)' : 'none',
-                }} />
-                <div style={{
-                  fontFamily: 'var(--font-mono)', fontSize: '0.62rem',
-                  letterSpacing: '0.1em', color: 'var(--acc)',
-                  marginBottom: '0.25rem',
-                }}>{item.year}</div>
-                <div style={{
-                  fontFamily: 'var(--font-ui)', fontSize: '0.92rem',
-                  fontWeight: 600, color: 'var(--txt)', marginBottom: '0.15rem',
-                }}>{item.title}</div>
-                <div style={{
-                  fontFamily: 'var(--font-mono)', fontSize: '0.68rem',
-                  color: 'var(--acc-l)', marginBottom: '0.5rem',
-                }}>{item.place}</div>
-                <p style={{
-                  fontFamily: 'var(--font-ui)', fontSize: '0.8rem',
-                  lineHeight: 1.65, color: 'var(--mut)',
-                }}>{item.desc}</p>
+              <div key={i} className="resume-timeline__item">
+                <div className={`resume-timeline__marker${i === 0 ? ' resume-timeline__marker--active' : ''}`} />
+                <div className="resume-timeline__year">{item.year}</div>
+                <div className="resume-timeline__title">{item.title}</div>
+                <div className="resume-timeline__place">{item.place}</div>
+                <p className="resume-timeline__desc">{item.desc}</p>
               </div>
             ))}
           </div>
         </div>
 
-        {/* Abilities */}
         <div>
-          <h3 style={{
-            fontFamily: 'var(--font-mono)', fontSize: '0.65rem',
-            letterSpacing: '0.18em', color: 'var(--mut)',
-            textTransform: 'uppercase', marginBottom: '2rem',
-          }}>{t.abLabel}</h3>
+          <h3 className="resume-column-label">{t.abLabel}</h3>
 
-          <div className="resume-abilities-list" style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
+          <div className="resume-abilities-list">
             {t.abilities.map(a => (
-                <div key={a.title} className="card resume-ability-card" style={{
-                padding: '1.1rem 1.4rem',
-                display: 'flex', alignItems: 'center', gap: '1.2rem',
-              }}>
-                <div style={{
-                  fontFamily: 'var(--font-display)',
-                  fontSize: '1.2rem', color: 'var(--acc)',
-                  flexShrink: 0, width: 28, textAlign: 'center',
-                }}>{a.icon}</div>
+              <div key={a.title} className="card resume-ability-card">
+                <div className="resume-ability-card__icon">{a.icon}</div>
                 <div>
-                  <div style={{
-                    fontFamily: 'var(--font-ui)',
-                    fontSize: '0.85rem', fontWeight: 600,
-                    color: 'var(--txt)', marginBottom: '0.15rem',
-                  }}>{a.title}</div>
-                  <div style={{
-                    fontFamily: 'var(--font-mono)',
-                    fontSize: '0.67rem', color: 'var(--mut)',
-                  }}>{a.desc}</div>
+                  <div className="resume-ability-card__title">{a.title}</div>
+                  <div className="resume-ability-card__desc">{a.desc}</div>
                 </div>
-                </div>
+              </div>
             ))}
           </div>
         </div>

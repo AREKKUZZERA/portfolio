@@ -1,12 +1,13 @@
-# AREKKUZZERA — Portfolio
+# dmbzzr — Portfolio
 
-Personal portfolio built with **React + Vite**, deployed on Vercel.
+Personal portfolio for UI/UX, visual identity, web interface, and prototype case studies. Built with **React + Vite** and deployed on Vercel.
 
 ## Stack
-- React 18
+- React 19
 - Vite 8
-- Framer Motion
-- GitHub REST API (live repos)
+- ESLint 9
+- Vercel Serverless Function for cached GitHub repositories
+- Local case-study assets and optimized preview images
 
 ## Run locally
 ```bash
@@ -20,4 +21,4 @@ npm run dev
 3. Framework: **Vite** (auto-detected)
 4. Deploy — done!
 
-> No env vars needed. GitHub repos load via public API.
+> No env vars needed. GitHub repos load through `api/github-repos.js`.

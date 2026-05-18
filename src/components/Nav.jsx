@@ -96,59 +96,29 @@ export default function Nav({ lang, setLang }) {
 
   return (
     <nav className={`site-nav${scrolled ? ' site-nav--scrolled' : ''}`}>
-      {/* Logo */}
-      <a href="#hero" className={`nav-logo${heroVisible ? ' nav-logo--hero-visible' : ''}`} style={{
-        fontFamily: 'var(--font-display)',
-        fontSize: '1.15rem',
-        color: 'var(--txt)',
-        letterSpacing: '-0.01em',
-      }}>
-        dmbzzr<span style={{ color: 'var(--acc)' }}>.</span>
+      <a href="#hero" className={`nav-logo${heroVisible ? ' nav-logo--hero-visible' : ''}`}>
+        dmbzzr<span>.</span>
       </a>
 
-      {/* Links */}
-      <div className="nav-links" style={{ display: 'flex', gap: '2rem' }}>
+      <div className="nav-links">
         {links.map(l => (
-          <a key={l.href} href={l.href} style={{
-            fontFamily: 'var(--font-mono)',
-            fontSize: '0.72rem', letterSpacing: '0.08em',
-            color: 'var(--mut)',
-            textTransform: 'uppercase',
-            transition: 'color 0.2s',
-          }}
-          onMouseEnter={e => e.target.style.color = 'var(--txt)'}
-          onMouseLeave={e => e.target.style.color = 'var(--mut)'}
-          >{l.label}</a>
+          <a key={l.href} href={l.href} className="nav-link">{l.label}</a>
         ))}
       </div>
 
-      {/* Right side */}
-      <div className="nav-actions" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-        {/* Lang toggle */}
+      <div className="nav-actions">
         <button
           type="button"
           aria-label={lang === 'ru' ? 'Switch language to English' : 'Переключить язык на русский'}
           onClick={() => setLang(lang === 'ru' ? 'en' : 'ru')}
-          style={{
-          fontFamily: 'var(--font-mono)', fontSize: '0.7rem',
-          letterSpacing: '0.12em',
-          background: 'var(--b1)',
-          border: '1px solid var(--b2)',
-          color: 'var(--txt2)',
-          padding: '0.35rem 0.75rem',
-          borderRadius: '5px',
-          transition: 'all 0.2s',
-          }}
-        onMouseEnter={e => { e.target.style.borderColor = 'var(--acc)'; e.target.style.color = 'var(--acc)'; }}
-        onMouseLeave={e => { e.target.style.borderColor = 'var(--b2)'; e.target.style.color = 'var(--txt2)'; }}
+          className="nav-lang-toggle"
         >
           {lang === 'ru' ? 'EN' : 'RU'}
         </button>
 
         <a href="https://github.com/AREKKUZZERA" target="_blank" rel="noreferrer"
-          className="btn-ghost"
+          className="btn-ghost nav-github-link"
           data-mobile-hide="true"
-          style={{ padding: '0.35rem 0.9rem', fontSize: '0.7rem' }}
         >
           GitHub ↗
         </a>

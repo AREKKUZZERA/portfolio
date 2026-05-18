@@ -39,8 +39,7 @@ export default function Hero({ lang }) {
     };
   }, [activeWordmarkIndex, wordmarkInteractionKey]);
 
-  const handleWordmarkPointerDown = (index, event) => {
-    event.preventDefault();
+  const handleWordmarkActivate = (index) => {
     setWordmarkInteractionKey((currentKey) => currentKey + 1);
     setActiveWordmarkIndex(index);
   };
@@ -60,42 +59,61 @@ export default function Hero({ lang }) {
     return classNames.join(' ');
   };
 
+  const getWordmarkAriaLabel = (letter, index) => {
+    if (lang === 'ru') {
+      return index === HERO_PERIOD_INDEX ? 'Подсветить знак dmbzzr' : `Подсветить букву ${letter}`;
+    }
+
+    return index === HERO_PERIOD_INDEX ? 'Highlight dmbzzr mark' : `Highlight letter ${letter}`;
+  };
+
   return (
     <section id="hero" className="hero-section">
-      <div className="hero-technical-bg" aria-hidden="true">
+      <div className="hero-technical-bg">
         <HeroCanvasGrid />
-        <div className="hero-bg-corner hero-bg-corner--left">
+        <div className="hero-bg-corner hero-bg-corner--left" aria-hidden="true">
           <span />
           <span />
           <span />
         </div>
-        <div className="hero-bg-corner hero-bg-corner--right">
+        <div className="hero-bg-corner hero-bg-corner--right" aria-hidden="true">
           <span />
           <span />
           <span />
           <span />
         </div>
-        <div className="hero-bg-geometry">
+        <div className="hero-bg-geometry" aria-hidden="true">
           <span />
           <span />
           <span />
         </div>
-        <div className="hero-bg-wordmark" ref={wordmarkRef}>
+        <div
+          className="hero-bg-wordmark"
+          ref={wordmarkRef}
+          role="group"
+          aria-label={lang === 'ru' ? 'Интерактивный логотип dmbzzr' : 'Interactive dmbzzr wordmark'}
+        >
           {HERO_WORDMARK.map((letter, index) => (
-            <span
+            <button
+              type="button"
               className={getWordmarkLetterClassName(index)}
               key={`${letter}-${index}`}
-              onPointerDown={(event) => handleWordmarkPointerDown(index, event)}
+              onClick={() => handleWordmarkActivate(index)}
+              aria-label={getWordmarkAriaLabel(letter, index)}
+              aria-pressed={activeWordmarkIndex === index}
             >
               {letter}
-            </span>
+            </button>
           ))}
-          <span
+          <button
+            type="button"
             className={getWordmarkLetterClassName(HERO_PERIOD_INDEX, 'hero-bg-wordmark-period')}
-            onPointerDown={(event) => handleWordmarkPointerDown(HERO_PERIOD_INDEX, event)}
+            onClick={() => handleWordmarkActivate(HERO_PERIOD_INDEX)}
+            aria-label={getWordmarkAriaLabel('', HERO_PERIOD_INDEX)}
+            aria-pressed={activeWordmarkIndex === HERO_PERIOD_INDEX}
           >
             <span className="hero-bg-wordmark-period-glyph" aria-hidden="true">■</span>
-          </span>
+          </button>
         </div>
       </div>
       <div style={getHeroBackgroundTextureStyle()} />

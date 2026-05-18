@@ -30,6 +30,9 @@ export default function Projects({ lang }) {
     () => BEHANCE_PROJECTS.map((project) => ({
       ...project,
       htmlUrl: project.htmlUrls?.[lang] ?? project.htmlUrl,
+      previewDesc: project.previewDesc?.[lang] ?? project.previewDesc,
+      result: project.result?.[lang] ?? project.result,
+      role: project.role?.[lang] ?? project.role,
       title: t[project.titleKey],
       shortTitle: t[project.shortTitleKey],
     })),
@@ -90,23 +93,14 @@ export default function Projects({ lang }) {
           <SectionHeading title1={t.githubTitle1} title2={t.githubTitle2} desc={t.githubDesc} />
 
           {!loading && !error && (
-            <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginBottom: '2rem' }}>
+            <div className="project-filter-row">
               {langs.map((item) => (
                 <button
                   type="button"
                   key={item}
+                  aria-pressed={activeFilter === item}
+                  className={`project-filter-button${activeFilter === item ? ' project-filter-button--active' : ''}`}
                   onClick={() => setFilter(item)}
-                  style={{
-                    padding: '0.28rem 0.85rem',
-                    border: `1px solid ${activeFilter === item ? 'var(--acc)' : 'var(--b2)'}`,
-                    background: activeFilter === item ? 'var(--acc-d)' : 'transparent',
-                    color: activeFilter === item ? 'var(--acc)' : 'var(--mut)',
-                    borderRadius: 5,
-                    fontFamily: 'var(--font-mono)',
-                    fontSize: '0.65rem',
-                    letterSpacing: '0.08em',
-                    transition: 'all 0.2s',
-                  }}
                 >
                   {item}
                 </button>
@@ -115,23 +109,13 @@ export default function Projects({ lang }) {
           )}
 
           {loading && (
-            <div style={{ padding: '4rem', textAlign: 'center', color: 'var(--mut)', fontFamily: 'var(--font-mono)', fontSize: '0.8rem' }}>
-              <div style={{ marginBottom: '0.5rem', fontSize: '1.5rem' }}>◌</div>
+            <div className="github-loading">
+              <div className="github-loading__mark">◌</div>
               {t.loading}
             </div>
           )}
           {error && (
-            <div
-              style={{
-                padding: '1.5rem',
-                border: '1px solid rgba(242,57,135,0.25)',
-                borderRadius: 8,
-                color: 'var(--acc)',
-                fontFamily: 'var(--font-mono)',
-                fontSize: '0.75rem',
-                background: 'var(--acc-d)',
-              }}
-            >
+            <div className="github-error">
               {t.empty}
             </div>
           )}
@@ -140,7 +124,7 @@ export default function Projects({ lang }) {
               <div className="repo-grid">
                 {shown.map((repo) => <RepoCard key={repo.id} repo={repo} noDesc={t.noDesc} />)}
               </div>
-              <div style={{ textAlign: 'center', marginTop: '3rem' }}>
+              <div className="github-repo-action">
                 <a href={`https://github.com/${GITHUB_USER}?tab=repositories`} target="_blank" rel="noreferrer" className="btn-ghost">
                   {t.allRepos}
                 </a>

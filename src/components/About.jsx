@@ -37,7 +37,7 @@ const CARDS = (t) => [
 export default function About({ lang }) {
   const t = T[lang];
   return (
-    <section id="about" className="page-section" style={{ position: 'relative', isolation: 'isolate', padding: '8rem 2.5rem', maxWidth: 1100, margin: '0 auto' }}>
+    <section id="about" className="page-section about-section">
       <AboutCurve />
       <ScrollParallaxImage
         src={sakuraUrl}
@@ -54,38 +54,20 @@ export default function About({ lang }) {
         {t.title1} <em>{t.title2}</em>
       </h2>
 
-      <div style={{
-        display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-        gap: '3.5rem', alignItems: 'start',
-      }}>
-        {/* Bio */}
-        <div>
-          <p style={{ fontSize: '0.95rem', lineHeight: 1.85, color: 'var(--txt2)', marginBottom: '1.2rem' }}>{t.bio1}</p>
-          <p style={{ fontSize: '0.95rem', lineHeight: 1.85, color: 'var(--txt2)', marginBottom: '1.2rem' }}>{t.bio2}</p>
-          <p style={{ fontSize: '0.9rem', lineHeight: 1.8, color: 'var(--mut)' }}>{t.bio3}</p>
+      <div className="about-layout">
+        <div className="about-bio">
+          <p>{t.bio1}</p>
+          <p>{t.bio2}</p>
+          <p>{t.bio3}</p>
         </div>
 
-        {/* Ability cards */}
-        <div className="about-ability-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+        <div className="about-ability-grid">
           {CARDS(t).map(c => (
-              <div key={c.title} className="card about-ability-card" style={{ padding: '1.4rem' }}>
-              <div style={{
-                fontFamily: 'var(--font-display)',
-                fontSize: '1.6rem', color: 'var(--acc)',
-                marginBottom: '0.7rem', lineHeight: 1,
-              }}>{c.icon}</div>
-              <div style={{
-                fontFamily: 'var(--font-ui)',
-                fontSize: '0.85rem', fontWeight: 600,
-                color: 'var(--txt)', marginBottom: '0.4rem',
-              }}>{c.title}</div>
-              <div style={{
-                fontFamily: 'var(--font-mono)',
-                fontSize: '0.7rem', lineHeight: 1.55,
-                color: 'var(--mut)',
-              }}>{c.desc}</div>
-              </div>
+            <div key={c.title} className="card about-ability-card">
+              <div className="about-ability-card__icon">{c.icon}</div>
+              <div className="about-ability-card__title">{c.title}</div>
+              <div className="about-ability-card__desc">{c.desc}</div>
+            </div>
           ))}
         </div>
       </div>
